@@ -1,0 +1,15 @@
+url: https://noaa-afsc.github.io/rtmbGMACS/
+
+template:
+  bootstrap: 5
+
+home:
+  title: rtmbGMACS
+  description: >
+    An RTMB-based successor to the ADMB-based Generalized Model for Assessing
+    Crustacean Stocks (GMACS) stock assessment model framework.
+
+reference:
+  - title: Package overview
+    contents:
+      - rtmbGMACS-package
