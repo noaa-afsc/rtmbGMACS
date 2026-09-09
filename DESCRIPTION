@@ -13,8 +13,8 @@ URL: https://noaa-afsc.github.io/rtmbGMACS/,
 BugReports: https://github.com/noaa-afsc/rtmbGMACS/issues
 Encoding: UTF-8
 Imports:
-    dplyr
-    ggplot2
+    dplyr,
+    ggplot2,
     RTMB
 Suggests:
     testthat (>= 3.0.0)
