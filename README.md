@@ -1,17 +1,12 @@
-# Instructions for including your repository in the noaa-afsc organization
+# An RTMB-based Generalized Model for Assessing Crustacean Stocks (GMACS)
 
-This is a default template for a noaa-afsc repository. It includes a `secretScan.yml` file that helps us check for secrets when new commits are made to the repositories.
+### UNDER DEVELOPMENT!
+
+When operational, rtmbGMACS will be a replacement for [GMACS](https://github.com/GMACS-project), the Generalized Model for Assessing Crustacean Stocks, which was developed using [AD Model Builder](https://www.admb-project.org) and has been used to conduct stock assessments for crab stocks in Alaska managed by the North Pacific Fishery Management Council ([NPFMC](https://www.npfmc.org)).
 
 ## Collaborators
 
-If you have NMFS collaborators (i.e. have noaa.gov email) on your repository who are not members of the NMFS GitHub Enterprise Cloud account, have them complete a user request. If they are not NOAA FTEs or Affiliates, contact an administrator to help you add them to your repository or to transfer in your repository with outside collaborators. 
-
-For repositories migrated to noaa-afsc organization
-1. Update your README.md file to include the disclaimer and an open access license. See below for a description of licenses.
-2. Add a description and info on who created the content (otherwise the org managers will not know who to contact).
-3. Add tags (far right side on repo) to help users find repositories. See the other repositories for examples.
-4. Add an open LICENSE file. For government work, we are required to use an open LICENSE. If non-government FTEs were contributors and the repository does not yet have an open license on it, make sure all parties agree before applying an open source license.
-5. Add the file .github/workflows/secretScan.yml. This will check for token and keys that are accidentally committed to a repository.
+NMFS collaborators (i.e. have noaa.gov email) who are not members of the NMFS GitHub Enterprise Cloud account should complete a user request. If they are not NOAA FTEs or Affiliates, contact an administrator to help you add them to your repository or to transfer in your repository with outside collaborators. 
 
 # Disclaimer
 
