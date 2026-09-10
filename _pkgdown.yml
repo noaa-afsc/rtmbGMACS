@@ -9,7 +9,7 @@ home:
     An RTMB-based successor to the ADMB-based Generalized Model for Assessing
     Crustacean Stocks (GMACS) stock assessment model framework.
 
-reference:
-  - title: Package overview
-    contents:
-      - rtmbGMACS-package
+# reference:
+#   - title: Package overview
+#     contents:
+#       - rtmbGMACS-package

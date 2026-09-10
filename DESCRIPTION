@@ -2,8 +2,9 @@ Package: rtmbGMACS
 Type: Package
 Title: rtmbGMACS
 Version: 2026.09.09
-Authors@R:
-    person("NOAA", "AFSC", email = "william.stockhausen@noaa.gov", role = c("aut", "cre"))
+Authors@R:c(
+    person(given="William",family="Stockhausen",email="william.stockhausen@noaa.gov", role = c("aut", "cre"))
+  )
 Description: Provides an RTMB-based successor to the ADMB-based Generalized
     Model for Assessing Crustacean Stocks (GMACS) stock assessment model
     framework.
@@ -19,3 +20,8 @@ Imports:
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Config/Needs/website:
+    ggplot2,
+    r-lib/pkgdown,
+    quarto
+RoxygenNote: 7.3.3
