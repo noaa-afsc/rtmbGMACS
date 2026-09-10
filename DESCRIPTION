@@ -1,7 +1,7 @@
 Package: rtmbGMACS
 Type: Package
-Title: Minimal rtmbGMACS Package Scaffold
-Version: 0.0.0.9000
+Title: rtmbGMACS
+Version: 2026.09.09
 Authors@R:
     person("NOAA", "AFSC", email = "william.stockhausen@noaa.gov", role = c("aut", "cre"))
 Description: Provides an RTMB-based successor to the ADMB-based Generalized
@@ -13,8 +13,8 @@ URL: https://noaa-afsc.github.io/rtmbGMACS/,
 BugReports: https://github.com/noaa-afsc/rtmbGMACS/issues
 Encoding: UTF-8
 Imports:
-    dplyr
-    ggplot2
+    dplyr,
+    ggplot2,
     RTMB
 Suggests:
     testthat (>= 3.0.0)
