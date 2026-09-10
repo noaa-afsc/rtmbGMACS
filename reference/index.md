@@ -2,14 +2,79 @@
 
 ## All functions
 
+- [`concatText()`](https://noaa-afsc.github.io/rtmbGMACS/reference/concatText.md)
+  : Concatenate text
+
+- [`evalTextAsCode()`](https://noaa-afsc.github.io/rtmbGMACS/reference/evalTextAsCode.md)
+  : Evaluate text as lines of code
+
+- [`evalTextAsDataframe()`](https://noaa-afsc.github.io/rtmbGMACS/reference/evalTextAsDataframe.md)
+  :
+
+  Evaluate a character vector as a dataframe (a `tbl_df`)
+
+- [`evalTextAsDigits()`](https://noaa-afsc.github.io/rtmbGMACS/reference/evalTextAsDigits.md)
+  : Evaluate strings in a character vector as digits
+
+- [`evalTextAsList()`](https://noaa-afsc.github.io/rtmbGMACS/reference/evalTextAsList.md)
+  : Evaluate a list from a character vector
+
+- [`extractDataframe()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractDataframe.md)
+  :
+
+  Extract a dataframe (a
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html))
+  from a character vector
+
+- [`extractLines()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractLines.md)
+  : Extract character vector from section of longer vector
+
+- [`extractNumericValue()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractNumericValue.md)
+  : Extract a numeric value from a line of text
+
+- [`extractTextAfterString()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractTextAfterString.md)
+  : Extract text after a string
+
+- [`extractTextBetweenBrackets()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractTextBetweenBrackets.md)
+  : Extract text between first and last brackets
+
+- [`extractTextBetweenParens()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractTextBetweenParens.md)
+  : Extract text between first and last parentheses
+
+- [`extractTextSection()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractTextSection.md)
+  : Extract a text section with only non-comment lines from a character
+  vector
+
+- [`extractTextValue()`](https://noaa-afsc.github.io/rtmbGMACS/reference/extractTextValue.md)
+  : Extract a (character) value from a line of text
+
+- [`getDimNames()`](https://noaa-afsc.github.io/rtmbGMACS/reference/getDimNames.md)
+  : Get model dimension names
+
 - [`logistic()`](https://noaa-afsc.github.io/rtmbGMACS/reference/logistic.md)
   : Convert values to the logistic scale
+
 - [`logit()`](https://noaa-afsc.github.io/rtmbGMACS/reference/logit.md)
   : Convert values to the logit scale
+
+- [`removeCommentLines()`](https://noaa-afsc.github.io/rtmbGMACS/reference/removeCommentLines.md)
+  : Remove strings starting with a comment character
+
 - [`rtmbGMACS`](https://noaa-afsc.github.io/rtmbGMACS/reference/rtmbGMACS-package.md)
   [`rtmbGMACS-package`](https://noaa-afsc.github.io/rtmbGMACS/reference/rtmbGMACS-package.md)
   : rtmbGMACS
+
+- [`skipCommentLines()`](https://noaa-afsc.github.io/rtmbGMACS/reference/skipCommentLines.md)
+  : Identify first non-comment line in a character vector
+
+- [`splitText()`](https://noaa-afsc.github.io/rtmbGMACS/reference/splitText.md)
+  : Split text string into a character vector
+
 - [`symlogistic()`](https://noaa-afsc.github.io/rtmbGMACS/reference/symlogistic.md)
   : Calculate a 0-symmetric logistic function between -1 and 1
+
 - [`symlogit()`](https://noaa-afsc.github.io/rtmbGMACS/reference/symlogit.md)
   : Calculate a 0-symmetric logit function
+
+- [`whichDims()`](https://noaa-afsc.github.io/rtmbGMACS/reference/whichDims.md)
+  : Get which model dimensions are identified in a character vector
