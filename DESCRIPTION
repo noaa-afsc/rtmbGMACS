@@ -1,7 +1,7 @@
 Package: rtmbGMACS
 Type: Package
 Title: rtmbGMACS
-Version: 2026.09.09
+Version: 2026.09.10
 Authors@R:c(
     person(given="William",family="Stockhausen",email="william.stockhausen@noaa.gov", role = c("aut", "cre"))
   )
@@ -16,7 +16,9 @@ Encoding: UTF-8
 Imports:
     dplyr,
     ggplot2,
-    RTMB
+    readr,
+    RTMB,
+    stringr
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
