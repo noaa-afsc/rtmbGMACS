@@ -18,26 +18,15 @@ TBD
 
 ### User manual 
 
-This user manual (currently under construction) can be accessed [here](https://noaa-afsc.github.io/rtmbGMACS/). It can also be built locally as html on your computer from the source distribution. It is written in Quarto Markdown, so you will need [Quarto](https://quarto.org) (which conveniently comes with [RStudio](https://posit.co/products/open-source/rstudio/)), installed on your computer to create the manual. Once Quarto is installed on your computer, you can create the manual using either a terminal (Command Prompt on Windows) or RStudio.
+This user manual (currently under construction) can be accessed [here](https://noaa-afsc.github.io/rtmbGMACS/). It can also be built locally as html on your computer from the source distribution. It is written in Quarto Markdown, so you will need [Quarto](https://quarto.org) (which conveniently comes with [RStudio](https://posit.co/products/open-source/rstudio/)), installed on your computer to create the manual. Once Quarto is installed on your computer, you can create the manual using either a terminal (Command Prompt on Windows or the RStudio terminal).
 
-#### Using a terminal
-
-  1. Open a terminal/Command Prompt window and change directory to the `quarto` subfolder of the local repository or source distribution
-  2. run "quarto render" from the command prompt. 
-  3. (2) will create the manual website in a `docs`subfolder of the local repo or source distribution. 
-  4. The manual can be accessed by opening the index.html file in the `docs` subfolder using a web browser.
-  
-#### Using RStudio
-
-  1. Open the quarto project in RStudio
-    a. Start RStudio
-    b. Click "Open Project..." on the `File` menu
-  2. Under the `View` menu, click `Show Build` to show the `Build` window
-  3. Click the "Render Website" icon in the `Build` window
+  1. Open the RStudio terminal window or open a separate terminal/Command Prompt window. 
+  2. Change directory to the `quarto` subfolder of the local repository or source distribution
+  3. run "quarto render" from the command prompt. 
   4. (3) will create the manual website in a `docs`subfolder of the local repo or source distribution. 
   5. The manual can be accessed by opening the index.html file in the `docs` subfolder using a web browser.
-
-To re-render the local manual website (after, e.g., updating your local repository), delete the contents of the `docs` folder and re-run one of the sets of steps above.
+  
+To re-render the local manual website (after, e.g., updating your local repository), simply delete the contents of the `docs` folder and re-run the steps above.
 
 ### Code documentation 
 
@@ -48,14 +37,31 @@ TBD
 
 TBD
 
-## The Gmacs development team{-}
+## The rtmbGMACS and original GMACS development teams{-}
 
-[@tbl-contribs] summarizes the people who have worked on the GMACS project since its inception. 
+[@tbl-contribs] summarizes the people who have worked on `rtmbGMACS`. 
 
 
 ```{r echo =FALSE, out.width='80%',fig.align='center'}
 #| label: tbl-contribs 
-#| tbl-cap: GMACS development team - Contributors.
+#| tbl-cap: The development team for `rtmbGMACS` - Contributors.
+AFSC   = "Alaska Fisheries Science Center - NOAA";
+ADFG   = "Alaska Department of Fish and Game";
+UWSAFS = "School of Aquatic and Fishery Sciences - University of Washington";
+ctr <- tibble::tribble(~Contributors,~Organization,
+                        "William Stockhausen",AFSC)
+
+kableExtra::kbl(
+  ctr, booktabs = TRUE, row.names=FALSE
+) |> kableExtra::column_spec(1,bold=TRUE)
+```
+
+[@tbl-contribs-orig] acknowledges the people who worked on the original ADMB-based [GMACS project](https://github.com/GMACS-project). 
+
+
+```{r echo =FALSE, out.width='80%',fig.align='center'}
+#| label: tbl-contribs-orig 
+#| tbl-cap: The development team for the original ADMB-based GMACS project - Contributors.
 AFSC   = "Alaska Fisheries Science Center - NOAA";
 ADFG   = "Alaska Department of Fish and Game";
 UWSAFS = "School of Aquatic and Fishery Sciences - University of Washington";
@@ -72,7 +78,8 @@ ctr <- tibble::tribble(~Contributors,~Organization,
                         "John Levitt",        "",
                         "Steve Martell",      "SeaState Inc.",
                         "Matthieu Veron",     UWSAFS,
-                        "William Stockhausen",AFSC)
+                        "William Stockhausen",AFSC,
+                        "Tyler Jackson",      ADFG)
 
 kableExtra::kbl(
   ctr, booktabs = TRUE, row.names=FALSE

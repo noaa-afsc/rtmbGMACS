@@ -51,7 +51,6 @@ website:
         - q02b_PopulationStructure.qmd
         - q02c_PopulationDynamics.qmd
         - q02d_FisheryDynamics.qmd
-        - text: "Model optimization"
       - section: "Model optimization"
         contents:
           - q02e_ModelOptimization.qmd
@@ -64,7 +63,7 @@ website:
           - q02f2_HarvestControlRules.qmd
   page-navigation: true
   page-footer: 
-    left: "[U.S. Department of Commerce](https://www.commerce.gov/)  [National Oceanographic and Atmospheric Administration](https://www.noaa.gov)  [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
+    left: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
     right: "v2026.10.19"
 format:
   html: 
