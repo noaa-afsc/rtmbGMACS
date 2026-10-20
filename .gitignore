@@ -1,5 +1,8 @@
 .DS_Store
 .posit/
+.Rproj.user
+*.pdf
 docs/
-pkgdown/
 conversations/
+pkgdown/docs
+notes/

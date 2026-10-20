@@ -1,3 +1,29 @@
+#' @title Advance population 
+#' @param n_i - abundance vector at start of year 
+#' @param s_yr - start year
+#' @param e_yr - end year
+#' @param p - pop
+advance_pop<-function(n_i,s_yr,e_yr,p){
+  n_m = n_i;
+  for (y in s_yr:e_yr){
+    p_y = p[[y]];
+    lst = advance_pop_one_year(n_m,ssns,p_y);
+    n_p[,y] = lst$n_y;
+  } #--y loop
+
+}#--advance_pop
+
+#' @title Advance population one year
+#' @param n_i - abundance vector at start of year 
+#' @param ssns - seasons list for current year
+advance_pop_one_year<-function(n_i,ssns){
+  n_m = n_i;
+  for (ssn in ssns){
+    if (ssn_type=="growth"){}
+  } #--ssn loop
+
+}#--advance_pop_one_year
+
 #' @title Advance population component one season step
 #' 
 #' @description This function will advance the population component one seasonal step
@@ -6,7 +32,7 @@
 #' @param p - list of population processes to apply
 #' @param doInstProcesses1st - flag to do instantaneous processes (i.e., growth) first (TRUE/FALSE)
 #' @param doGrowth - flag to evaluate growth (TRUE/FALSE)
-#' @param ssbBeforeGrowth - flag to do spawning stock abundance calculation before growth (TRUE) or after (FALSE)
+#' @param doSSB_BeforeGrowth - flag to do spawning stock abundance calculation before growth (TRUE) or after (FALSE)
 #' 
 #' @return list including population abundance at end of time step (see Details)
 #' 
@@ -21,11 +47,11 @@
 #' @md
 #' @export
 #' 
-advance_pop_one_step<-function(n_i,p,doInstProcesses1st,doGrowth,ssbBeforeGrowth){
+advance_pop_one_season<-function(n_i,p,doInstProcesses1st,doGrowth,doSSB_BeforeGrowth){
   #--evaluate instantantaneous processes before mortality
   if (doInstProcesses1st){
     if (doGrowth) {
-      if (ssbBeforeGrowth)  n_ss = p$Tmat_msz %*% n_i;#--calc spawning stock numbers
+      if (doSSB_BeforeGrowth)  n_ss = p$Tmat_msz %*% n_i;#--calc spawning stock numbers
       n_m = p$Tgr_msz %*% n_i;
       if (!ssbBeforeGrowth) n_ss = p$Tmat_msz %*% n_m;#--calc spawning stock numbers
     }

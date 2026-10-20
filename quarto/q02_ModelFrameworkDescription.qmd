@@ -1,0 +1,10 @@
+---
+title: "Modeling framework description"
+---
+
+## Modeling framework
+
+`rtmbGMACS` provides a framework with which to develop, test, and fit a size-structured population dynamics model, after which management reference points and related quantities can be determined, projections under different management and environmental conditions can be made, and other analyses conducted. While the framework provides many options from which to create a model, the following sections provide a "high-level" overview of the general workflow to create and run a `rtmbGMACS` model.
+
+
+[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)

@@ -4,3 +4,6 @@
 ^\.github$
 ^conversation$
 ^AGENTS.md$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.posit/assistant$

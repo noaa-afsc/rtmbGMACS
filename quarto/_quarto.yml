@@ -1,0 +1,81 @@
+project:
+  type: website
+  output-dir: "../docs"
+
+website:
+  navbar: 
+    left: 
+      - text: "Introduction"
+        href: q01_Intro.qmd
+      - text: "The modeling framework"
+        menu:
+          - text: "Introduction"
+            href: q02_ModelFrameworkDescription.qmd
+          - text: "Model diimensions"
+            href: q02a_ModelDimensions.qmd
+          - text: "Population structure"
+            href: q02b_PopulationStructure.qmd
+          - text: "Population dynamics"
+            href: q02c_PopulationDynamics.qmd
+          - text: "Fishery dynamics"
+            href: q02d_FisheryDynamics.qmd
+      - text: "Model optimization"
+        menu:
+        - text: "Model optimization"
+          href: q02e_ModelOptimization.qmd
+        - text: "Data and data likelihoods"
+          href: q02e1_DataAndDataLikelihoods.qmd
+        - text: "Parameters and priors"
+          href: q02e2_ParametersAndPriors.qmd
+      - text: "Management quantities"
+        menu: 
+          - text: "Management quantities"
+            href: q02f_ManagementQuantities.qmd
+          - text: "Reference points"
+            href: q02f1_ReferencePoints.qmd
+          - text: "Harvest control rules"
+            href: q02f2_HarvestControlRules.qmd
+  sidebar:
+    title: Contents
+    background: primary
+    search: true
+    style: "docked"
+    contents:
+      - section: "Introduction"
+        contents:
+          - q01_Intro.qmd
+      - section: "The modeling framework"
+        contents:
+        - q02_ModelFrameworkDescription.qmd
+        - q02a_ModelDimensions.qmd
+        - q02b_PopulationStructure.qmd
+        - q02c_PopulationDynamics.qmd
+        - q02d_FisheryDynamics.qmd
+        - text: "Model optimization"
+      - section: "Model optimization"
+        contents:
+          - q02e_ModelOptimization.qmd
+          - q02e1_DataAndDataLikelihoods.qmd
+          - q02e2_ParametersAndPriors.qmd
+      - section: "Management quantities"
+        contents:
+          - q02f_ManagementQuantities.qmd
+          - q02f1_ReferencePoints.qmd
+          - q02f2_HarvestControlRules.qmd
+  page-navigation: true
+  page-footer: 
+    left: "[U.S. Department of Commerce](https://www.commerce.gov/)  [National Oceanographic and Atmospheric Administration](https://www.noaa.gov)  [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
+    right: "v2026.10.19"
+format:
+  html: 
+    theme: cosmo
+    toc: true
+    html-math-method: mathjax
+    code-block-bg: "#86CDFE"
+    
+#bibliography: 
+#  - References/articles.bib
+#  - References/packages.bib
+
+callout-icon: false
+
