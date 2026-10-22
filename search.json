@@ -60,6 +60,30 @@
     ]
   },
   {
+    "objectID": "qmd_ModelProcessIndices.html",
+    "href": "qmd_ModelProcessIndices.html",
+    "title": "Model Process Indices Setup",
+    "section": "",
+    "text": "Model processes (e.g., growth, mortality) are represented in the rtmbGMACS as sparse matrices, \\(T\\), that define the population transition \\(N(y,s) \\to N(y',s')\\) from one season (\\(s\\)) to the next (\\(s'\\)), where \\(N\\) is a \\(n_d \\times 1\\) column vector representing abundance in each population category. The basic approach can be described compactly as:\n\\[ N(y',s') = \\{\\prod_i T_i(y,s) \\} \\cdot N(y,s)  \\tag{1}\\]\nwhere \\(i\\) runs over each of the model processes that occur in \\((y,s)\\). Because recruitment is a vector quantity, \\(N\\) is updated for recruitment (\\(R(y,s)\\)) using vector addition. Assuming no other processes occur in season \\(s\\):\n\\[ N(y','s') = N(y,s) + R(y,s)  \\tag{2}\\]\nThe two processes can, of course, be combined as:\n\\[ N(y','s') = \\{\\prod_i T_i(y,s) \\} \\cdot N(y,s) + R(y,s)  \\tag{3}\\]\nwith the caveat that recruitment occurs at the end of season \\(s\\).\nIndividual model processes and recruitment may not happen every season and the the transition matrix for different processes may vary over year and/or season. To reduce computer memory overhead, only unique transition matrices and recruitment vectors are calculated. To facilitate selecting the correct transition matrices and recruitment vector for a given year/season, dataframes are created prior to the start of a model run that provides the indices to use at \\((y\\_,s\\_)\\) for each transition matrix (dfrModPrcIds in the example below) and recruitment vector (dfrModRecIds in the example below) as illustrated in the following R-like pseudo code:\n\n  #--\"known\" quantities: \n  ##--y_: current year, s_: current season\n  ##--vN: AD column vector with population abundance for (y_,s_) by population category\n  ##--lstModPrcNames: nested list with character vector of process names in order of application\n  ##--n_d: size of population abundance vector\n  ##--dfrModPrcIds: dataframe with columns y, s, process, and idx\n  ##--lstTs: nested list with unique AD transition matrices by process name and index\n  ##--dfrModRecIds: dataframe with columns y, s, and idx \n  ##--lstRs: list with unique AD recruitment vectors by index\n  ps = lstModPrcNames[[y_]][[s_]]; #--vector of process names in order of application\n  mT = identity_matrix(n_d,n_d);   #--\"complete\" transition matrix for this year, season\n  vR = zero_vector(n_d);           #--\"complete\" recruitment vector for this year, season\n  dfrMPIDs_ys = dfrModPrcIds |&gt; dplyr::filter(y==y_,s==s_); #--get indices by process type \n  for (p_ in ps){\n    idx = (dfrMPIDs_ys |&gt; dplyr::filter(process=p_))$idx; #--extract index for this process\n    if (idx&gt;0) mT = lstTs[[p]][[idx]] %*% mT; #--include in \"complete\" transition matrix\n  }\n  idx = (dfrModRecIds |&gt; dplyr::filter(y==y_,s==s_))$idx;\n  if (idx&gt;0) vR = vR + lstRs[[idx]]; #--include in \"complete\" recruitment vector\n  \n  vN = mT %*% vN + vR; #--abundance projected to next season",
+    "crumbs": [
+      "Introduction",
+      "Code notes",
+      "Model Process Indices Setup"
+    ]
+  },
+  {
+    "objectID": "qmd_ModelProcessIndices.html#sec-MPIS",
+    "href": "qmd_ModelProcessIndices.html#sec-MPIS",
+    "title": "Model Process Indices Setup",
+    "section": "",
+    "text": "Model processes (e.g., growth, mortality) are represented in the rtmbGMACS as sparse matrices, \\(T\\), that define the population transition \\(N(y,s) \\to N(y',s')\\) from one season (\\(s\\)) to the next (\\(s'\\)), where \\(N\\) is a \\(n_d \\times 1\\) column vector representing abundance in each population category. The basic approach can be described compactly as:\n\\[ N(y',s') = \\{\\prod_i T_i(y,s) \\} \\cdot N(y,s)  \\tag{1}\\]\nwhere \\(i\\) runs over each of the model processes that occur in \\((y,s)\\). Because recruitment is a vector quantity, \\(N\\) is updated for recruitment (\\(R(y,s)\\)) using vector addition. Assuming no other processes occur in season \\(s\\):\n\\[ N(y','s') = N(y,s) + R(y,s)  \\tag{2}\\]\nThe two processes can, of course, be combined as:\n\\[ N(y','s') = \\{\\prod_i T_i(y,s) \\} \\cdot N(y,s) + R(y,s)  \\tag{3}\\]\nwith the caveat that recruitment occurs at the end of season \\(s\\).\nIndividual model processes and recruitment may not happen every season and the the transition matrix for different processes may vary over year and/or season. To reduce computer memory overhead, only unique transition matrices and recruitment vectors are calculated. To facilitate selecting the correct transition matrices and recruitment vector for a given year/season, dataframes are created prior to the start of a model run that provides the indices to use at \\((y\\_,s\\_)\\) for each transition matrix (dfrModPrcIds in the example below) and recruitment vector (dfrModRecIds in the example below) as illustrated in the following R-like pseudo code:\n\n  #--\"known\" quantities: \n  ##--y_: current year, s_: current season\n  ##--vN: AD column vector with population abundance for (y_,s_) by population category\n  ##--lstModPrcNames: nested list with character vector of process names in order of application\n  ##--n_d: size of population abundance vector\n  ##--dfrModPrcIds: dataframe with columns y, s, process, and idx\n  ##--lstTs: nested list with unique AD transition matrices by process name and index\n  ##--dfrModRecIds: dataframe with columns y, s, and idx \n  ##--lstRs: list with unique AD recruitment vectors by index\n  ps = lstModPrcNames[[y_]][[s_]]; #--vector of process names in order of application\n  mT = identity_matrix(n_d,n_d);   #--\"complete\" transition matrix for this year, season\n  vR = zero_vector(n_d);           #--\"complete\" recruitment vector for this year, season\n  dfrMPIDs_ys = dfrModPrcIds |&gt; dplyr::filter(y==y_,s==s_); #--get indices by process type \n  for (p_ in ps){\n    idx = (dfrMPIDs_ys |&gt; dplyr::filter(process=p_))$idx; #--extract index for this process\n    if (idx&gt;0) mT = lstTs[[p]][[idx]] %*% mT; #--include in \"complete\" transition matrix\n  }\n  idx = (dfrModRecIds |&gt; dplyr::filter(y==y_,s==s_))$idx;\n  if (idx&gt;0) vR = vR + lstRs[[idx]]; #--include in \"complete\" recruitment vector\n  \n  vN = mT %*% vN + vR; #--abundance projected to next season",
+    "crumbs": [
+      "Introduction",
+      "Code notes",
+      "Model Process Indices Setup"
+    ]
+  },
+  {
     "objectID": "q02b2_PopulationProcesses.html",
     "href": "q02b2_PopulationProcesses.html",
     "title": "Population structure",
@@ -513,6 +537,30 @@
       "Introduction",
       "The modeling framework",
       "Fleet dynamics"
+    ]
+  },
+  {
+    "objectID": "qmd_BestPractices-ModelSetup.html",
+    "href": "qmd_BestPractices-ModelSetup.html",
+    "title": "Best Practices: Model Setup",
+    "section": "",
+    "text": "Each model year is divided into a number of seasons to better capture the seasonality of population progression as well as to allow calculation of quantities (e.g., spawning or mature male biomass) at specific times. Seasons can be continuous, with season length (\\(\\delta t_{s(y)}\\)) &gt; 0, or instantaneous, with \\(\\delta t_{s(y)} = 0\\). Season length, as well as the number of seasons, can vary by year (hence the \\(s(y)\\) notation). However, for any year, the constraint that \\(\\sum_{s(y)} \\delta t_{s(y)} = 1\\) must hold.\nNatural mortality can only be applied within a continuous season. Fishing mortality can be applied as either a continuous or instantaneous process.\nThe following processes should generally be associated with instantaneous seasons:\n\nrecruitment\nmolting, maturity, and growth\nmovement\nsurveys\n\nbecause their current implementations are as instantaneous processes (as in GMACS). If specified as occurring within a continuous season, surveys will occur at the start of the season and recruitment will occur at the end (as in GMACS). However, care needs to be taken to ensure that growth, movement, and/or instantaneous fishing mortality specified within a continuous season are applied in the order that the user intends [@TODO: more on this]. The most straightforward, transparent approach to achieving the desired order of application is to assign each instantaneous process to a different instantaneous season in the order desired.",
+    "crumbs": [
+      "Introduction",
+      "Best practices",
+      "Best Practices: Model Setup"
+    ]
+  },
+  {
+    "objectID": "qmd_BestPractices-ModelSetup.html#model-setup",
+    "href": "qmd_BestPractices-ModelSetup.html#model-setup",
+    "title": "Best Practices: Model Setup",
+    "section": "",
+    "text": "Each model year is divided into a number of seasons to better capture the seasonality of population progression as well as to allow calculation of quantities (e.g., spawning or mature male biomass) at specific times. Seasons can be continuous, with season length (\\(\\delta t_{s(y)}\\)) &gt; 0, or instantaneous, with \\(\\delta t_{s(y)} = 0\\). Season length, as well as the number of seasons, can vary by year (hence the \\(s(y)\\) notation). However, for any year, the constraint that \\(\\sum_{s(y)} \\delta t_{s(y)} = 1\\) must hold.\nNatural mortality can only be applied within a continuous season. Fishing mortality can be applied as either a continuous or instantaneous process.\nThe following processes should generally be associated with instantaneous seasons:\n\nrecruitment\nmolting, maturity, and growth\nmovement\nsurveys\n\nbecause their current implementations are as instantaneous processes (as in GMACS). If specified as occurring within a continuous season, surveys will occur at the start of the season and recruitment will occur at the end (as in GMACS). However, care needs to be taken to ensure that growth, movement, and/or instantaneous fishing mortality specified within a continuous season are applied in the order that the user intends [@TODO: more on this]. The most straightforward, transparent approach to achieving the desired order of application is to assign each instantaneous process to a different instantaneous season in the order desired.",
+    "crumbs": [
+      "Introduction",
+      "Best practices",
+      "Best Practices: Model Setup"
     ]
   },
   {
