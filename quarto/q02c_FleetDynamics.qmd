@@ -28,11 +28,11 @@ $$F'_c(f,y,s) = f'_c(f,y,s) \cdot sel(f,y,s) $$
 
 represent the *capture rate* by population category, where $f'_c(f,y,s)$ denotes the fully-selected capture rate (a scalar) and $sel(f,y,s)$ denotes the *selectivity* by population category (a diagonal matrix) for fleet `f`. The retained and discard catch mortality rates are, respectively, 
 
-$$ \begin{eqnarray} F'_r(f,y,s) &=& F'_c(f,y,s) \cdot ret(f,y,c) 
+$$ \begin{eqnarray} F'_r(f,y,s) &=& F'_c(f,y,s) \cdot ret(f,y,c) \\ 
                                 &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot ret(f,y,c) \end{eqnarray} $$ 
 and 
 
-$$ \begin{eqnarray} F'_d(f,y,s) &=& F'_c(f,y,s) \cdot (1-ret(f,y,s)) \cdot dmr(f,y,s) 
+$$ \begin{eqnarray} F'_d(f,y,s) &=& F'_c(f,y,s) \cdot (1-ret(f,y,s)) \cdot dmr(f,y,s) \\ 
                                 &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot (1-ret(f,y,c)) \cdot dmr(f,y,s) \end{eqnarray} $$ 
 
 where $dmr(f,y,s)$ is the *discard* or *handling* mortality rate (really a probability: it's the fraction of discards that die as a direct result of being discarded).
@@ -46,10 +46,11 @@ Let $C_T(f,y,s)$ denote the total catch by fleet `f` in year `y` and season `s`.
 $$\frac{dC_T(t)}{dt} = F'_c(f,y,s) \cdot N(t)$$
 where $N(t)$ is given by [@eq-CFM-NofT]. Integrating over time and using [@eq-CFM-NofT], one obtains 
 
-$$ \begin{eqnarray} C_T(t) &=& \int_0^t \{F'_c(f,y,s) \cdot N(t) \cot dt \} 
-          &=& \int_0^t \{f'_c(f,y,s) \cdot sel(f,y,s) \cdot e^{-Z'(y,s) \cdot t} \cdot N(0) \cdot dt \} 
-          &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot \{\int_0^t e^{-Z'(y,s) \cdot t} dt \} \cdot N(0)
-          &=& \frac{f'_c(f,y,s) \cdot sel(f,y,s)}{Z'(y,s)} \cdot (1-e^{-Z'(y,s) \cdot t}) \cdot N(0) \end{eqnarray}$$
+$$ \begin{eqnarray} C_T(t) &=& \int_0^t \{F'_c(f,y,s) \cdot N(t) \cot dt \} \\ 
+          &=& \int_0^t \{f'_c(f,y,s) \cdot sel(f,y,s) \cdot e^{-Z'(y,s) \cdot t} \cdot N(0) \cdot dt \} \\ 
+          &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot \{\int_0^t e^{-Z'(y,s) \cdot t} dt \} \cdot N(0) \\ 
+          &=& \frac{f'_c(f,y,s) \cdot sel(f,y,s)}{Z'(y,s)} \cdot (1-e^{-Z'(y,s) \cdot t}) \cdot N(0) \\ 
+    \end{eqnarray}$$
 
 and thus the total capture abundance by fleet `f` in year `y` and season `f` is given by:
 
@@ -80,7 +81,7 @@ $$C_R(f,y,s) = \frac{f_c(f,y,s) \cdot sel(f,y,s) \cdot ret(f,y,s))}{Z(y,s)} \cdo
 
 where $f_c(f,y,s)$ is the instantaneous fishing mortality counterpart to $f'_c(f,y,s)$ and 
 
-$$ Z(y,s) = \sum_f \{F(f,y,s)\}\}$$ 
+$$ Z(y,s) = \sum_f F(f,y,s)$$ 
 
 where 
 
