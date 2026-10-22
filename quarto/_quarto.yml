@@ -35,6 +35,8 @@ website:
             href: q02f1_ReferencePoints.qmd
           - text: "Harvest control rules"
             href: q02f2_HarvestControlRules.qmd
+      - text: "Function reference"
+        href: qmd_ManFiles.qmd
   sidebar:
     title: Contents
     background: primary
@@ -61,6 +63,9 @@ website:
           - q02f_ManagementQuantities.qmd
           - q02f1_ReferencePoints.qmd
           - q02f2_HarvestControlRules.qmd
+      - section: "Function reference"
+        contents:
+          - qmd_ManFiles.qmd
   page-navigation: true
   page-footer: 
     left: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
