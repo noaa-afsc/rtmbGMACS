@@ -1,0 +1,15 @@
+{
+  "permission": {
+    "task": {
+      "general": "allow"
+    },
+    "bash": {
+      "find *": "allow",
+      "sort *": "allow",
+      "printf *": "allow",
+      "git status *": "allow",
+      "quarto *": "allow",
+      "true *": "allow"
+    }
+  }
+}

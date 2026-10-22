@@ -1,0 +1,112 @@
+---
+title: "Automating the Quarto function reference"
+---
+
+::: {.callout-note}
+This report was generated using AI under general human direction. At the time of generation, the contents have not been comprehensively reviewed by a human analyst.
+
+<!--
+To indicate human review: Delete the line above about contents not being reviewed, and replace this comment with:
+The contents have been reviewed and validated by [Your Name], [Your Role] on [Date].
+-->
+:::
+
+# Overview
+
+This conversation established a repeatable workflow for combining the R package documentation in `man/*.Rd` into a single Quarto function reference. It also created reusable agents for GitHub Copilot and Posit Assistant.
+
+# Combined function reference
+
+The generated document is `quarto/qmd_ManFiles.qmd`. It contains the package's `man/*.Rd` entries in deterministic filename order.
+
+Its Quarto configuration enables an HTML table of contents. Each manual entry is preceded by a source comment and a level-two heading of the following form:
+
+```markdown
+<!-- Source: man/addGroupIndices.Rd -->
+## `addGroupIndices`: Add group indices to a data frame
+```
+
+These headings ensure that every function or manual entry appears in the table of contents. The Rd content is converted to embedded HTML while preserving sections such as Description, Usage, Arguments, Value, Details, and Examples.
+
+At creation time, the document contained 28 manual entries and rendered successfully with Quarto.
+
+# GitHub Copilot custom agent
+
+The GitHub Copilot custom agent is stored at:
+
+```text
+.github/agents/man-files-quarto.agent.md
+```
+
+The agent is instructed to:
+
+1. Discover the current `man/*.Rd` files.
+2. Sort them by filename.
+3. Rebuild `quarto/qmd_ManFiles.qmd` completely.
+4. Convert Rd markup using R's standard `tools` package.
+5. Add one table-of-contents heading per entry.
+6. Validate entry counts, ordering, and heading uniqueness.
+7. Test-render the result when Quarto is available.
+8. Avoid modifying the source manual files or retaining temporary artifacts.
+
+The agent is intended for Microsoft VS Code with GitHub Copilot Chat. Select the `man-files-quarto` custom agent and ask it to regenerate the function reference.
+
+# Posit Assistant skill
+
+The equivalent Posit Assistant skill is stored at:
+
+```text
+.posit/assistant/skills/man-files-quarto/SKILL.md
+```
+
+Its description allows Posit Assistant to discover it when asked to rebuild, refresh, or update the combined Quarto function reference.
+
+A typical request is:
+
+> Regenerate `qmd_ManFiles.qmd`.
+
+The skill follows the same conversion and validation workflow as the Copilot agent.
+
+# Repository configuration
+
+The project originally ignored the entire `.posit/` directory. The `.gitignore` rules were narrowed so the new project skill can be committed while unrelated `.posit` content remains ignored.
+
+The relevant rules are:
+
+```text
+.posit/*
+!.posit/assistant/
+.posit/assistant/*
+!.posit/assistant/skills/
+.posit/assistant/skills/*
+!.posit/assistant/skills/man-files-quarto/
+```
+
+# Using GitHub Copilot through Positron
+
+Positron does not provide the separate proprietary Microsoft GitHub Copilot Chat extension. GitHub Copilot can instead be configured as a model provider for Posit Assistant:
+
+1. Open the Command Palette with **Cmd+Shift+P**.
+2. Run **Authentication: Configure Language Model Providers**.
+3. Select **GitHub Copilot**.
+4. Complete authentication in the browser.
+5. Choose a Copilot model in the Posit Assistant model selector.
+
+The `.github/agents` custom agent remains intended for Copilot Chat in Microsoft VS Code. The project-level Posit Assistant skill provides the corresponding workflow within Positron.
+
+# Files created or updated
+
+| File | Purpose |
+|---|---|
+| `quarto/qmd_ManFiles.qmd` | Combined Quarto function reference |
+| `.github/agents/man-files-quarto.agent.md` | GitHub Copilot custom agent |
+| `.posit/assistant/skills/man-files-quarto/SKILL.md` | Posit Assistant project skill |
+| `.gitignore` | Makes the project skill trackable |
+
+# Repeating the workflow
+
+In Positron, ask Posit Assistant to regenerate `qmd_ManFiles.qmd`. The skill should be selected based on the request.
+
+In Microsoft VS Code, select the `man-files-quarto` Copilot custom agent and ask it to run its task.
+
+After regeneration, verify that the number and order of source comments and level-two headings match the sorted `man/*.Rd` files. If Quarto is installed, render the document to temporary storage to confirm that it is valid.

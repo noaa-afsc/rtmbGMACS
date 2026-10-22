@@ -1,0 +1,1564 @@
+---
+title: "rtmbGMACS function reference"
+format:
+  html:
+    toc: true
+---
+
+This reference is generated from the package's `man/*.Rd` entries, ordered by filename.
+
+<!-- Source: man/addGroupIndices.Rd -->
+## `addGroupIndices`: Add group indices to a data frame
+
+
+
+<h3>Description</h3>
+
+<p>Adds an integer column identifying the group to which each row belongs.
+Groups are defined by one or more columns and follow the grouping behavior of
+[dplyr::group_by()].
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>addGroupIndices(dfr, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="addGroupIndices_+3A_dfr">dfr</code></td>
+<td>
+<p>A data frame containing the grouping columns.</p>
+</td></tr>
+<tr><td><code id="addGroupIndices_+3A_...">...</code></td>
+<td>
+<p>Unquoted columns in 'dfr' that define the groups. These arguments
+are passed to [dplyr::group_by()].</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>'dfr' with its rows and existing columns preserved and an integer
+'.gid' column appended. Rows with the same values of the grouping columns
+receive the same group index. An existing '.gid' column is replaced.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>y &lt;- as.character(11:20)
+s &lt;- as.character(1:3)
+x &lt;- as.character(1:2)
+z &lt;- seq(25, 50, 5)
+dfr &lt;- tidyr::expand_grid(y, s, x, z)
+
+dfrp &lt;- addGroupIndices(dfr, y, s, x)
+head(dfrp)
+dplyr::count(dfrp, y, s, x, .gid)
+
+</code></pre>
+
+
+<!-- Source: man/advance_pop.Rd -->
+## `advance_pop`: Advance population
+
+
+
+<h3>Description</h3>
+
+<p>Advance population
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>advance_pop(n_i, s_yr, e_yr, p)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="advance_pop_+3A_n_i">n_i</code></td>
+<td>
+<p>- abundance vector at start of year</p>
+</td></tr>
+<tr><td><code id="advance_pop_+3A_s_yr">s_yr</code></td>
+<td>
+<p>- start year</p>
+</td></tr>
+<tr><td><code id="advance_pop_+3A_e_yr">e_yr</code></td>
+<td>
+<p>- end year</p>
+</td></tr>
+<tr><td><code id="advance_pop_+3A_p">p</code></td>
+<td>
+<p>- pop</p>
+</td></tr>
+</table>
+
+
+<!-- Source: man/advance_pop_one_season.Rd -->
+## `advance_pop_one_season`: Advance population component one season step
+
+
+
+<h3>Description</h3>
+
+<p>This function will advance the population component one seasonal step
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>advance_pop_one_season(
+  n_i,
+  p,
+  doInstProcesses1st,
+  doGrowth,
+  doSSB_BeforeGrowth
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="advance_pop_one_season_+3A_n_i">n_i</code></td>
+<td>
+
+<ul>
+<li><p> abundance vector by population class
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="advance_pop_one_season_+3A_p">p</code></td>
+<td>
+
+<ul>
+<li><p> list of population processes to apply
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="advance_pop_one_season_+3A_doInstProcesses1st">doInstProcesses1st</code></td>
+<td>
+
+<ul>
+<li><p> flag to do instantaneous processes (i.e., growth) first (TRUE/FALSE)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="advance_pop_one_season_+3A_doGrowth">doGrowth</code></td>
+<td>
+
+<ul>
+<li><p> flag to evaluate growth (TRUE/FALSE)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="advance_pop_one_season_+3A_doSSB_BeforeGrowth">doSSB_BeforeGrowth</code></td>
+<td>
+
+<ul>
+<li><p> flag to do spawning stock abundance calculation before growth (TRUE) or after (FALSE)
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The returned list has elements
+</p>
+
+<ul>
+<li><p> n_f - final population abundance vector
+</p>
+</li>
+<li><p> n_ss - spawning stock abundance
+</p>
+</li>
+<li><p> c_fn - total catch abundance by fleet (not necessarily mortality)
+</p>
+</li>
+<li><p> rm_n - retained catch mortality (abundance) by fleet
+</p>
+</li>
+<li><p> dm_fn - discard catch mortality (abundance) by fleet
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>list including population abundance at end of time step (see Details)
+</p>
+
+
+<!-- Source: man/advance_pop_one_year.Rd -->
+## `advance_pop_one_year`: Advance population one year
+
+
+
+<h3>Description</h3>
+
+<p>Advance population one year
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>advance_pop_one_year(n_i, ssns)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="advance_pop_one_year_+3A_n_i">n_i</code></td>
+<td>
+<p>- abundance vector at start of year</p>
+</td></tr>
+<tr><td><code id="advance_pop_one_year_+3A_ssns">ssns</code></td>
+<td>
+<p>- seasons list for current year</p>
+</td></tr>
+</table>
+
+
+<!-- Source: man/concatText.Rd -->
+## `concatText`: Concatenate text
+
+
+
+<h3>Description</h3>
+
+<p>Function to concatenate text
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>concatText(..., concat = "+")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="concatText_+3A_...">...</code></td>
+<td>
+<p>- text values to concatenate</p>
+</td></tr>
+<tr><td><code id="concatText_+3A_concat">concat</code></td>
+<td>
+<p>- string to use as concatenator</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The elements in ... are concateated into a single string using the
+'concat' string separated by spaces.
+</p>
+
+
+<h3>Value</h3>
+
+<p>string
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+concatText(1,2,3)
+concatText(1,NA,3)
+concatText(1,2,NULL,4)
+export
+
+</code></pre>
+
+
+<!-- Source: man/createAggregationMatrix.Rd -->
+## `createAggregationMatrix`: Create a sparse aggregation matrix
+
+
+
+<h3>Description</h3>
+
+<p>Creates a sparse matrix that maps rows of a data frame to groups defined by
+one or more columns. Multiplying the matrix by a vector with one value per
+input row calculates sums for each group.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>createAggregationMatrix(dfr, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="createAggregationMatrix_+3A_dfr">dfr</code></td>
+<td>
+<p>A data frame containing the grouping columns.</p>
+</td></tr>
+<tr><td><code id="createAggregationMatrix_+3A_...">...</code></td>
+<td>
+<p>Unquoted columns in 'dfr' that define the groups. These arguments
+are passed to [dplyr::group_by()].</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named list with two elements:
+</p>
+
+<dl>
+<dt>'aggM'</dt><dd><p>A sparse matrix with one row per group and one column per
+row of 'dfr'.</p>
+</dd>
+<dt>'aggTbl'</dt><dd><p>A data frame containing the unique grouping combinations,
+in the same order as the rows of 'aggM'.</p>
+</dd>
+</dl>
+
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>y &lt;- as.character(11:20)
+s &lt;- as.character(1:3)
+x &lt;- as.character(1:2)
+z &lt;- seq(25, 50, 5)
+dfr &lt;- tidyr::expand_grid(y, s, x, z)
+
+lst &lt;- createAggregationMatrix(dfr, y, s, x)
+values &lt;- as.matrix(dfr["z"])
+group_sums &lt;- lst$aggM %*% values
+
+lst$aggTbl |&gt; dplyr::mutate(sum=as.vector(group_sums));
+
+</code></pre>
+
+
+<!-- Source: man/evalTextAsCode.Rd -->
+## `evalTextAsCode`: Evaluate text as lines of code
+
+
+
+<h3>Description</h3>
+
+<p>Function to evaluate text as lines of code.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>evalTextAsCode(strv, frame = 0)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="evalTextAsCode_+3A_strv">strv</code></td>
+<td>
+<p>- character vector with lines of code to evaluate.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The lines of 'code' in strv are evaluated in the frame specified by
+'frame'. If 'frame' is non-negative, it specifies the parent frame relative to the
+caller (so &lsquo;frame=0', the deault, is evaluated in the caller&rsquo;s frame). If 'frame' is negative,
+the lines of code are evaluated in the environment specified by its absolute value.
+</p>
+
+
+<h3>Value</h3>
+
+<p>nothing
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+str = "
+  v1  = 5;
+  v2 = 1:v1;
+  sum = list(x="contr.sum",m="contr.sum");
+      ";
+# example code
+
+</code></pre>
+
+
+<!-- Source: man/evalTextAsDataframe.Rd -->
+## `evalTextAsDataframe`: Evaluate a character vector as a dataframe (a <code>tbl_df</code>)
+
+
+
+<h3>Description</h3>
+
+<p>Function to evaluate a character vector as a dataframe (a <code>tbl_df</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>evalTextAsDataframe(char_vec, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="evalTextAsDataframe_+3A_char_vec">char_vec</code></td>
+<td>
+
+<ul>
+<li><p> character vector to parse/evaluate as a dataframe
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="evalTextAsDataframe_+3A_comment">comment</code></td>
+<td>
+
+<ul>
+<li><p> string indicating that what follows is a comment
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each element in <code>char_vec</code> is regarded as a line of text (as in a text file).
+The dataframe structure and column types are determined by <code>readr::read_table()</code>.
+</p>
+<p>This function differs from <code>extractDataframe()</code> in that, after comments are removed are
+removed from the input character vector <code>char_vec</code>, the resulting
+character vector is regarded as defining the dataframe. In <code>extractDataframe()</code>,
+the input character vector may be a much larger section of text than what defines the
+dataframe to be extracted, but the number of rows (<code>n</code>) to extract is known as, is the index of
+the element to begin with (<code>start</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>a dataframe (actually a <code>tbl_df</code>, see <code>tibble::tibble()</code>)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# example code
+str&lt;-paste0('
+  id        function  frame   params              description
+  pwrLaw1   pwrLaw1   mfALL   pA,pB               w(z)_=_pA_*_(z^pB)
+  pwrLaw2   pwrLaw2   mf2024  pLnA,pLnS,pB,pZ0    w(z)_=_exp(pLnA+pLnS+pB*ln(z/pZ0))
+')
+dfr = txt |&gt; splitText() |&gt; evalTextAsDataframe();
+
+</code></pre>
+
+
+<!-- Source: man/evalTextAsDigits.Rd -->
+## `evalTextAsDigits`: Evaluate strings in a character vector as digits
+
+
+
+<h3>Description</h3>
+
+<p>Function to evaluate strings in a character vector as digits.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>evalTextAsDigits(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="evalTextAsDigits_+3A_x">x</code></td>
+<td>
+
+<ul>
+<li><p> character vector to parse/evaluate
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each element in <code>x</code>, everything except for digits is removed and
+the resulting character value is converted to an integer.
+</p>
+
+
+<h3>Value</h3>
+
+<p>integer vector
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>evalTextAsDigits(c("ab23","cd42","a42 b23"))
+
+</code></pre>
+
+
+<!-- Source: man/evalTextAsList.Rd -->
+## `evalTextAsList`: Evaluate a list from a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to evaluate a list from a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>evalTextAsList(strv, split = "&lt;-", verbose = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="evalTextAsList_+3A_strv">strv</code></td>
+<td>
+
+<ul>
+<li><p> character vector to parse/evaluate
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="evalTextAsList_+3A_split">split</code></td>
+<td>
+
+<ul>
+<li><p> character(s) to use to split lines into name and value (default=&quot;&lt;-&quot;)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="evalTextAsList_+3A_verbose">verbose</code></td>
+<td>
+
+<ul>
+<li><p> flag to print diagnostic info
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each quantity assigned using <code style="white-space: pre;">&#8288;&lt;-&#8288;</code> in <code>strv</code> is interpreted as an equation defining an element of the returned list.
+Quantities assigned using <code>=</code> outside a list structure are evaluated locally for use in constructing a list element of
+the returned list. Attributes for a list element of the returned list must be assigned (see example code 2) immediately after
+the list element.
+</p>
+
+
+<h3>Value</h3>
+
+<p>list with named elements
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+# example code 1
+str=paste(
+  'MODEL_DIMS
+  y &lt;- 2020:2024;                           #--years
+  s &lt;- 1;                                   #--seasons
+  r &lt;- "EBS";                               #--regions
+  x &lt;- c("male","female");                  #--sex classes
+  m &lt;- c("immature","mature");              #--maturity state classes
+  p &lt;- c("new_shell","old_shell");          #--post-molt ages
+  zc &lt;- seq(55.5,104.5,5);                  #--size bin cutpoints
+  f &lt;- c("TCF","SCF","NMFS");               #--fleets
+  END');
+strv = str |&gt; splitText() |&gt; extractLines("MODEL_DIMS","END");
+lstDims = evalTextAsList(strv);
+# example code 2
+  str=paste(
+  'MODEL_DIMS
+    r &lt;- "EBS";
+    miz = as.character(seq(25,75,5)); #--size bin midpoints for immature males
+    mmz = as.character(seq(50,75,5)); #--size bin midpoints for mature males
+    fiz = as.character(seq(25,65,5)); #--size bin midpoints for immature females
+    fmz = as.character(seq(30,65,5)); #--size bin midpoints for mature females
+    x&lt;-list(male=list(imm=list(`new`=miz,
+                                 `old`=miz),
+                        mat=list(`new`=mmz,
+                                 `old`=mmz,
+                                 `very`=mmz)
+                      ),
+              female=list(imm=list(`new`=fiz,
+                                   `old`=fiz),
+                          mat=list(`new`=fmz,
+                                   `old`=fmz)
+                         )
+             );
+    attr(x,"dmnms") = c("x","m","p","z");#--define order of dimensions in nested list
+  END'
+  )
+  strv = str |&gt; splitText() |&gt; extractLines("MODEL_DIMS","END");
+  lstDms = evalTextAsList(strv);
+
+</code></pre>
+
+
+<!-- Source: man/extractDataframe.Rd -->
+## `extractDataframe`: Extract a dataframe (a <code>tibble::tibble()</code>) from a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to a dataframe (a <code>tibble::tibble()</code>) from a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractDataframe(txt, n, start, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractDataframe_+3A_txt">txt</code></td>
+<td>
+
+<ul>
+<li><p> character vector to search
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractDataframe_+3A_n">n</code></td>
+<td>
+
+<ul>
+<li><p> number of non-comment lines to extract
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractDataframe_+3A_start">start</code></td>
+<td>
+
+<ul>
+<li><p> index into <code>txt</code> to regard as the start of the search
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractDataframe_+3A_comment">comment</code></td>
+<td>
+
+<ul>
+<li><p> character indicating the following text in the string is a comment
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each element in <code>txt</code> is regarded as a line of text (as in a text file).
+The dataframe structure and column types are determined by <code>readr::read_table()</code>.
+</p>
+
+<ul>
+<li><p>txt - character vector of length <code>n</code> with comment lines removed (i.e., a subset of <code>txt</code>)
+</p>
+</li>
+<li><p>end - index of the last element extracted in the input <code>txt</code> vector
+</p>
+</li></ul>
+
+<p>This function differs from <code>evalTextAsDataframe()</code> in that
+the input character vector may be a much larger section of text than what defines the
+dataframe to be extracted, but the number of rows (<code>n</code>) to extract is known, as is the index of
+the element to begin with (<code>start</code>). In <code>evalTextAsDataframe()</code>, after comments are removed are
+removed from the input character vector <code>char_vec</code>, the resulting
+character vector is regarded as defining the dataframe.
+</p>
+
+
+<h3>Value</h3>
+
+<p>list with elements <code>txt</code> and <code>end</code> (see details)
+</p>
+
+
+<!-- Source: man/extractLines.Rd -->
+## `extractLines`: Extract character vector from section of longer vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract character vector from section of longer vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractLines(txt, start, end)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractLines_+3A_txt">txt</code></td>
+<td>
+
+<ul>
+<li><p> long character vector
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractLines_+3A_start">start</code></td>
+<td>
+
+<ul>
+<li><p> string to regard as marking the start of section (not included in the section)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractLines_+3A_end">end</code></td>
+<td>
+
+<ul>
+<li><p> string to regard as marking the end of the section (not included in the section)
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The text lines at which the <code>start</code> and <code>end</code> are found are not included in
+the &quot;section&quot; returned by this function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a character vector of the &quot;enclosed&quot; section
+</p>
+
+
+<!-- Source: man/extractNumericValue.Rd -->
+## `extractNumericValue`: Extract a numeric value from a line of text
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract a numeric value from a line of text.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractNumericValue(txt, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractNumericValue_+3A_txt">txt</code></td>
+<td>
+<p>- input text string (1-element character vector)</p>
+</td></tr>
+<tr><td><code id="extractNumericValue_+3A_comment">comment</code></td>
+<td>
+<p>- string used to split text into value and comments (default=&quot;#&quot;)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The 1-line input text is split into a character vector using [stringr::str_split_1()] and
+the first element of the result is retained. Whitespace preceding and following the retained
+text is also removed (but &quot;interior&quot; whitespace is retained). The result is converted to numeric
+using [as.numeric()].
+</p>
+
+
+<h3>Value</h3>
+
+<p>a 1-element numeric vector
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+txt = "  45.27  #--input value of interest";
+extractNumericValue(txt)
+txt = "'hows this'  #--input text of interest";
+extractTextValue(txt);  #--returns NA
+
+</code></pre>
+
+
+<!-- Source: man/extractTextAfterString.Rd -->
+## `extractTextAfterString`: Extract text after a string
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract text after a string
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractTextAfterString(txt, str)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractTextAfterString_+3A_txt">txt</code></td>
+<td>
+<p>- character vector from which to extract strings</p>
+</td></tr>
+<tr><td><code id="extractTextAfterString_+3A_str">str</code></td>
+<td>
+<p>- string to extract after (see NOTE under details)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each element in the vector, this extracts the string following
+the 'after' string from each element of the input
+character vector, or 'NA' if no 'after' string found.
+</p>
+<p>NOTE: Characters with special regex meanings (e.g., &quot;)&quot;,&quot;]&quot;) need to
+be double-escaped to use in 'str'.
+</p>
+
+
+<h3>Value</h3>
+
+<p>character vector of extracted strings
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+extractTextAfterString("test:fred[x,y]==0","==");
+extractTextAfterString(c("fred[x,y]==0: FALSE","b[z0]: 1"),":");
+extractTextAfterString("fred[x,y[z]]=0","=");
+extractTextAfterString("fred[x,y[z]]=0","\\[");
+extractTextAfterString("fred[x,y[z]]=0","fred\\[");
+
+</code></pre>
+
+
+<!-- Source: man/extractTextBetweenBrackets.Rd -->
+## `extractTextBetweenBrackets`: Extract text between first and last brackets
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract text between first and last brackets
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractTextBetweenBrackets(txt)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractTextBetweenBrackets_+3A_txt">txt</code></td>
+<td>
+<p>- character vector from which to extract strings</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each element in the vector, this extracts the string between the
+*first* &quot;\[&quot; and *last* &quot;\]&quot; from each element of the input
+character vector, or 'NA' if no matching brackets.
+</p>
+
+
+<h3>Value</h3>
+
+<p>character vector of extracted strings
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+extractTextBetweenBrackets("fred[x,y]=0");
+extractTextBetweenParens(c("fred[x,y]=0","b[z0]"));
+extractTextBetweenParens("fred[x,y[z]]=0");
+
+</code></pre>
+
+
+<!-- Source: man/extractTextBetweenParens.Rd -->
+## `extractTextBetweenParens`: Extract text between first and last parentheses
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract text between first and last parentheses
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractTextBetweenParens(txt)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractTextBetweenParens_+3A_txt">txt</code></td>
+<td>
+<p>- character vector from which to extract strings</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For each element in the vector, this extracts the string between the
+*first* &quot;(&quot; and *last* &quot;)&quot; from each element of the input
+character vector, or 'NA' if no matching parentheses.
+</p>
+
+
+<h3>Value</h3>
+
+<p>character vector of extracted strings
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+extractTextBetweenParens("fred(x,y)=0");
+extractTextBetweenParens(c("fred(x,y)=0","b(z0)"));
+extractTextBetweenParens("fred(x,y(z))=0");
+
+</code></pre>
+
+
+<!-- Source: man/extractTextSection.Rd -->
+## `extractTextSection`: Extract a text section with only non-comment lines from a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract a text section with only non-comment lines from a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractTextSection(txt, n = length(txt), start = 1, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractTextSection_+3A_txt">txt</code></td>
+<td>
+
+<ul>
+<li><p> character vector to search
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractTextSection_+3A_n">n</code></td>
+<td>
+
+<ul>
+<li><p> number of non-comment lines to extract (default=length(txt))
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractTextSection_+3A_start">start</code></td>
+<td>
+
+<ul>
+<li><p> index into <code>txt</code> to regard as the start of the search (default=1)
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="extractTextSection_+3A_comment">comment</code></td>
+<td>
+
+<ul>
+<li><p> character indicating the following text in the string is a comment
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each element in <code>txt</code> is regarded as a line of text (as in a text file).
+The function searches for the first <code>n</code> non-comment lines and extracts them as a new vector.
+The returned list has elements
+</p>
+
+<ul>
+<li><p>txt - character vector of length <code>n</code> with comment lines removed (i.e., a subset of <code>txt</code>)
+</p>
+</li>
+<li><p>end - index of the last element extracted in the input <code>txt</code> vector
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>list with elements <code>txt</code> and <code>end</code> (see details)
+</p>
+
+
+<!-- Source: man/extractTextValue.Rd -->
+## `extractTextValue`: Extract a (character) value from a line of text
+
+
+
+<h3>Description</h3>
+
+<p>Function to extract a (character) value from a line of text.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>extractTextValue(txt, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="extractTextValue_+3A_txt">txt</code></td>
+<td>
+<p>- input text string (1-element character vector)</p>
+</td></tr>
+<tr><td><code id="extractTextValue_+3A_comment">comment</code></td>
+<td>
+<p>- string used to split text into value and comments (default=&quot;#&quot;)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The 1-line input text is split into a character vector using [stringr::str_split_1()] and
+the first element of the result is retained. Whitespace preceding and following the retained
+text is also removed (but &quot;interior&quot; whitespace is retained).
+</p>
+
+
+<h3>Value</h3>
+
+<p>a 1-element character vector
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># example code
+txt = "'hows this'  #--input text of interest";
+extractTextValue(txt)
+
+</code></pre>
+
+
+<!-- Source: man/getDimNames.Rd -->
+## `getDimNames`: Get model dimension names
+
+
+
+<h3>Description</h3>
+
+<p>Function to get model dimension names.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>getDimNames()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>character vector with model dimension names
+</p>
+
+
+<!-- Source: man/logistic.Rd -->
+## `logistic`: Convert values to the logistic scale
+
+
+
+<h3>Description</h3>
+
+<p>Function to convert values to the logistic scale.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>logistic(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="logistic_+3A_x">x</code></td>
+<td>
+<p>- numeric object</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>inverse of logit function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>1.0/(1.0+exp(-x)), with same names and class as 'x'
+</p>
+
+
+<!-- Source: man/logit.Rd -->
+## `logit`: Convert values to the logit scale
+
+
+
+<h3>Description</h3>
+
+<p>Function to convert values to the logit scale.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>logit(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="logit_+3A_x">x</code></td>
+<td>
+<p>- numeric object</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>inverse of logistic function. Values of 'x' outside the
+(0,1) range generate NaNs.
+</p>
+
+
+<h3>Value</h3>
+
+<p>log(x/(1-x)), with same names and class as 'x'
+</p>
+
+
+<!-- Source: man/removeCommentLines.Rd -->
+## `removeCommentLines`: Remove strings starting with a comment character
+
+
+
+<h3>Description</h3>
+
+<p>Function to remove strings starting with a comment character.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>removeCommentLines(strv, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="removeCommentLines_+3A_strv">strv</code></td>
+<td>
+<p>- character vector to remove comment lines from</p>
+</td></tr>
+<tr><td><code id="removeCommentLines_+3A_comment">comment</code></td>
+<td>
+<p>- character(s) to regard as indicating a comment</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a character vector with elements that don't start with a comment character
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>txt = c("#this is a comment",
+        "  #so is this,even thought the line starts with blank space",
+        "this is not a comment",
+        "this is not either, but the first is line 3.");
+removeCommentLines(txt); #--should be \code{txt[3:4]}
+
+</code></pre>
+
+
+<!-- Source: man/rtmbGMACS-package.Rd -->
+## `rtmbGMACS-package`: rtmbGMACS
+
+<span id='topic+rtmbGMACS-package'></span>
+
+<h3>Description</h3>
+
+<p>Minimal package scaffold for future rtmbGMACS development.
+</p>
+
+
+<!-- Source: man/skipCommentLines.Rd -->
+## `skipCommentLines`: Identify first non-comment line in a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to identify the index of the first non-comment line in a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>skipCommentLines(txt, start, comment = "#")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="skipCommentLines_+3A_txt">txt</code></td>
+<td>
+
+<ul>
+<li><p> character vector to search
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="skipCommentLines_+3A_start">start</code></td>
+<td>
+
+<ul>
+<li><p> index into <code>txt</code> to regard as the start of the search
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="skipCommentLines_+3A_comment">comment</code></td>
+<td>
+
+<ul>
+<li><p> character indicating the following text in the string is a comment
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each element in <code>txt</code> is regarded as a line of text (as in a text file).
+The function searches for the first non-comment line and returns its index.
+</p>
+
+
+<h3>Value</h3>
+
+<p>the index of the first line in <code>txt</code> that does not start with a comment character
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>txt = c("#this is a comment",
+        "  #so is this,even thought the line starts with blank space",
+        "this is not a comment",
+        "this is not either, but the first is line 3.");
+extractLines(txt,1); #--should be 3: txt[3] is first non-comment line
+</code></pre>
+
+
+<!-- Source: man/splitText.Rd -->
+## `splitText`: Split text string into a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to split text string to a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>splitText(txt, split = "\\n")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="splitText_+3A_txt">txt</code></td>
+<td>
+
+<ul>
+<li><p> text string (1-elenent character vector) to split
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code id="splitText_+3A_split">split</code></td>
+<td>
+
+<ul>
+<li><p> string used to split text (default=&quot;\n)
+</p>
+</li></ul>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The text is plit into a character vector using <code>stringr::str_split_1()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a character vector
+</p>
+
+
+<!-- Source: man/symlogistic.Rd -->
+## `symlogistic`: Calculate a 0-symmetric logistic function between -1 and 1
+
+
+
+<h3>Description</h3>
+
+<p>Function to calculate a logistic function centered on 0
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>symlogistic(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="symlogistic_+3A_x">x</code></td>
+<td>
+<p>- numeric vector at which to calculate the symmetric logistic function</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the inverse to 'symlogit' (see examples)
+</p>
+
+
+<h3>Value</h3>
+
+<p>a numeric vector with the same size and names (if any) as 'x'
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+##--R context
+x = seq(-5,5,0.1);
+y = symlogistic(x);
+head(y);
+xp = symlogit(y) - x
+##--RTMB context
+x = RTMB::AD(seq(-5,5,0.1),force=TRUE);
+y = symlogistic(x);
+head(y)
+
+</code></pre>
+
+
+<!-- Source: man/symlogit.Rd -->
+## `symlogit`: Calculate a 0-symmetric logit function
+
+
+
+<h3>Description</h3>
+
+<p>Function to calculate a logit function centered on 0
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>symlogit(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="symlogit_+3A_x">x</code></td>
+<td>
+<p>- numeric vector with values from -1.0 to 1.0 at which to calculate the symmetric logit function</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is the inverse to 'symlogistic' (see examples)
+</p>
+
+
+<h3>Value</h3>
+
+<p>a numeric vector with the same size and names (if any) as 'x'
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+##--R context
+x = seq(-0.99,0.99,0.01);
+y = symlogit(x);
+head(y);
+xp = symlogistic(y) - x
+##--RTMB context
+x = RTMB::AD(seq(-0.49,0.49,0.01),force=TRUE);
+y = symlogit(x);
+head(y)
+
+</code></pre>
+
+
+<!-- Source: man/whichDims.Rd -->
+## `whichDims`: Get which model dimensions are identified in a character vector
+
+
+
+<h3>Description</h3>
+
+<p>Function to get which model dimensions are identified in a character vector.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>whichDims(char_vec)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table role = "presentation">
+<tr><td><code id="whichDims_+3A_char_vec">char_vec</code></td>
+<td>
+<p>- character vector to check for model dimension names</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>character vector with identifed model dimension names
+</p>
+
+
