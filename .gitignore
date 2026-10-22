@@ -1,9 +1,9 @@
 .DS_Store
 .posit/
 .Rproj.user
+.Rhistory
 *.pdf
+~$*
 docs/
 conversations/
-pkgdown/docs
-notes/
-/quarto/6c4a1d87
+
