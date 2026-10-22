@@ -156,6 +156,354 @@
     "text": "Survey “dynamics”"
   },
   {
+    "objectID": "qmd_ManFiles.html",
+    "href": "qmd_ManFiles.html",
+    "title": "rtmbGMACS function reference",
+    "section": "",
+    "text": "This reference is generated from the package’s man/*.Rd entries, ordered by filename.",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#addgroupindices-add-group-indices-to-a-data-frame",
+    "href": "qmd_ManFiles.html#addgroupindices-add-group-indices-to-a-data-frame",
+    "title": "rtmbGMACS function reference",
+    "section": "addGroupIndices: Add group indices to a data frame",
+    "text": "addGroupIndices: Add group indices to a data frame\n\nDescription\n\n\nAdds an integer column identifying the group to which each row belongs. Groups are defined by one or more columns and follow the grouping behavior of [dplyr::group_by()].\n\n\nUsage\n\naddGroupIndices(dfr, ...)\n\n\nArguments\n\n\n\n\ndfr\n\n\n\nA data frame containing the grouping columns.\n\n\n\n\n\n…\n\n\n\nUnquoted columns in ‘dfr’ that define the groups. These arguments are passed to [dplyr::group_by()].\n\n\n\n\n\nValue\n\n\n‘dfr’ with its rows and existing columns preserved and an integer ‘.gid’ column appended. Rows with the same values of the grouping columns receive the same group index. An existing ‘.gid’ column is replaced.\n\n\nExamples\n\ny &lt;- as.character(11:20)\ns &lt;- as.character(1:3)\nx &lt;- as.character(1:2)\nz &lt;- seq(25, 50, 5)\ndfr &lt;- tidyr::expand_grid(y, s, x, z)\n\ndfrp &lt;- addGroupIndices(dfr, y, s, x)\nhead(dfrp)\ndplyr::count(dfrp, y, s, x, .gid)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#advance_pop-advance-population",
+    "href": "qmd_ManFiles.html#advance_pop-advance-population",
+    "title": "rtmbGMACS function reference",
+    "section": "advance_pop: Advance population",
+    "text": "advance_pop: Advance population\n\nDescription\n\n\nAdvance population\n\n\nUsage\n\nadvance_pop(n_i, s_yr, e_yr, p)\n\n\nArguments\n\n\n\n\nn_i\n\n\n\n\nabundance vector at start of year\n\n\n\n\n\ns_yr\n\n\n\n\nstart year\n\n\n\n\n\ne_yr\n\n\n\n\nend year\n\n\n\n\n\np\n\n\n\n\npop",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#advance_pop_one_season-advance-population-component-one-season-step",
+    "href": "qmd_ManFiles.html#advance_pop_one_season-advance-population-component-one-season-step",
+    "title": "rtmbGMACS function reference",
+    "section": "advance_pop_one_season: Advance population component one season step",
+    "text": "advance_pop_one_season: Advance population component one season step\n\nDescription\n\n\nThis function will advance the population component one seasonal step\n\n\nUsage\n\nadvance_pop_one_season(\n  n_i,\n  p,\n  doInstProcesses1st,\n  doGrowth,\n  doSSB_BeforeGrowth\n)\n\n\nArguments\n\n\n\n\nn_i\n\n\n\n\n\nabundance vector by population class\n\n\n\n\n\n\n\np\n\n\n\n\n\nlist of population processes to apply\n\n\n\n\n\n\n\ndoInstProcesses1st\n\n\n\n\n\nflag to do instantaneous processes (i.e., growth) first (TRUE/FALSE)\n\n\n\n\n\n\n\ndoGrowth\n\n\n\n\n\nflag to evaluate growth (TRUE/FALSE)\n\n\n\n\n\n\n\ndoSSB_BeforeGrowth\n\n\n\n\n\nflag to do spawning stock abundance calculation before growth (TRUE) or after (FALSE)\n\n\n\n\n\n\n\nDetails\n\n\nThe returned list has elements\n\n\n\n\nn_f - final population abundance vector\n\n\n\n\nn_ss - spawning stock abundance\n\n\n\n\nc_fn - total catch abundance by fleet (not necessarily mortality)\n\n\n\n\nrm_n - retained catch mortality (abundance) by fleet\n\n\n\n\ndm_fn - discard catch mortality (abundance) by fleet\n\n\n\n\nValue\n\n\nlist including population abundance at end of time step (see Details)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#advance_pop_one_year-advance-population-one-year",
+    "href": "qmd_ManFiles.html#advance_pop_one_year-advance-population-one-year",
+    "title": "rtmbGMACS function reference",
+    "section": "advance_pop_one_year: Advance population one year",
+    "text": "advance_pop_one_year: Advance population one year\n\nDescription\n\n\nAdvance population one year\n\n\nUsage\n\nadvance_pop_one_year(n_i, ssns)\n\n\nArguments\n\n\n\n\nn_i\n\n\n\n\nabundance vector at start of year\n\n\n\n\n\nssns\n\n\n\n\nseasons list for current year",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#concattext-concatenate-text",
+    "href": "qmd_ManFiles.html#concattext-concatenate-text",
+    "title": "rtmbGMACS function reference",
+    "section": "concatText: Concatenate text",
+    "text": "concatText: Concatenate text\n\nDescription\n\n\nFunction to concatenate text\n\n\nUsage\n\nconcatText(..., concat = \"+\")\n\n\nArguments\n\n\n\n\n…\n\n\n\n\ntext values to concatenate\n\n\n\n\n\nconcat\n\n\n\n\nstring to use as concatenator\n\n\n\n\n\n\n\nDetails\n\n\nThe elements in … are concateated into a single string using the ‘concat’ string separated by spaces.\n\n\nValue\n\n\nstring\n\n\nExamples\n\n# example code\nconcatText(1,2,3)\nconcatText(1,NA,3)\nconcatText(1,2,NULL,4)\nexport",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#createaggregationmatrix-create-a-sparse-aggregation-matrix",
+    "href": "qmd_ManFiles.html#createaggregationmatrix-create-a-sparse-aggregation-matrix",
+    "title": "rtmbGMACS function reference",
+    "section": "createAggregationMatrix: Create a sparse aggregation matrix",
+    "text": "createAggregationMatrix: Create a sparse aggregation matrix\n\nDescription\n\n\nCreates a sparse matrix that maps rows of a data frame to groups defined by one or more columns. Multiplying the matrix by a vector with one value per input row calculates sums for each group.\n\n\nUsage\n\ncreateAggregationMatrix(dfr, ...)\n\n\nArguments\n\n\n\n\ndfr\n\n\n\nA data frame containing the grouping columns.\n\n\n\n\n\n…\n\n\n\nUnquoted columns in ‘dfr’ that define the groups. These arguments are passed to [dplyr::group_by()].\n\n\n\n\n\nValue\n\n\nA named list with two elements:\n\n\n\n‘aggM’\n\n\n\nA sparse matrix with one row per group and one column per row of ‘dfr’.\n\n\n\n‘aggTbl’\n\n\n\nA data frame containing the unique grouping combinations, in the same order as the rows of ‘aggM’.\n\n\n\n\nExamples\n\ny &lt;- as.character(11:20)\ns &lt;- as.character(1:3)\nx &lt;- as.character(1:2)\nz &lt;- seq(25, 50, 5)\ndfr &lt;- tidyr::expand_grid(y, s, x, z)\n\nlst &lt;- createAggregationMatrix(dfr, y, s, x)\nvalues &lt;- as.matrix(dfr[\"z\"])\ngroup_sums &lt;- lst$aggM %*% values\n\nlst$aggTbl |&gt; dplyr::mutate(sum=as.vector(group_sums));",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#evaltextascode-evaluate-text-as-lines-of-code",
+    "href": "qmd_ManFiles.html#evaltextascode-evaluate-text-as-lines-of-code",
+    "title": "rtmbGMACS function reference",
+    "section": "evalTextAsCode: Evaluate text as lines of code",
+    "text": "evalTextAsCode: Evaluate text as lines of code\n\nDescription\n\n\nFunction to evaluate text as lines of code.\n\n\nUsage\n\nevalTextAsCode(strv, frame = 0)\n\n\nArguments\n\n\n\n\nstrv\n\n\n\n\ncharacter vector with lines of code to evaluate.\n\n\n\n\n\n\nDetails\n\n\nThe lines of ‘code’ in strv are evaluated in the frame specified by ‘frame’. If ‘frame’ is non-negative, it specifies the parent frame relative to the caller (so ‘frame=0’, the deault, is evaluated in the caller’s frame). If ‘frame’ is negative, the lines of code are evaluated in the environment specified by its absolute value.\n\n\nValue\n\n\nnothing\n\n\nExamples\n\n\nstr = \"\n  v1  = 5;\n  v2 = 1:v1;\n  sum = list(x=\"contr.sum\",m=\"contr.sum\");\n      \";\n# example code",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df",
+    "href": "qmd_ManFiles.html#evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df",
+    "title": "rtmbGMACS function reference",
+    "section": "evalTextAsDataframe: Evaluate a character vector as a dataframe (a tbl_df)",
+    "text": "evalTextAsDataframe: Evaluate a character vector as a dataframe (a tbl_df)\n\nDescription\n\n\nFunction to evaluate a character vector as a dataframe (a tbl_df).\n\n\nUsage\n\nevalTextAsDataframe(char_vec, comment = \"#\")\n\n\nArguments\n\n\n\n\nchar_vec\n\n\n\n\n\ncharacter vector to parse/evaluate as a dataframe\n\n\n\n\n\n\n\ncomment\n\n\n\n\n\nstring indicating that what follows is a comment\n\n\n\n\n\n\n\nDetails\n\n\nEach element in char_vec is regarded as a line of text (as in a text file). The dataframe structure and column types are determined by readr::read_table().\n\n\nThis function differs from extractDataframe() in that, after comments are removed are removed from the input character vector char_vec, the resulting character vector is regarded as defining the dataframe. In extractDataframe(), the input character vector may be a much larger section of text than what defines the dataframe to be extracted, but the number of rows (n) to extract is known as, is the index of the element to begin with (start).\n\n\nValue\n\n\na dataframe (actually a tbl_df, see tibble::tibble())\n\n\nExamples\n\n\n# example code\nstr&lt;-paste0('\n  id        function  frame   params              description\n  pwrLaw1   pwrLaw1   mfALL   pA,pB               w(z)_=_pA_*_(z^pB)\n  pwrLaw2   pwrLaw2   mf2024  pLnA,pLnS,pB,pZ0    w(z)_=_exp(pLnA+pLnS+pB*ln(z/pZ0))\n')\ndfr = txt |&gt; splitText() |&gt; evalTextAsDataframe();",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits",
+    "href": "qmd_ManFiles.html#evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits",
+    "title": "rtmbGMACS function reference",
+    "section": "evalTextAsDigits: Evaluate strings in a character vector as digits",
+    "text": "evalTextAsDigits: Evaluate strings in a character vector as digits\n\nDescription\n\n\nFunction to evaluate strings in a character vector as digits.\n\n\nUsage\n\nevalTextAsDigits(x)\n\n\nArguments\n\n\n\n\nx\n\n\n\n\n\ncharacter vector to parse/evaluate\n\n\n\n\n\n\n\nDetails\n\n\nFor each element in x, everything except for digits is removed and the resulting character value is converted to an integer.\n\n\nValue\n\n\ninteger vector\n\n\nExamples\n\nevalTextAsDigits(c(\"ab23\",\"cd42\",\"a42 b23\"))",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#evaltextaslist-evaluate-a-list-from-a-character-vector",
+    "href": "qmd_ManFiles.html#evaltextaslist-evaluate-a-list-from-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "evalTextAsList: Evaluate a list from a character vector",
+    "text": "evalTextAsList: Evaluate a list from a character vector\n\nDescription\n\n\nFunction to evaluate a list from a character vector.\n\n\nUsage\n\nevalTextAsList(strv, split = \"&lt;-\", verbose = FALSE)\n\n\nArguments\n\n\n\n\nstrv\n\n\n\n\n\ncharacter vector to parse/evaluate\n\n\n\n\n\n\n\nsplit\n\n\n\n\n\ncharacter(s) to use to split lines into name and value (default=\"&lt;-\")\n\n\n\n\n\n\n\nverbose\n\n\n\n\n\nflag to print diagnostic info\n\n\n\n\n\n\n\nDetails\n\n\nEach quantity assigned using ⁠&lt;-⁠ in strv is interpreted as an equation defining an element of the returned list. Quantities assigned using = outside a list structure are evaluated locally for use in constructing a list element of the returned list. Attributes for a list element of the returned list must be assigned (see example code 2) immediately after the list element.\n\n\nValue\n\n\nlist with named elements\n\n\nExamples\n\n\n# example code 1\nstr=paste(\n  'MODEL_DIMS\n  y &lt;- 2020:2024;                           #--years\n  s &lt;- 1;                                   #--seasons\n  r &lt;- \"EBS\";                               #--regions\n  x &lt;- c(\"male\",\"female\");                  #--sex classes\n  m &lt;- c(\"immature\",\"mature\");              #--maturity state classes\n  p &lt;- c(\"new_shell\",\"old_shell\");          #--post-molt ages\n  zc &lt;- seq(55.5,104.5,5);                  #--size bin cutpoints\n  f &lt;- c(\"TCF\",\"SCF\",\"NMFS\");               #--fleets\n  END');\nstrv = str |&gt; splitText() |&gt; extractLines(\"MODEL_DIMS\",\"END\");\nlstDims = evalTextAsList(strv);\n# example code 2\n  str=paste(\n  'MODEL_DIMS\n    r &lt;- \"EBS\";\n    miz = as.character(seq(25,75,5)); #--size bin midpoints for immature males\n    mmz = as.character(seq(50,75,5)); #--size bin midpoints for mature males\n    fiz = as.character(seq(25,65,5)); #--size bin midpoints for immature females\n    fmz = as.character(seq(30,65,5)); #--size bin midpoints for mature females\n    x&lt;-list(male=list(imm=list(`new`=miz,\n                                 `old`=miz),\n                        mat=list(`new`=mmz,\n                                 `old`=mmz,\n                                 `very`=mmz)\n                      ),\n              female=list(imm=list(`new`=fiz,\n                                   `old`=fiz),\n                          mat=list(`new`=fmz,\n                                   `old`=fmz)\n                         )\n             );\n    attr(x,\"dmnms\") = c(\"x\",\"m\",\"p\",\"z\");#--define order of dimensions in nested list\n  END'\n  )\n  strv = str |&gt; splitText() |&gt; extractLines(\"MODEL_DIMS\",\"END\");\n  lstDms = evalTextAsList(strv);",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector",
+    "href": "qmd_ManFiles.html#extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "extractDataframe: Extract a dataframe (a tibble::tibble()) from a character vector",
+    "text": "extractDataframe: Extract a dataframe (a tibble::tibble()) from a character vector\n\nDescription\n\n\nFunction to a dataframe (a tibble::tibble()) from a character vector.\n\n\nUsage\n\nextractDataframe(txt, n, start, comment = \"#\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\n\ncharacter vector to search\n\n\n\n\n\n\n\nn\n\n\n\n\n\nnumber of non-comment lines to extract\n\n\n\n\n\n\n\nstart\n\n\n\n\n\nindex into txt to regard as the start of the search\n\n\n\n\n\n\n\ncomment\n\n\n\n\n\ncharacter indicating the following text in the string is a comment\n\n\n\n\n\n\n\nDetails\n\n\nEach element in txt is regarded as a line of text (as in a text file). The dataframe structure and column types are determined by readr::read_table().\n\n\n\n\ntxt - character vector of length n with comment lines removed (i.e., a subset of txt)\n\n\n\n\nend - index of the last element extracted in the input txt vector\n\n\n\n\nThis function differs from evalTextAsDataframe() in that the input character vector may be a much larger section of text than what defines the dataframe to be extracted, but the number of rows (n) to extract is known, as is the index of the element to begin with (start). In evalTextAsDataframe(), after comments are removed are removed from the input character vector char_vec, the resulting character vector is regarded as defining the dataframe.\n\n\nValue\n\n\nlist with elements txt and end (see details)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extractlines-extract-character-vector-from-section-of-longer-vector",
+    "href": "qmd_ManFiles.html#extractlines-extract-character-vector-from-section-of-longer-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "extractLines: Extract character vector from section of longer vector",
+    "text": "extractLines: Extract character vector from section of longer vector\n\nDescription\n\n\nFunction to extract character vector from section of longer vector.\n\n\nUsage\n\nextractLines(txt, start, end)\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\n\nlong character vector\n\n\n\n\n\n\n\nstart\n\n\n\n\n\nstring to regard as marking the start of section (not included in the section)\n\n\n\n\n\n\n\nend\n\n\n\n\n\nstring to regard as marking the end of the section (not included in the section)\n\n\n\n\n\n\n\nDetails\n\n\nThe text lines at which the start and end are found are not included in the \"section\" returned by this function.\n\n\nValue\n\n\na character vector of the \"enclosed\" section",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extractnumericvalue-extract-a-numeric-value-from-a-line-of-text",
+    "href": "qmd_ManFiles.html#extractnumericvalue-extract-a-numeric-value-from-a-line-of-text",
+    "title": "rtmbGMACS function reference",
+    "section": "extractNumericValue: Extract a numeric value from a line of text",
+    "text": "extractNumericValue: Extract a numeric value from a line of text\n\nDescription\n\n\nFunction to extract a numeric value from a line of text.\n\n\nUsage\n\nextractNumericValue(txt, comment = \"#\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\ninput text string (1-element character vector)\n\n\n\n\n\ncomment\n\n\n\n\nstring used to split text into value and comments (default=\"#\")\n\n\n\n\n\n\n\nDetails\n\n\nThe 1-line input text is split into a character vector using [stringr::str_split_1()] and the first element of the result is retained. Whitespace preceding and following the retained text is also removed (but \"interior\" whitespace is retained). The result is converted to numeric using [as.numeric()].\n\n\nValue\n\n\na 1-element numeric vector\n\n\nExamples\n\n# example code\ntxt = \"  45.27  #--input value of interest\";\nextractNumericValue(txt)\ntxt = \"'hows this'  #--input text of interest\";\nextractTextValue(txt);  #--returns NA",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extracttextafterstring-extract-text-after-a-string",
+    "href": "qmd_ManFiles.html#extracttextafterstring-extract-text-after-a-string",
+    "title": "rtmbGMACS function reference",
+    "section": "extractTextAfterString: Extract text after a string",
+    "text": "extractTextAfterString: Extract text after a string\n\nDescription\n\n\nFunction to extract text after a string\n\n\nUsage\n\nextractTextAfterString(txt, str)\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\ncharacter vector from which to extract strings\n\n\n\n\n\nstr\n\n\n\n\nstring to extract after (see NOTE under details)\n\n\n\n\n\n\n\nDetails\n\n\nFor each element in the vector, this extracts the string following the ‘after’ string from each element of the input character vector, or ‘NA’ if no ‘after’ string found.\n\n\nNOTE: Characters with special regex meanings (e.g., \")\",\"]\") need to be double-escaped to use in ‘str’.\n\n\nValue\n\n\ncharacter vector of extracted strings\n\n\nExamples\n\n# example code\nextractTextAfterString(\"test:fred[x,y]==0\",\"==\");\nextractTextAfterString(c(\"fred[x,y]==0: FALSE\",\"b[z0]: 1\"),\":\");\nextractTextAfterString(\"fred[x,y[z]]=0\",\"=\");\nextractTextAfterString(\"fred[x,y[z]]=0\",\"\\\\[\");\nextractTextAfterString(\"fred[x,y[z]]=0\",\"fred\\\\[\");",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extracttextbetweenbrackets-extract-text-between-first-and-last-brackets",
+    "href": "qmd_ManFiles.html#extracttextbetweenbrackets-extract-text-between-first-and-last-brackets",
+    "title": "rtmbGMACS function reference",
+    "section": "extractTextBetweenBrackets: Extract text between first and last brackets",
+    "text": "extractTextBetweenBrackets: Extract text between first and last brackets\n\nDescription\n\n\nFunction to extract text between first and last brackets\n\n\nUsage\n\nextractTextBetweenBrackets(txt)\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\ncharacter vector from which to extract strings\n\n\n\n\n\n\nDetails\n\n\nFor each element in the vector, this extracts the string between the first \"[\" and last \"]\" from each element of the input character vector, or ‘NA’ if no matching brackets.\n\n\nValue\n\n\ncharacter vector of extracted strings\n\n\nExamples\n\n# example code\nextractTextBetweenBrackets(\"fred[x,y]=0\");\nextractTextBetweenParens(c(\"fred[x,y]=0\",\"b[z0]\"));\nextractTextBetweenParens(\"fred[x,y[z]]=0\");",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extracttextbetweenparens-extract-text-between-first-and-last-parentheses",
+    "href": "qmd_ManFiles.html#extracttextbetweenparens-extract-text-between-first-and-last-parentheses",
+    "title": "rtmbGMACS function reference",
+    "section": "extractTextBetweenParens: Extract text between first and last parentheses",
+    "text": "extractTextBetweenParens: Extract text between first and last parentheses\n\nDescription\n\n\nFunction to extract text between first and last parentheses\n\n\nUsage\n\nextractTextBetweenParens(txt)\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\ncharacter vector from which to extract strings\n\n\n\n\n\n\nDetails\n\n\nFor each element in the vector, this extracts the string between the first \"(\" and last \")\" from each element of the input character vector, or ‘NA’ if no matching parentheses.\n\n\nValue\n\n\ncharacter vector of extracted strings\n\n\nExamples\n\n# example code\nextractTextBetweenParens(\"fred(x,y)=0\");\nextractTextBetweenParens(c(\"fred(x,y)=0\",\"b(z0)\"));\nextractTextBetweenParens(\"fred(x,y(z))=0\");",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector",
+    "href": "qmd_ManFiles.html#extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "extractTextSection: Extract a text section with only non-comment lines from a character vector",
+    "text": "extractTextSection: Extract a text section with only non-comment lines from a character vector\n\nDescription\n\n\nFunction to extract a text section with only non-comment lines from a character vector.\n\n\nUsage\n\nextractTextSection(txt, n = length(txt), start = 1, comment = \"#\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\n\ncharacter vector to search\n\n\n\n\n\n\n\nn\n\n\n\n\n\nnumber of non-comment lines to extract (default=length(txt))\n\n\n\n\n\n\n\nstart\n\n\n\n\n\nindex into txt to regard as the start of the search (default=1)\n\n\n\n\n\n\n\ncomment\n\n\n\n\n\ncharacter indicating the following text in the string is a comment\n\n\n\n\n\n\n\nDetails\n\n\nEach element in txt is regarded as a line of text (as in a text file). The function searches for the first n non-comment lines and extracts them as a new vector. The returned list has elements\n\n\n\n\ntxt - character vector of length n with comment lines removed (i.e., a subset of txt)\n\n\n\n\nend - index of the last element extracted in the input txt vector\n\n\n\n\nValue\n\n\nlist with elements txt and end (see details)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#extracttextvalue-extract-a-character-value-from-a-line-of-text",
+    "href": "qmd_ManFiles.html#extracttextvalue-extract-a-character-value-from-a-line-of-text",
+    "title": "rtmbGMACS function reference",
+    "section": "extractTextValue: Extract a (character) value from a line of text",
+    "text": "extractTextValue: Extract a (character) value from a line of text\n\nDescription\n\n\nFunction to extract a (character) value from a line of text.\n\n\nUsage\n\nextractTextValue(txt, comment = \"#\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\ninput text string (1-element character vector)\n\n\n\n\n\ncomment\n\n\n\n\nstring used to split text into value and comments (default=\"#\")\n\n\n\n\n\n\n\nDetails\n\n\nThe 1-line input text is split into a character vector using [stringr::str_split_1()] and the first element of the result is retained. Whitespace preceding and following the retained text is also removed (but \"interior\" whitespace is retained).\n\n\nValue\n\n\na 1-element character vector\n\n\nExamples\n\n# example code\ntxt = \"'hows this'  #--input text of interest\";\nextractTextValue(txt)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#getdimnames-get-model-dimension-names",
+    "href": "qmd_ManFiles.html#getdimnames-get-model-dimension-names",
+    "title": "rtmbGMACS function reference",
+    "section": "getDimNames: Get model dimension names",
+    "text": "getDimNames: Get model dimension names\n\nDescription\n\n\nFunction to get model dimension names.\n\n\nUsage\n\ngetDimNames()\n\n\nValue\n\n\ncharacter vector with model dimension names",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#logistic-convert-values-to-the-logistic-scale",
+    "href": "qmd_ManFiles.html#logistic-convert-values-to-the-logistic-scale",
+    "title": "rtmbGMACS function reference",
+    "section": "logistic: Convert values to the logistic scale",
+    "text": "logistic: Convert values to the logistic scale\n\nDescription\n\n\nFunction to convert values to the logistic scale.\n\n\nUsage\n\nlogistic(x)\n\n\nArguments\n\n\n\n\nx\n\n\n\n\nnumeric object\n\n\n\n\n\n\nDetails\n\n\ninverse of logit function.\n\n\nValue\n\n\n1.0/(1.0+exp(-x)), with same names and class as ‘x’",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#logit-convert-values-to-the-logit-scale",
+    "href": "qmd_ManFiles.html#logit-convert-values-to-the-logit-scale",
+    "title": "rtmbGMACS function reference",
+    "section": "logit: Convert values to the logit scale",
+    "text": "logit: Convert values to the logit scale\n\nDescription\n\n\nFunction to convert values to the logit scale.\n\n\nUsage\n\nlogit(x)\n\n\nArguments\n\n\n\n\nx\n\n\n\n\nnumeric object\n\n\n\n\n\n\nDetails\n\n\ninverse of logistic function. Values of ‘x’ outside the (0,1) range generate NaNs.\n\n\nValue\n\n\nlog(x/(1-x)), with same names and class as ‘x’",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#removecommentlines-remove-strings-starting-with-a-comment-character",
+    "href": "qmd_ManFiles.html#removecommentlines-remove-strings-starting-with-a-comment-character",
+    "title": "rtmbGMACS function reference",
+    "section": "removeCommentLines: Remove strings starting with a comment character",
+    "text": "removeCommentLines: Remove strings starting with a comment character\n\nDescription\n\n\nFunction to remove strings starting with a comment character.\n\n\nUsage\n\nremoveCommentLines(strv, comment = \"#\")\n\n\nArguments\n\n\n\n\nstrv\n\n\n\n\ncharacter vector to remove comment lines from\n\n\n\n\n\ncomment\n\n\n\n\ncharacter(s) to regard as indicating a comment\n\n\n\n\n\n\n\nValue\n\n\na character vector with elements that don’t start with a comment character\n\n\nExamples\n\ntxt = c(\"#this is a comment\",\n        \"  #so is this,even thought the line starts with blank space\",\n        \"this is not a comment\",\n        \"this is not either, but the first is line 3.\");\nremoveCommentLines(txt); #--should be \\code{txt[3:4]}",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#rtmbgmacs-package-rtmbgmacs",
+    "href": "qmd_ManFiles.html#rtmbgmacs-package-rtmbgmacs",
+    "title": "rtmbGMACS function reference",
+    "section": "rtmbGMACS-package: rtmbGMACS",
+    "text": "rtmbGMACS-package: rtmbGMACS\n\n\nDescription\n\n\nMinimal package scaffold for future rtmbGMACS development.",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#skipcommentlines-identify-first-non-comment-line-in-a-character-vector",
+    "href": "qmd_ManFiles.html#skipcommentlines-identify-first-non-comment-line-in-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "skipCommentLines: Identify first non-comment line in a character vector",
+    "text": "skipCommentLines: Identify first non-comment line in a character vector\n\nDescription\n\n\nFunction to identify the index of the first non-comment line in a character vector.\n\n\nUsage\n\nskipCommentLines(txt, start, comment = \"#\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\n\ncharacter vector to search\n\n\n\n\n\n\n\nstart\n\n\n\n\n\nindex into txt to regard as the start of the search\n\n\n\n\n\n\n\ncomment\n\n\n\n\n\ncharacter indicating the following text in the string is a comment\n\n\n\n\n\n\n\nDetails\n\n\nEach element in txt is regarded as a line of text (as in a text file). The function searches for the first non-comment line and returns its index.\n\n\nValue\n\n\nthe index of the first line in txt that does not start with a comment character\n\n\nExamples\n\ntxt = c(\"#this is a comment\",\n        \"  #so is this,even thought the line starts with blank space\",\n        \"this is not a comment\",\n        \"this is not either, but the first is line 3.\");\nextractLines(txt,1); #--should be 3: txt[3] is first non-comment line",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#splittext-split-text-string-into-a-character-vector",
+    "href": "qmd_ManFiles.html#splittext-split-text-string-into-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "splitText: Split text string into a character vector",
+    "text": "splitText: Split text string into a character vector\n\nDescription\n\n\nFunction to split text string to a character vector.\n\n\nUsage\n\nsplitText(txt, split = \"\\\\n\")\n\n\nArguments\n\n\n\n\ntxt\n\n\n\n\n\ntext string (1-elenent character vector) to split\n\n\n\n\n\n\n\nsplit\n\n\n\n\n\nstring used to split text (default=\")\n\n\n\n\n\n\n\nDetails\n\n\nThe text is plit into a character vector using stringr::str_split_1().\n\n\nValue\n\n\na character vector",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1",
+    "href": "qmd_ManFiles.html#symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1",
+    "title": "rtmbGMACS function reference",
+    "section": "symlogistic: Calculate a 0-symmetric logistic function between -1 and 1",
+    "text": "symlogistic: Calculate a 0-symmetric logistic function between -1 and 1\n\nDescription\n\n\nFunction to calculate a logistic function centered on 0\n\n\nUsage\n\nsymlogistic(x)\n\n\nArguments\n\n\n\n\nx\n\n\n\n\nnumeric vector at which to calculate the symmetric logistic function\n\n\n\n\n\n\nDetails\n\n\nThis is the inverse to ‘symlogit’ (see examples)\n\n\nValue\n\n\na numeric vector with the same size and names (if any) as ‘x’\n\n\nExamples\n\n\n##--R context\nx = seq(-5,5,0.1);\ny = symlogistic(x);\nhead(y);\nxp = symlogit(y) - x\n##--RTMB context\nx = RTMB::AD(seq(-5,5,0.1),force=TRUE);\ny = symlogistic(x);\nhead(y)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#symlogit-calculate-a-0-symmetric-logit-function",
+    "href": "qmd_ManFiles.html#symlogit-calculate-a-0-symmetric-logit-function",
+    "title": "rtmbGMACS function reference",
+    "section": "symlogit: Calculate a 0-symmetric logit function",
+    "text": "symlogit: Calculate a 0-symmetric logit function\n\nDescription\n\n\nFunction to calculate a logit function centered on 0\n\n\nUsage\n\nsymlogit(x)\n\n\nArguments\n\n\n\n\nx\n\n\n\n\nnumeric vector with values from -1.0 to 1.0 at which to calculate the symmetric logit function\n\n\n\n\n\n\nDetails\n\n\nThis is the inverse to ‘symlogistic’ (see examples)\n\n\nValue\n\n\na numeric vector with the same size and names (if any) as ‘x’\n\n\nExamples\n\n\n##--R context\nx = seq(-0.99,0.99,0.01);\ny = symlogit(x);\nhead(y);\nxp = symlogistic(y) - x\n##--RTMB context\nx = RTMB::AD(seq(-0.49,0.49,0.01),force=TRUE);\ny = symlogit(x);\nhead(y)",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
+    "objectID": "qmd_ManFiles.html#whichdims-get-which-model-dimensions-are-identified-in-a-character-vector",
+    "href": "qmd_ManFiles.html#whichdims-get-which-model-dimensions-are-identified-in-a-character-vector",
+    "title": "rtmbGMACS function reference",
+    "section": "whichDims: Get which model dimensions are identified in a character vector",
+    "text": "whichDims: Get which model dimensions are identified in a character vector\n\nDescription\n\n\nFunction to get which model dimensions are identified in a character vector.\n\n\nUsage\n\nwhichDims(char_vec)\n\n\nArguments\n\n\n\n\nchar_vec\n\n\n\n\ncharacter vector to check for model dimension names\n\n\n\n\n\n\nValue\n\n\ncharacter vector with identifed model dimension names",
+    "crumbs": [
+      "Introduction",
+      "Function reference",
+      "rtmbGMACS function reference"
+    ]
+  },
+  {
     "objectID": "q02c_FleetDynamics.html",
     "href": "q02c_FleetDynamics.html",
     "title": "Fleet dynamics",

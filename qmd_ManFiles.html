@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.547">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>rtmbGMACS function reference</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./q02f2_HarvestControlRules.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./q01_Intro.html" aria-current="page"> 
+<span class="menu-text">Introduction</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-the-modeling-framework" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">The modeling framework</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-the-modeling-framework">    
+        <li>
+    <a class="dropdown-item" href="./q02_ModelFrameworkDescription.html">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02a_ModelDimensions.html">
+ <span class="dropdown-text">Model diimensions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02b1_PopulationDynamics.html">
+ <span class="dropdown-text">Population dynamics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02b2_PopulationProcesses.html">
+ <span class="dropdown-text">Population processes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02c_FleetDynamics.html">
+ <span class="dropdown-text">Fleet dynamics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-model-optimization" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Model optimization</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-model-optimization">    
+        <li>
+    <a class="dropdown-item" href="./q02e_ModelOptimization.html">
+ <span class="dropdown-text">Model optimization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02e1_DataAndDataLikelihoods.html">
+ <span class="dropdown-text">Data and data likelihoods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02e2_ParametersAndPriors.html">
+ <span class="dropdown-text">Parameters and priors</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-management-quantities" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Management quantities</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-management-quantities">    
+        <li>
+    <a class="dropdown-item" href="./q02f_ManagementQuantities.html">
+ <span class="dropdown-text">Management quantities</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02f1_ReferencePoints.html">
+ <span class="dropdown-text">Reference points</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./q02f2_HarvestControlRules.html">
+ <span class="dropdown-text">Harvest control rules</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./qmd_ManFiles.html"> 
+<span class="menu-text">Function reference</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./qmd_ManFiles.html">Function reference</a></li><li class="breadcrumb-item"><a href="./qmd_ManFiles.html">rtmbGMACS function reference</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q01_Intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">The modeling framework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02_ModelFrameworkDescription.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modeling framework description</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02a_ModelDimensions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model dimensions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02b1_PopulationDynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population dynamics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02b2_PopulationProcesses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population structure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02c_FleetDynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fleet dynamics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Model optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02e_ModelOptimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model optimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02e1_DataAndDataLikelihoods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data and data likelihoods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02e2_ParametersAndPriors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Parameters and priors</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Management quantities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02f_ManagementQuantities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Management quantities</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02f1_ReferencePoints.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference points</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./q02f2_HarvestControlRules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Harvest control rules</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Function reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./qmd_ManFiles.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">rtmbGMACS function reference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#addgroupindices-add-group-indices-to-a-data-frame" id="toc-addgroupindices-add-group-indices-to-a-data-frame" class="nav-link active" data-scroll-target="#addgroupindices-add-group-indices-to-a-data-frame"><code>addGroupIndices</code>: Add group indices to a data frame</a></li>
+  <li><a href="#advance_pop-advance-population" id="toc-advance_pop-advance-population" class="nav-link" data-scroll-target="#advance_pop-advance-population"><code>advance_pop</code>: Advance population</a></li>
+  <li><a href="#advance_pop_one_season-advance-population-component-one-season-step" id="toc-advance_pop_one_season-advance-population-component-one-season-step" class="nav-link" data-scroll-target="#advance_pop_one_season-advance-population-component-one-season-step"><code>advance_pop_one_season</code>: Advance population component one season step</a></li>
+  <li><a href="#advance_pop_one_year-advance-population-one-year" id="toc-advance_pop_one_year-advance-population-one-year" class="nav-link" data-scroll-target="#advance_pop_one_year-advance-population-one-year"><code>advance_pop_one_year</code>: Advance population one year</a></li>
+  <li><a href="#concattext-concatenate-text" id="toc-concattext-concatenate-text" class="nav-link" data-scroll-target="#concattext-concatenate-text"><code>concatText</code>: Concatenate text</a></li>
+  <li><a href="#createaggregationmatrix-create-a-sparse-aggregation-matrix" id="toc-createaggregationmatrix-create-a-sparse-aggregation-matrix" class="nav-link" data-scroll-target="#createaggregationmatrix-create-a-sparse-aggregation-matrix"><code>createAggregationMatrix</code>: Create a sparse aggregation matrix</a></li>
+  <li><a href="#evaltextascode-evaluate-text-as-lines-of-code" id="toc-evaltextascode-evaluate-text-as-lines-of-code" class="nav-link" data-scroll-target="#evaltextascode-evaluate-text-as-lines-of-code"><code>evalTextAsCode</code>: Evaluate text as lines of code</a></li>
+  <li><a href="#evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df" id="toc-evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df" class="nav-link" data-scroll-target="#evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df"><code>evalTextAsDataframe</code>: Evaluate a character vector as a dataframe (a <code>tbl_df</code>)</a></li>
+  <li><a href="#evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits" id="toc-evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits" class="nav-link" data-scroll-target="#evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits"><code>evalTextAsDigits</code>: Evaluate strings in a character vector as digits</a></li>
+  <li><a href="#evaltextaslist-evaluate-a-list-from-a-character-vector" id="toc-evaltextaslist-evaluate-a-list-from-a-character-vector" class="nav-link" data-scroll-target="#evaltextaslist-evaluate-a-list-from-a-character-vector"><code>evalTextAsList</code>: Evaluate a list from a character vector</a></li>
+  <li><a href="#extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector" id="toc-extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector" class="nav-link" data-scroll-target="#extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector"><code>extractDataframe</code>: Extract a dataframe (a <code>tibble::tibble()</code>) from a character vector</a></li>
+  <li><a href="#extractlines-extract-character-vector-from-section-of-longer-vector" id="toc-extractlines-extract-character-vector-from-section-of-longer-vector" class="nav-link" data-scroll-target="#extractlines-extract-character-vector-from-section-of-longer-vector"><code>extractLines</code>: Extract character vector from section of longer vector</a></li>
+  <li><a href="#extractnumericvalue-extract-a-numeric-value-from-a-line-of-text" id="toc-extractnumericvalue-extract-a-numeric-value-from-a-line-of-text" class="nav-link" data-scroll-target="#extractnumericvalue-extract-a-numeric-value-from-a-line-of-text"><code>extractNumericValue</code>: Extract a numeric value from a line of text</a></li>
+  <li><a href="#extracttextafterstring-extract-text-after-a-string" id="toc-extracttextafterstring-extract-text-after-a-string" class="nav-link" data-scroll-target="#extracttextafterstring-extract-text-after-a-string"><code>extractTextAfterString</code>: Extract text after a string</a></li>
+  <li><a href="#extracttextbetweenbrackets-extract-text-between-first-and-last-brackets" id="toc-extracttextbetweenbrackets-extract-text-between-first-and-last-brackets" class="nav-link" data-scroll-target="#extracttextbetweenbrackets-extract-text-between-first-and-last-brackets"><code>extractTextBetweenBrackets</code>: Extract text between first and last brackets</a></li>
+  <li><a href="#extracttextbetweenparens-extract-text-between-first-and-last-parentheses" id="toc-extracttextbetweenparens-extract-text-between-first-and-last-parentheses" class="nav-link" data-scroll-target="#extracttextbetweenparens-extract-text-between-first-and-last-parentheses"><code>extractTextBetweenParens</code>: Extract text between first and last parentheses</a></li>
+  <li><a href="#extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector" id="toc-extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector" class="nav-link" data-scroll-target="#extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector"><code>extractTextSection</code>: Extract a text section with only non-comment lines from a character vector</a></li>
+  <li><a href="#extracttextvalue-extract-a-character-value-from-a-line-of-text" id="toc-extracttextvalue-extract-a-character-value-from-a-line-of-text" class="nav-link" data-scroll-target="#extracttextvalue-extract-a-character-value-from-a-line-of-text"><code>extractTextValue</code>: Extract a (character) value from a line of text</a></li>
+  <li><a href="#getdimnames-get-model-dimension-names" id="toc-getdimnames-get-model-dimension-names" class="nav-link" data-scroll-target="#getdimnames-get-model-dimension-names"><code>getDimNames</code>: Get model dimension names</a></li>
+  <li><a href="#logistic-convert-values-to-the-logistic-scale" id="toc-logistic-convert-values-to-the-logistic-scale" class="nav-link" data-scroll-target="#logistic-convert-values-to-the-logistic-scale"><code>logistic</code>: Convert values to the logistic scale</a></li>
+  <li><a href="#logit-convert-values-to-the-logit-scale" id="toc-logit-convert-values-to-the-logit-scale" class="nav-link" data-scroll-target="#logit-convert-values-to-the-logit-scale"><code>logit</code>: Convert values to the logit scale</a></li>
+  <li><a href="#removecommentlines-remove-strings-starting-with-a-comment-character" id="toc-removecommentlines-remove-strings-starting-with-a-comment-character" class="nav-link" data-scroll-target="#removecommentlines-remove-strings-starting-with-a-comment-character"><code>removeCommentLines</code>: Remove strings starting with a comment character</a></li>
+  <li><a href="#rtmbgmacs-package-rtmbgmacs" id="toc-rtmbgmacs-package-rtmbgmacs" class="nav-link" data-scroll-target="#rtmbgmacs-package-rtmbgmacs"><code>rtmbGMACS-package</code>: rtmbGMACS</a></li>
+  <li><a href="#skipcommentlines-identify-first-non-comment-line-in-a-character-vector" id="toc-skipcommentlines-identify-first-non-comment-line-in-a-character-vector" class="nav-link" data-scroll-target="#skipcommentlines-identify-first-non-comment-line-in-a-character-vector"><code>skipCommentLines</code>: Identify first non-comment line in a character vector</a></li>
+  <li><a href="#splittext-split-text-string-into-a-character-vector" id="toc-splittext-split-text-string-into-a-character-vector" class="nav-link" data-scroll-target="#splittext-split-text-string-into-a-character-vector"><code>splitText</code>: Split text string into a character vector</a></li>
+  <li><a href="#symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1" id="toc-symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1" class="nav-link" data-scroll-target="#symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1"><code>symlogistic</code>: Calculate a 0-symmetric logistic function between -1 and 1</a></li>
+  <li><a href="#symlogit-calculate-a-0-symmetric-logit-function" id="toc-symlogit-calculate-a-0-symmetric-logit-function" class="nav-link" data-scroll-target="#symlogit-calculate-a-0-symmetric-logit-function"><code>symlogit</code>: Calculate a 0-symmetric logit function</a></li>
+  <li><a href="#whichdims-get-which-model-dimensions-are-identified-in-a-character-vector" id="toc-whichdims-get-which-model-dimensions-are-identified-in-a-character-vector" class="nav-link" data-scroll-target="#whichdims-get-which-model-dimensions-are-identified-in-a-character-vector"><code>whichDims</code>: Get which model dimensions are identified in a character vector</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./qmd_ManFiles.html">Function reference</a></li><li class="breadcrumb-item"><a href="./qmd_ManFiles.html">rtmbGMACS function reference</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">rtmbGMACS function reference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This reference is generated from the package’s <code>man/*.Rd</code> entries, ordered by filename.</p>
+<!-- Source: man/addGroupIndices.Rd -->
+<section id="addgroupindices-add-group-indices-to-a-data-frame" class="level2">
+<h2 class="anchored" data-anchor-id="addgroupindices-add-group-indices-to-a-data-frame"><code>addGroupIndices</code>: Add group indices to a data frame</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Adds an integer column identifying the group to which each row belongs. Groups are defined by one or more columns and follow the grouping behavior of [dplyr::group_by()].
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">addGroupIndices(dfr, ...)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="addGroupIndices_+3A_dfr">dfr</code>
+</td>
+<td>
+<p>
+A data frame containing the grouping columns.
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<code id="addGroupIndices_+3A_...">…</code>
+</td>
+<td>
+<p>
+Unquoted columns in ‘dfr’ that define the groups. These arguments are passed to [dplyr::group_by()].
+</p>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+‘dfr’ with its rows and existing columns preserved and an integer ‘.gid’ column appended. Rows with the same values of the grouping columns receive the same group index. An existing ‘.gid’ column is replaced.
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">y &lt;- as.character(11:20)
+s &lt;- as.character(1:3)
+x &lt;- as.character(1:2)
+z &lt;- seq(25, 50, 5)
+dfr &lt;- tidyr::expand_grid(y, s, x, z)
+
+dfrp &lt;- addGroupIndices(dfr, y, s, x)
+head(dfrp)
+dplyr::count(dfrp, y, s, x, .gid)
+
+</code></pre>
+<!-- Source: man/advance_pop.Rd -->
+</section>
+<section id="advance_pop-advance-population" class="level2">
+<h2 class="anchored" data-anchor-id="advance_pop-advance-population"><code>advance_pop</code>: Advance population</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Advance population
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">advance_pop(n_i, s_yr, e_yr, p)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="advance_pop_+3A_n_i">n_i</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>abundance vector at start of year
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_+3A_s_yr">s_yr</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>start year
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_+3A_e_yr">e_yr</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>end year
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_+3A_p">p</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>pop
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+
+
+<!-- Source: man/advance_pop_one_season.Rd -->
+</section>
+<section id="advance_pop_one_season-advance-population-component-one-season-step" class="level2">
+<h2 class="anchored" data-anchor-id="advance_pop_one_season-advance-population-component-one-season-step"><code>advance_pop_one_season</code>: Advance population component one season step</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+This function will advance the population component one seasonal step
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">advance_pop_one_season(
+  n_i,
+  p,
+  doInstProcesses1st,
+  doGrowth,
+  doSSB_BeforeGrowth
+)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="advance_pop_one_season_+3A_n_i">n_i</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+abundance vector by population class
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_one_season_+3A_p">p</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+list of population processes to apply
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_one_season_+3A_doInstProcesses1st">doInstProcesses1st</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+flag to do instantaneous processes (i.e., growth) first (TRUE/FALSE)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_one_season_+3A_doGrowth">doGrowth</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+flag to evaluate growth (TRUE/FALSE)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_one_season_+3A_doSSB_BeforeGrowth">doSSB_BeforeGrowth</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+flag to do spawning stock abundance calculation before growth (TRUE) or after (FALSE)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The returned list has elements
+</p>
+<ul>
+<li>
+<p>
+n_f - final population abundance vector
+</p>
+</li>
+<li>
+<p>
+n_ss - spawning stock abundance
+</p>
+</li>
+<li>
+<p>
+c_fn - total catch abundance by fleet (not necessarily mortality)
+</p>
+</li>
+<li>
+<p>
+rm_n - retained catch mortality (abundance) by fleet
+</p>
+</li>
+<li>
+<p>
+dm_fn - discard catch mortality (abundance) by fleet
+</p>
+</li>
+</ul>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+list including population abundance at end of time step (see Details)
+</p>
+<!-- Source: man/advance_pop_one_year.Rd -->
+</section>
+<section id="advance_pop_one_year-advance-population-one-year" class="level2">
+<h2 class="anchored" data-anchor-id="advance_pop_one_year-advance-population-one-year"><code>advance_pop_one_year</code>: Advance population one year</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Advance population one year
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">advance_pop_one_year(n_i, ssns)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="advance_pop_one_year_+3A_n_i">n_i</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>abundance vector at start of year
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="advance_pop_one_year_+3A_ssns">ssns</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>seasons list for current year
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<!-- Source: man/concatText.Rd -->
+</section>
+<section id="concattext-concatenate-text" class="level2">
+<h2 class="anchored" data-anchor-id="concattext-concatenate-text"><code>concatText</code>: Concatenate text</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to concatenate text
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">concatText(..., concat = "+")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="concatText_+3A_...">…</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>text values to concatenate
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="concatText_+3A_concat">concat</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>string to use as concatenator
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The elements in … are concateated into a single string using the ‘concat’ string separated by spaces.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+string
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+concatText(1,2,3)
+concatText(1,NA,3)
+concatText(1,2,NULL,4)
+export
+
+</code></pre>
+<!-- Source: man/createAggregationMatrix.Rd -->
+</section>
+<section id="createaggregationmatrix-create-a-sparse-aggregation-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="createaggregationmatrix-create-a-sparse-aggregation-matrix"><code>createAggregationMatrix</code>: Create a sparse aggregation matrix</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Creates a sparse matrix that maps rows of a data frame to groups defined by one or more columns. Multiplying the matrix by a vector with one value per input row calculates sums for each group.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">createAggregationMatrix(dfr, ...)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="createAggregationMatrix_+3A_dfr">dfr</code>
+</td>
+<td>
+<p>
+A data frame containing the grouping columns.
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<code id="createAggregationMatrix_+3A_...">…</code>
+</td>
+<td>
+<p>
+Unquoted columns in ‘dfr’ that define the groups. These arguments are passed to [dplyr::group_by()].
+</p>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+A named list with two elements:
+</p>
+<dl>
+<dt>
+‘aggM’
+</dt>
+<dd>
+<p>
+A sparse matrix with one row per group and one column per row of ‘dfr’.
+</p>
+</dd>
+<dt>
+‘aggTbl’
+</dt>
+<dd>
+<p>
+A data frame containing the unique grouping combinations, in the same order as the rows of ‘aggM’.
+</p>
+</dd>
+</dl>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">y &lt;- as.character(11:20)
+s &lt;- as.character(1:3)
+x &lt;- as.character(1:2)
+z &lt;- seq(25, 50, 5)
+dfr &lt;- tidyr::expand_grid(y, s, x, z)
+
+lst &lt;- createAggregationMatrix(dfr, y, s, x)
+values &lt;- as.matrix(dfr["z"])
+group_sums &lt;- lst$aggM %*% values
+
+lst$aggTbl |&gt; dplyr::mutate(sum=as.vector(group_sums));
+
+</code></pre>
+<!-- Source: man/evalTextAsCode.Rd -->
+</section>
+<section id="evaltextascode-evaluate-text-as-lines-of-code" class="level2">
+<h2 class="anchored" data-anchor-id="evaltextascode-evaluate-text-as-lines-of-code"><code>evalTextAsCode</code>: Evaluate text as lines of code</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to evaluate text as lines of code.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">evalTextAsCode(strv, frame = 0)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="evalTextAsCode_+3A_strv">strv</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector with lines of code to evaluate.
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The lines of ‘code’ in strv are evaluated in the frame specified by ‘frame’. If ‘frame’ is non-negative, it specifies the parent frame relative to the caller (so ‘frame=0’, the deault, is evaluated in the caller’s frame). If ‘frame’ is negative, the lines of code are evaluated in the environment specified by its absolute value.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+nothing
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">
+str = "
+  v1  = 5;
+  v2 = 1:v1;
+  sum = list(x="contr.sum",m="contr.sum");
+      ";
+# example code
+
+</code></pre>
+<!-- Source: man/evalTextAsDataframe.Rd -->
+</section>
+<section id="evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df" class="level2">
+<h2 class="anchored" data-anchor-id="evaltextasdataframe-evaluate-a-character-vector-as-a-dataframe-a-tbl_df"><code>evalTextAsDataframe</code>: Evaluate a character vector as a dataframe (a <code>tbl_df</code>)</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to evaluate a character vector as a dataframe (a <code>tbl_df</code>).
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">evalTextAsDataframe(char_vec, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="evalTextAsDataframe_+3A_char_vec">char_vec</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to parse/evaluate as a dataframe
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="evalTextAsDataframe_+3A_comment">comment</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+string indicating that what follows is a comment
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+Each element in <code>char_vec</code> is regarded as a line of text (as in a text file). The dataframe structure and column types are determined by <code>readr::read_table()</code>.
+</p>
+<p>
+This function differs from <code>extractDataframe()</code> in that, after comments are removed are removed from the input character vector <code>char_vec</code>, the resulting character vector is regarded as defining the dataframe. In <code>extractDataframe()</code>, the input character vector may be a much larger section of text than what defines the dataframe to be extracted, but the number of rows (<code>n</code>) to extract is known as, is the index of the element to begin with (<code>start</code>).
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a dataframe (actually a <code>tbl_df</code>, see <code>tibble::tibble()</code>)
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">
+# example code
+str&lt;-paste0('
+  id        function  frame   params              description
+  pwrLaw1   pwrLaw1   mfALL   pA,pB               w(z)_=_pA_*_(z^pB)
+  pwrLaw2   pwrLaw2   mf2024  pLnA,pLnS,pB,pZ0    w(z)_=_exp(pLnA+pLnS+pB*ln(z/pZ0))
+')
+dfr = txt |&gt; splitText() |&gt; evalTextAsDataframe();
+
+</code></pre>
+<!-- Source: man/evalTextAsDigits.Rd -->
+</section>
+<section id="evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits" class="level2">
+<h2 class="anchored" data-anchor-id="evaltextasdigits-evaluate-strings-in-a-character-vector-as-digits"><code>evalTextAsDigits</code>: Evaluate strings in a character vector as digits</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to evaluate strings in a character vector as digits.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">evalTextAsDigits(x)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="evalTextAsDigits_+3A_x">x</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to parse/evaluate
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+For each element in <code>x</code>, everything except for digits is removed and the resulting character value is converted to an integer.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+integer vector
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">evalTextAsDigits(c("ab23","cd42","a42 b23"))
+
+</code></pre>
+<!-- Source: man/evalTextAsList.Rd -->
+</section>
+<section id="evaltextaslist-evaluate-a-list-from-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="evaltextaslist-evaluate-a-list-from-a-character-vector"><code>evalTextAsList</code>: Evaluate a list from a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to evaluate a list from a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">evalTextAsList(strv, split = "&lt;-", verbose = FALSE)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="evalTextAsList_+3A_strv">strv</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to parse/evaluate
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="evalTextAsList_+3A_split">split</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character(s) to use to split lines into name and value (default="&lt;-")
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="evalTextAsList_+3A_verbose">verbose</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+flag to print diagnostic info
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+Each quantity assigned using <code style="white-space: pre;">⁠&lt;-⁠</code> in <code>strv</code> is interpreted as an equation defining an element of the returned list. Quantities assigned using <code>=</code> outside a list structure are evaluated locally for use in constructing a list element of the returned list. Attributes for a list element of the returned list must be assigned (see example code 2) immediately after the list element.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+list with named elements
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">
+# example code 1
+str=paste(
+  'MODEL_DIMS
+  y &lt;- 2020:2024;                           #--years
+  s &lt;- 1;                                   #--seasons
+  r &lt;- "EBS";                               #--regions
+  x &lt;- c("male","female");                  #--sex classes
+  m &lt;- c("immature","mature");              #--maturity state classes
+  p &lt;- c("new_shell","old_shell");          #--post-molt ages
+  zc &lt;- seq(55.5,104.5,5);                  #--size bin cutpoints
+  f &lt;- c("TCF","SCF","NMFS");               #--fleets
+  END');
+strv = str |&gt; splitText() |&gt; extractLines("MODEL_DIMS","END");
+lstDims = evalTextAsList(strv);
+# example code 2
+  str=paste(
+  'MODEL_DIMS
+    r &lt;- "EBS";
+    miz = as.character(seq(25,75,5)); #--size bin midpoints for immature males
+    mmz = as.character(seq(50,75,5)); #--size bin midpoints for mature males
+    fiz = as.character(seq(25,65,5)); #--size bin midpoints for immature females
+    fmz = as.character(seq(30,65,5)); #--size bin midpoints for mature females
+    x&lt;-list(male=list(imm=list(`new`=miz,
+                                 `old`=miz),
+                        mat=list(`new`=mmz,
+                                 `old`=mmz,
+                                 `very`=mmz)
+                      ),
+              female=list(imm=list(`new`=fiz,
+                                   `old`=fiz),
+                          mat=list(`new`=fmz,
+                                   `old`=fmz)
+                         )
+             );
+    attr(x,"dmnms") = c("x","m","p","z");#--define order of dimensions in nested list
+  END'
+  )
+  strv = str |&gt; splitText() |&gt; extractLines("MODEL_DIMS","END");
+  lstDms = evalTextAsList(strv);
+
+</code></pre>
+<!-- Source: man/extractDataframe.Rd -->
+</section>
+<section id="extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="extractdataframe-extract-a-dataframe-a-tibbletibble-from-a-character-vector"><code>extractDataframe</code>: Extract a dataframe (a <code>tibble::tibble()</code>) from a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to a dataframe (a <code>tibble::tibble()</code>) from a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractDataframe(txt, n, start, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractDataframe_+3A_txt">txt</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to search
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractDataframe_+3A_n">n</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+number of non-comment lines to extract
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractDataframe_+3A_start">start</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+index into <code>txt</code> to regard as the start of the search
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractDataframe_+3A_comment">comment</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character indicating the following text in the string is a comment
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+Each element in <code>txt</code> is regarded as a line of text (as in a text file). The dataframe structure and column types are determined by <code>readr::read_table()</code>.
+</p>
+<ul>
+<li>
+<p>
+txt - character vector of length <code>n</code> with comment lines removed (i.e., a subset of <code>txt</code>)
+</p>
+</li>
+<li>
+<p>
+end - index of the last element extracted in the input <code>txt</code> vector
+</p>
+</li>
+</ul>
+<p>
+This function differs from <code>evalTextAsDataframe()</code> in that the input character vector may be a much larger section of text than what defines the dataframe to be extracted, but the number of rows (<code>n</code>) to extract is known, as is the index of the element to begin with (<code>start</code>). In <code>evalTextAsDataframe()</code>, after comments are removed are removed from the input character vector <code>char_vec</code>, the resulting character vector is regarded as defining the dataframe.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+list with elements <code>txt</code> and <code>end</code> (see details)
+</p>
+<!-- Source: man/extractLines.Rd -->
+</section>
+<section id="extractlines-extract-character-vector-from-section-of-longer-vector" class="level2">
+<h2 class="anchored" data-anchor-id="extractlines-extract-character-vector-from-section-of-longer-vector"><code>extractLines</code>: Extract character vector from section of longer vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract character vector from section of longer vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractLines(txt, start, end)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractLines_+3A_txt">txt</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+long character vector
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractLines_+3A_start">start</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+string to regard as marking the start of section (not included in the section)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractLines_+3A_end">end</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+string to regard as marking the end of the section (not included in the section)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The text lines at which the <code>start</code> and <code>end</code> are found are not included in the "section" returned by this function.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a character vector of the "enclosed" section
+</p>
+<!-- Source: man/extractNumericValue.Rd -->
+</section>
+<section id="extractnumericvalue-extract-a-numeric-value-from-a-line-of-text" class="level2">
+<h2 class="anchored" data-anchor-id="extractnumericvalue-extract-a-numeric-value-from-a-line-of-text"><code>extractNumericValue</code>: Extract a numeric value from a line of text</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract a numeric value from a line of text.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractNumericValue(txt, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractNumericValue_+3A_txt">txt</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>input text string (1-element character vector)
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="extractNumericValue_+3A_comment">comment</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>string used to split text into value and comments (default="#")
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The 1-line input text is split into a character vector using [stringr::str_split_1()] and the first element of the result is retained. Whitespace preceding and following the retained text is also removed (but "interior" whitespace is retained). The result is converted to numeric using [as.numeric()].
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a 1-element numeric vector
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+txt = "  45.27  #--input value of interest";
+extractNumericValue(txt)
+txt = "'hows this'  #--input text of interest";
+extractTextValue(txt);  #--returns NA
+
+</code></pre>
+<!-- Source: man/extractTextAfterString.Rd -->
+</section>
+<section id="extracttextafterstring-extract-text-after-a-string" class="level2">
+<h2 class="anchored" data-anchor-id="extracttextafterstring-extract-text-after-a-string"><code>extractTextAfterString</code>: Extract text after a string</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract text after a string
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractTextAfterString(txt, str)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractTextAfterString_+3A_txt">txt</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector from which to extract strings
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="extractTextAfterString_+3A_str">str</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>string to extract after (see NOTE under details)
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+For each element in the vector, this extracts the string following the ‘after’ string from each element of the input character vector, or ‘NA’ if no ‘after’ string found.
+</p>
+<p>
+NOTE: Characters with special regex meanings (e.g., ")","]") need to be double-escaped to use in ‘str’.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+character vector of extracted strings
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+extractTextAfterString("test:fred[x,y]==0","==");
+extractTextAfterString(c("fred[x,y]==0: FALSE","b[z0]: 1"),":");
+extractTextAfterString("fred[x,y[z]]=0","=");
+extractTextAfterString("fred[x,y[z]]=0","\\[");
+extractTextAfterString("fred[x,y[z]]=0","fred\\[");
+
+</code></pre>
+<!-- Source: man/extractTextBetweenBrackets.Rd -->
+</section>
+<section id="extracttextbetweenbrackets-extract-text-between-first-and-last-brackets" class="level2">
+<h2 class="anchored" data-anchor-id="extracttextbetweenbrackets-extract-text-between-first-and-last-brackets"><code>extractTextBetweenBrackets</code>: Extract text between first and last brackets</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract text between first and last brackets
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractTextBetweenBrackets(txt)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractTextBetweenBrackets_+3A_txt">txt</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector from which to extract strings
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+For each element in the vector, this extracts the string between the <em>first</em> "[" and <em>last</em> "]" from each element of the input character vector, or ‘NA’ if no matching brackets.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+character vector of extracted strings
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+extractTextBetweenBrackets("fred[x,y]=0");
+extractTextBetweenParens(c("fred[x,y]=0","b[z0]"));
+extractTextBetweenParens("fred[x,y[z]]=0");
+
+</code></pre>
+<!-- Source: man/extractTextBetweenParens.Rd -->
+</section>
+<section id="extracttextbetweenparens-extract-text-between-first-and-last-parentheses" class="level2">
+<h2 class="anchored" data-anchor-id="extracttextbetweenparens-extract-text-between-first-and-last-parentheses"><code>extractTextBetweenParens</code>: Extract text between first and last parentheses</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract text between first and last parentheses
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractTextBetweenParens(txt)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractTextBetweenParens_+3A_txt">txt</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector from which to extract strings
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+For each element in the vector, this extracts the string between the <em>first</em> "(" and <em>last</em> ")" from each element of the input character vector, or ‘NA’ if no matching parentheses.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+character vector of extracted strings
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+extractTextBetweenParens("fred(x,y)=0");
+extractTextBetweenParens(c("fred(x,y)=0","b(z0)"));
+extractTextBetweenParens("fred(x,y(z))=0");
+
+</code></pre>
+<!-- Source: man/extractTextSection.Rd -->
+</section>
+<section id="extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="extracttextsection-extract-a-text-section-with-only-non-comment-lines-from-a-character-vector"><code>extractTextSection</code>: Extract a text section with only non-comment lines from a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract a text section with only non-comment lines from a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractTextSection(txt, n = length(txt), start = 1, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractTextSection_+3A_txt">txt</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to search
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractTextSection_+3A_n">n</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+number of non-comment lines to extract (default=length(txt))
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractTextSection_+3A_start">start</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+index into <code>txt</code> to regard as the start of the search (default=1)
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="extractTextSection_+3A_comment">comment</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character indicating the following text in the string is a comment
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+Each element in <code>txt</code> is regarded as a line of text (as in a text file). The function searches for the first <code>n</code> non-comment lines and extracts them as a new vector. The returned list has elements
+</p>
+<ul>
+<li>
+<p>
+txt - character vector of length <code>n</code> with comment lines removed (i.e., a subset of <code>txt</code>)
+</p>
+</li>
+<li>
+<p>
+end - index of the last element extracted in the input <code>txt</code> vector
+</p>
+</li>
+</ul>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+list with elements <code>txt</code> and <code>end</code> (see details)
+</p>
+<!-- Source: man/extractTextValue.Rd -->
+</section>
+<section id="extracttextvalue-extract-a-character-value-from-a-line-of-text" class="level2">
+<h2 class="anchored" data-anchor-id="extracttextvalue-extract-a-character-value-from-a-line-of-text"><code>extractTextValue</code>: Extract a (character) value from a line of text</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to extract a (character) value from a line of text.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">extractTextValue(txt, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="extractTextValue_+3A_txt">txt</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>input text string (1-element character vector)
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="extractTextValue_+3A_comment">comment</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>string used to split text into value and comments (default="#")
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The 1-line input text is split into a character vector using [stringr::str_split_1()] and the first element of the result is retained. Whitespace preceding and following the retained text is also removed (but "interior" whitespace is retained).
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a 1-element character vector
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R"># example code
+txt = "'hows this'  #--input text of interest";
+extractTextValue(txt)
+
+</code></pre>
+<!-- Source: man/getDimNames.Rd -->
+</section>
+<section id="getdimnames-get-model-dimension-names" class="level2">
+<h2 class="anchored" data-anchor-id="getdimnames-get-model-dimension-names"><code>getDimNames</code>: Get model dimension names</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to get model dimension names.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">getDimNames()
+</code></pre>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+character vector with model dimension names
+</p>
+<!-- Source: man/logistic.Rd -->
+</section>
+<section id="logistic-convert-values-to-the-logistic-scale" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-convert-values-to-the-logistic-scale"><code>logistic</code>: Convert values to the logistic scale</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to convert values to the logistic scale.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">logistic(x)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="logistic_+3A_x">x</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>numeric object
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+inverse of logit function.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+1.0/(1.0+exp(-x)), with same names and class as ‘x’
+</p>
+<!-- Source: man/logit.Rd -->
+</section>
+<section id="logit-convert-values-to-the-logit-scale" class="level2">
+<h2 class="anchored" data-anchor-id="logit-convert-values-to-the-logit-scale"><code>logit</code>: Convert values to the logit scale</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to convert values to the logit scale.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">logit(x)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="logit_+3A_x">x</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>numeric object
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+inverse of logistic function. Values of ‘x’ outside the (0,1) range generate NaNs.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+log(x/(1-x)), with same names and class as ‘x’
+</p>
+<!-- Source: man/removeCommentLines.Rd -->
+</section>
+<section id="removecommentlines-remove-strings-starting-with-a-comment-character" class="level2">
+<h2 class="anchored" data-anchor-id="removecommentlines-remove-strings-starting-with-a-comment-character"><code>removeCommentLines</code>: Remove strings starting with a comment character</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to remove strings starting with a comment character.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">removeCommentLines(strv, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="removeCommentLines_+3A_strv">strv</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector to remove comment lines from
+<p></p>
+</li></ul></td>
+</tr>
+<tr>
+<td>
+<code id="removeCommentLines_+3A_comment">comment</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character(s) to regard as indicating a comment
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a character vector with elements that don’t start with a comment character
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">txt = c("#this is a comment",
+        "  #so is this,even thought the line starts with blank space",
+        "this is not a comment",
+        "this is not either, but the first is line 3.");
+removeCommentLines(txt); #--should be \code{txt[3:4]}
+
+</code></pre>
+<!-- Source: man/rtmbGMACS-package.Rd -->
+</section>
+<section id="rtmbgmacs-package-rtmbgmacs" class="level2">
+<h2 class="anchored" data-anchor-id="rtmbgmacs-package-rtmbgmacs"><code>rtmbGMACS-package</code>: rtmbGMACS</h2>
+<p><span id="topic+rtmbGMACS-package"></span></p>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Minimal package scaffold for future rtmbGMACS development.
+</p>
+<!-- Source: man/skipCommentLines.Rd -->
+</section>
+<section id="skipcommentlines-identify-first-non-comment-line-in-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="skipcommentlines-identify-first-non-comment-line-in-a-character-vector"><code>skipCommentLines</code>: Identify first non-comment line in a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to identify the index of the first non-comment line in a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">skipCommentLines(txt, start, comment = "#")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="skipCommentLines_+3A_txt">txt</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character vector to search
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="skipCommentLines_+3A_start">start</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+index into <code>txt</code> to regard as the start of the search
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="skipCommentLines_+3A_comment">comment</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+character indicating the following text in the string is a comment
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+Each element in <code>txt</code> is regarded as a line of text (as in a text file). The function searches for the first non-comment line and returns its index.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+the index of the first line in <code>txt</code> that does not start with a comment character
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">txt = c("#this is a comment",
+        "  #so is this,even thought the line starts with blank space",
+        "this is not a comment",
+        "this is not either, but the first is line 3.");
+extractLines(txt,1); #--should be 3: txt[3] is first non-comment line
+</code></pre>
+<!-- Source: man/splitText.Rd -->
+</section>
+<section id="splittext-split-text-string-into-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="splittext-split-text-string-into-a-character-vector"><code>splitText</code>: Split text string into a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to split text string to a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">splitText(txt, split = "\\n")
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="splitText_+3A_txt">txt</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+text string (1-elenent character vector) to split
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<code id="splitText_+3A_split">split</code>
+</td>
+<td>
+<ul>
+<li>
+<p>
+string used to split text (default=")
+</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h3 class="anchored">
+Details
+</h3>
+<p>
+The text is plit into a character vector using <code>stringr::str_split_1()</code>.
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a character vector
+</p>
+<!-- Source: man/symlogistic.Rd -->
+</section>
+<section id="symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1" class="level2">
+<h2 class="anchored" data-anchor-id="symlogistic-calculate-a-0-symmetric-logistic-function-between--1-and-1"><code>symlogistic</code>: Calculate a 0-symmetric logistic function between -1 and 1</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to calculate a logistic function centered on 0
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">symlogistic(x)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="symlogistic_+3A_x">x</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>numeric vector at which to calculate the symmetric logistic function
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+This is the inverse to ‘symlogit’ (see examples)
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a numeric vector with the same size and names (if any) as ‘x’
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">
+##--R context
+x = seq(-5,5,0.1);
+y = symlogistic(x);
+head(y);
+xp = symlogit(y) - x
+##--RTMB context
+x = RTMB::AD(seq(-5,5,0.1),force=TRUE);
+y = symlogistic(x);
+head(y)
+
+</code></pre>
+<!-- Source: man/symlogit.Rd -->
+</section>
+<section id="symlogit-calculate-a-0-symmetric-logit-function" class="level2">
+<h2 class="anchored" data-anchor-id="symlogit-calculate-a-0-symmetric-logit-function"><code>symlogit</code>: Calculate a 0-symmetric logit function</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to calculate a logit function centered on 0
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">symlogit(x)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="symlogit_+3A_x">x</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>numeric vector with values from -1.0 to 1.0 at which to calculate the symmetric logit function
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Details
+</h3>
+<p>
+This is the inverse to ‘symlogistic’ (see examples)
+</p>
+<h3 class="anchored">
+Value
+</h3>
+<p>
+a numeric vector with the same size and names (if any) as ‘x’
+</p>
+<h3 class="anchored">
+Examples
+</h3>
+<pre><code class="language-R">
+##--R context
+x = seq(-0.99,0.99,0.01);
+y = symlogit(x);
+head(y);
+xp = symlogistic(y) - x
+##--RTMB context
+x = RTMB::AD(seq(-0.49,0.49,0.01),force=TRUE);
+y = symlogit(x);
+head(y)
+
+</code></pre>
+<!-- Source: man/whichDims.Rd -->
+</section>
+<section id="whichdims-get-which-model-dimensions-are-identified-in-a-character-vector" class="level2">
+<h2 class="anchored" data-anchor-id="whichdims-get-which-model-dimensions-are-identified-in-a-character-vector"><code>whichDims</code>: Get which model dimensions are identified in a character vector</h2>
+<h3 class="anchored">
+Description
+</h3>
+<p>
+Function to get which model dimensions are identified in a character vector.
+</p>
+<h3 class="anchored">
+Usage
+</h3>
+<pre><code class="language-R">whichDims(char_vec)
+</code></pre>
+<h3 class="anchored">
+Arguments
+</h3>
+<table role="presentation">
+<tbody><tr>
+<td>
+<code id="whichDims_+3A_char_vec">char_vec</code>
+</td>
+<td>
+<p>
+</p><ul>
+<li>character vector to check for model dimension names
+<p></p>
+</li></ul></td>
+</tr>
+</tbody></table>
+
+<h3 class="anchored">
+Value
+</h3>
+<p>
+character vector with identifed model dimension names
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./q02f2_HarvestControlRules.html" class="pagination-link  aria-label=" harvest="" control="" rules"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Harvest control rules</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><a href="https://www.commerce.gov/">U.S. Department of Commerce</a> | <a href="https://www.noaa.gov">National Oceanographic and Atmospheric Administration</a> | <a href="https://www.fisheries.noaa.gov/">NOAA Fisheries</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>v2026.10.21</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
