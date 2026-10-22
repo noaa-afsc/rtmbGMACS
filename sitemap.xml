@@ -1,37 +1,55 @@
-<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/AGENTS.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/reference/addGroupIndices.html</loc></url>
-<url><loc>/reference/advance_pop.html</loc></url>
-<url><loc>/reference/advance_pop_one_season.html</loc></url>
-<url><loc>/reference/advance_pop_one_year.html</loc></url>
-<url><loc>/reference/concatText.html</loc></url>
-<url><loc>/reference/createAggregationMatrix.html</loc></url>
-<url><loc>/reference/evalTextAsCode.html</loc></url>
-<url><loc>/reference/evalTextAsDataframe.html</loc></url>
-<url><loc>/reference/evalTextAsDigits.html</loc></url>
-<url><loc>/reference/evalTextAsList.html</loc></url>
-<url><loc>/reference/extractDataframe.html</loc></url>
-<url><loc>/reference/extractLines.html</loc></url>
-<url><loc>/reference/extractNumericValue.html</loc></url>
-<url><loc>/reference/extractTextAfterString.html</loc></url>
-<url><loc>/reference/extractTextBetweenBrackets.html</loc></url>
-<url><loc>/reference/extractTextBetweenParens.html</loc></url>
-<url><loc>/reference/extractTextSection.html</loc></url>
-<url><loc>/reference/extractTextValue.html</loc></url>
-<url><loc>/reference/getDimNames.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
-<url><loc>/reference/logistic.html</loc></url>
-<url><loc>/reference/logit.html</loc></url>
-<url><loc>/reference/removeCommentLines.html</loc></url>
-<url><loc>/reference/rtmbGMACS-package.html</loc></url>
-<url><loc>/reference/skipCommentLines.html</loc></url>
-<url><loc>/reference/splitText.html</loc></url>
-<url><loc>/reference/symlogistic.html</loc></url>
-<url><loc>/reference/symlogit.html</loc></url>
-<url><loc>/reference/whichDims.html</loc></url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02_ModelFrameworkDescription.html</loc>
+    <lastmod>2026-10-22T03:22:19.305Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02f2_HarvestControlRules.html</loc>
+    <lastmod>2026-10-22T03:22:19.327Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02e1_DataAndDataLikelihoods.html</loc>
+    <lastmod>2026-10-22T03:22:19.318Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02b1_PopulationDynamics.html</loc>
+    <lastmod>2026-10-22T03:22:19.309Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02b2_PopulationProcesses.html</loc>
+    <lastmod>2026-10-22T03:22:19.310Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q01_Intro.html</loc>
+    <lastmod>2026-10-22T03:22:19.303Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02f_ManagementQuantities.html</loc>
+    <lastmod>2026-10-22T03:22:19.329Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02d_Unused.html</loc>
+    <lastmod>2026-10-22T03:22:19.314Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02c_FleetDynamics.html</loc>
+    <lastmod>2026-10-22T03:22:19.312Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02a_ModelDimensions.html</loc>
+    <lastmod>2026-10-22T03:22:19.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02e2_ParametersAndPriors.html</loc>
+    <lastmod>2026-10-22T03:22:19.320Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02f1_ReferencePoints.html</loc>
+    <lastmod>2026-10-22T03:22:19.324Z</lastmod>
+  </url>
+  <url>
+    <loc>https://noaa-afsc.github.io/rtmbGMACS/q02e_ModelOptimization.html</loc>
+    <lastmod>2026-10-22T03:22:19.322Z</lastmod>
+  </url>
 </urlset>
-
