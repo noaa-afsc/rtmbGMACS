@@ -1,7 +1,0 @@
----
-title: "Fishery dynamics"
----
-
-### Fishery dynamics
-
-

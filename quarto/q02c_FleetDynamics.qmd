@@ -1,0 +1,100 @@
+---
+title: "Fleet dynamics"
+---
+
+### Fleet dynamics {#sec-FltDy}
+
+#### Fishery dynamics {#sec-FshDy}
+
+##### Continuous fishing mortality
+
+For a season `s` in which continuous fishing mortality occurs, the change in population abundance due to natural and fishing mortality from (y,s) to the next season (y',s') is given by
+
+$$ \frac{dN(t)}{dt} = -\{M(y,s) + \sum_f \{F'(f,y,s)\}\} \cdot N(t) $$ {#eq-CFM-TM}
+
+where $M(y,s)$ is a diagonal $n_d \times n_d$ matrix providing the rate of natural mortality by population category and $F'(f,y,s)$ is a diagonal $n_d \times n_d$ matrix providing the instantaneous fishing mortality rate for fleet `f` by population category. Integrating [@eq-CFM-TM] from the initial condition $N(0) = N(y,s)$ yields
+
+$$ N(t) = e^{-Z'(y,s) \cdot t} \cdot N(0) $$ {#eq-CFM-NofT}
+
+which, over the season length $\delta t_s$, results in 
+
+$$ N(y',s') = e^{-Z'(y,s) \cdot \delta t} \cdot N(y,s) $$ 
+
+where $Z'(y,s) = \{M(y,s) + \sum_f \{F'(f,y,s)\}\} \cdot \delta t_s$ is a diagonal matrix and $e^{-Z'(y,s) \cdot \delta t}$ is the diagonal matrix obtained by exponentiating the diagonal elements of $-Z'(y,s) \cdot \delta t$.
+
+For any fleet `f`, the instantaneous fishing mortality rate can be expressed as the sum of retained, $F'_r(f,y,s)$, and discard, $F'_d(f,y,s)$, catch mortality rates (both diagonal matrices). Let 
+
+$$F'_c(f,y,s) = f'_c(f,y,s) \cdot sel(f,y,s) $$ 
+
+represent the *capture rate* by population category, where $f'_c(f,y,s)$ denotes the fully-selected capture rate (a scalar) and $sel(f,y,s)$ denotes the *selectivity* by population category (a diagonal matrix) for fleet `f`. The retained and discard catch mortality rates are, respectively, 
+
+$$ \begin{eqnarray} F'_r(f,y,s) &=& F'_c(f,y,s) \cdot ret(f,y,c) 
+                                &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot ret(f,y,c) \end{eqnarray} $$ 
+and 
+
+$$ \begin{eqnarray} F'_d(f,y,s) &=& F'_c(f,y,s) \cdot (1-ret(f,y,s)) \cdot dmr(f,y,s) 
+                                &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot (1-ret(f,y,c)) \cdot dmr(f,y,s) \end{eqnarray} $$ 
+
+where $dmr(f,y,s)$ is the *discard* or *handling* mortality rate (really a probability: it's the fraction of discards that die as a direct result of being discarded).
+
+Consequently, the total fishing mortality rate can be expressed as
+
+$$F'(f,y,s) = f'_c(f,y,s) \cdot sel(f,y,s) \cdot \{ret(f,y,c) + (1-ret(f,y,c)) \cdot dmr(f,y,s)\}$$ {#eq-CFM-TotFMR}
+
+Let $C_T(f,y,s)$ denote the total catch by fleet `f` in year `y` and season `s`. The instantaneous change in $C_t$ can be represented as
+
+$$\frac{dC_T(t)}{dt} = F'_c(f,y,s) \cdot N(t)$$
+where $N(t)$ is given by [@eq-CFM-NofT]. Integrating over time and using [@eq-CFM-NofT], one obtains 
+
+$$ \begin{eqnarray} C_T(t) &=& \int_0^t \{F'_c(f,y,s) \cdot N(t) \cot dt \} 
+          &=& \int_0^t \{f'_c(f,y,s) \cdot sel(f,y,s) \cdot e^{-Z'(y,s) \cdot t} \cdot N(0) \cdot dt \} 
+          &=& f'_c(f,y,s) \cdot sel(f,y,s) \cdot \{\int_0^t e^{-Z'(y,s) \cdot t} dt \} \cdot N(0)
+          &=& \frac{f'_c(f,y,s) \cdot sel(f,y,s)}{Z'(y,s)} \cdot (1-e^{-Z'(y,s) \cdot t}) \cdot N(0) \end{eqnarray}$$
+
+and thus the total capture abundance by fleet `f` in year `y` and season `f` is given by:
+
+$$C_T(f,y,s) = \frac{f'_c(f,y,s) \cdot sel(f,y,s)}{Z'(y,s)} \cdot (1-e^{-Z'(y,s) \cdot \delta t_s}) \cdot N(y,s) $$ {#eq-CFM-TotCapN}
+
+Similar results can be obtained for retained catch abundance (mortality):
+
+$$C_R(f,y,s) = \frac{f'_c(f,y,s) \cdot sel(f,y,s) \cdot ret(f,y,s))}{Z'(y,s)} \cdot (1-e^{-Z'(y,s) \cdot \delta t_s}) \cdot N(y,s) $$ {#eq-CFM-TotRetN}
+
+as well as discard abundance $C_D(f,y,s)$ and discard mortality (abundance) $C_DM(f,y,s)$, although both are more simply calculated using 
+
+$$C_D(f,y,s) = C_T(f,y,s) - C_R(f,y,s) $$  {#eq-CFM-TotDscN}
+
+$$C_DM(f,y,s) = dmr(f,y,s) \cdot C_D(f,y,s)$$  {#eq-CFM-TotDscMortN}
+
+
+##### Instantaneous fishing mortality
+
+The equations for an instantaneous fishery (i.e., occurring in a season with $\delta t_s=0$) can be obtained from those for continuous fishing mortality by taking the limits of Equations [-@eq-CFM-NofT] and [-@eq-CFM-TotCapN] as $t \to 0$ and $F'(f,y,s) \to \inf$ in such a manner that $F(f,y,s) = F'(f,y,s) \cdot t$ remains finite, with the result that 
+
+$$ N(y',s') = e^{-Z(y,s)} \cdot N(y,s) $$ {#eq-IFM-NofT}
+
+$$C_T(f,y,s) = \frac{f_c(f,y,s) \cdot sel(f,y,s)}{Z(y,s)} \cdot (1-e^{-Z(y,s)}) \cdot N(y,s) $$ {#eq-IFM-TotCapN}
+
+and 
+
+$$C_R(f,y,s) = \frac{f_c(f,y,s) \cdot sel(f,y,s) \cdot ret(f,y,s))}{Z(y,s)} \cdot (1-e^{-Z(y,s)}) \cdot N(y,s) $$ {#eq-IFM-TotRetN}
+
+where $f_c(f,y,s)$ is the instantaneous fishing mortality counterpart to $f'_c(f,y,s)$ and 
+
+$$ Z(y,s) = \sum_f \{F(f,y,s)\}\}$$ 
+
+where 
+
+$$ F(f,y,s) = f_c(f,y,s) \cdot sel(f,y,s) \cdot \{ret(f,y,s) + (1-ret(f,y,s)) \cdot dmr(f,y,s)\} $$ {#eq-IFM-TFM}
+
+#### Survey "dynamics" {#sec-SrvDy}
+
+"Survey" fleets provide relative indices of population abundance by population category, and so survey catch abundance, $C_S(f,y,s)$ is simply proportional to population abundance (although the proportionality constant may depend population category):
+
+$$ C_S(f,y,s) = q(f,y,s) \cdot sel(f,y,s) \cdot N(y,s) $$ {#eq-SrvAbd}
+
+where $q(f,y,s)$ is the "fully-selected" catchability (the proportionality constant when $sel(f,y,s)$ is 1) and $sel(f,y,s)$ is survey selectivity.
+
+
+#### Selectivity/retention functions {sec-SelFcns}
+
+

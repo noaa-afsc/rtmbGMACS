@@ -1,6 +1,9 @@
 ---
 title: "Introduction"
 ---
+
+## Introduction {#sec-Intro}
+
 rtmbGMACS, the RTMB version of the Generalized Assessment Model for Crustacean Stocks, is a general modeling framework based on (RTMB)[https://github.com/kaskr/RTMB] used to develop size-structured integrated stock assessment models for exploited crustacean stocks. The RTMB version is designed to supersede the original [GMACS](https://github.com/GMACS-project/GMACS_tpl-cpp_code), which was based on the C++ templated auto-differentiation framework [AD Model Builder](https://www.admb-project.org). The principal motivating factors to develop rtmbGMACS are: 1) that AD Model Builder has reached the end of its development and is no longer actively support; 2) RTMB is now a mature product with a large and active user community; 3) it allows the inclusion of random effects more synthetically than ADMB does, and 4) RTMB models can be debugged, run, and analyzed all with the R "ecosystem" whereas workflows using the original GMACS involved compiling and running a C++ model, converting the output text file results to R objects, and then analyzing the converted results in R. Additionally, GMACS imposes structural constraints on models and data that can currently be fit in an assessment model (e.g., models are single-area single species, and can have at most two pseudo age classes). rtmbGMACS is designed to be more flexible, scalable, and incorporate more likelihood formulations in addition to, like the original GMACS, be useful for both data-limited and data-rich situations. 
 
 Models developed using rtmbGMACS (henceforth, "rtmbGMACS models" or just "models") will allow the user to determine the impact of fishing and environmental conditions on both the historical and current abundance of an exploited population, to evaluate sustainable rates of removals (i.e., catches), and to project the impact of future fishing and climate variability on stock size.
@@ -8,15 +11,15 @@ Models developed using rtmbGMACS (henceforth, "rtmbGMACS models" or just "models
 rtmbGMACS models can incorporate multiple data types from a variety of sources (e..g. fishery catch data, survey indices) and determine optimal values for unknown model parameters by statistically fitting the data in the form of an integrated analysis [@maunder_review_2013; @punt_review_2013]. This approach allows various kinds of data with different (and sometimes incomplete) collection histories to provide complementary information about fished stocks. GMACS provides options to define a population sub-model that predicts biological dynamics (growth, maturity,fecundity, recruitment, molting) and stock size, an observation sub-model that predicts expected values for different kind of data (e.g. fishery and/or survey abundance indices, fisheries discard data, size composition data, ...) given the population size and environmental conditions, and a statistical sub-model that quantifies goodness of fit and provides best-fitting parameter estimates and associated variances. The framework also provides options for determining management-related quantities such as $B_{MSY}$, $F_{MSY}$, and sustainable harvest levels under various exploitation and environmental scenarios, as well as the ability to project the population forward under different exploitation and environmental scenarios.
 
 
-## Source code repository
+## Source code repository {#sec-intro-repo}
 
 The repository with the rtmbGMACS source code is hosted on the NOAA AFSC GitHub organization [here](https://github.com/noaa-afsc/rtmbGMACS). 
 
-## Installation and compilation
+## Installation and compilation {#sec-intro-installation}
 
 TBD
 
-### User manual 
+### User manual {#sec-intro-user-manual}
 
 This user manual (currently under construction) can be accessed [here](https://noaa-afsc.github.io/rtmbGMACS/). It can also be built locally as html on your computer from the source distribution. It is written in Quarto Markdown, so you will need [Quarto](https://quarto.org) (which conveniently comes with [RStudio](https://posit.co/products/open-source/rstudio/)), installed on your computer to create the manual. Once Quarto is installed on your computer, you can create the manual using either a terminal (Command Prompt on Windows or the RStudio terminal).
 
@@ -28,12 +31,12 @@ This user manual (currently under construction) can be accessed [here](https://n
   
 To re-render the local manual website (after, e.g., updating your local repository), simply delete the contents of the `docs` folder and re-run the steps above.
 
-### Code documentation 
+### Code documentation {#sec-intro-code-docs}
 
 TBD
 
 
-## Testing
+## Testing {#sec-intro-testing}
 
 TBD
 

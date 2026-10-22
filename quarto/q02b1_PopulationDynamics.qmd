@@ -1,0 +1,85 @@
+---
+title: "Population dynamics"
+---
+
+### Population dynamics {#sec-PopDy}
+
+The fundamental population quantity tracked through time is the vector of abundance by population category, denoted here as $N(y,s)$, where $y$ represents a model year, $s$ represents a season within a year. If there are $n_d$ population categories, then $N(y,s)$ is a $n_d \times 1$ column vector . The population state $N$ at $(y,s)$ is propagated to the next time step $(y', s')$ (i.e. $(y,s+1)$ or $(y+1,s=1)$ depending on whether `s` is the last season in year `y`). In its most general form, this type of process can be represented as a first-order, inhomogeneous, ordinary matrix differential equation 
+
+$$ \frac{dN(t)}{dt} = A(t) \cdot N(t) + R'(t)$$ {#eq-PopDy1}
+
+where $A$ is a $n_d \times n_d$ matrix and $R'$ is a $n_d \times 1$ column vector. If $A$ and $R'$ are constant over the integration interval, $A$ is diagonalizable, invertible, and all eigenvalues have a negative real part, then the solution to [@eq-PopDy1] is 
+
+$$N(t) = {U \cdot e^{D \cdot t} \cdot U^T} \cdot N(0) - A^{-1} \cdot R' $$ {#eq-PopDy2}
+
+where $D$ is a diagonal $n_d \times n_d$ matrix and $U$ is a $n_d \times n_d$ matrix such that $U^T \cdot A \cdot U = D$ and $A^{-1}$ is the matrix inverse of $A$. This also yields a longterm equilibrium solution 
+
+$$ N(t\to\infty) = - A^{-1} \cdot R' $$ {#eq-PopDyCT-LTES}
+
+
+Although [@eq-PopDy2] provides the solution to [@eq-PopDy1] under fairly general conditions for population dynamics, `rtmbGMACS` adopts the simpler approaches taken in the original `GMACS`, which rely on more specific conditions:
+
+  * Recruitment happens instantaneously at the end of a season
+  * molting, mortality, and growth happen instantaneously at the end of a season
+  * fleet activities providing indices of abundance (i.e., surveys) are instantaneous at the end of a season
+  * fishing mortality can be either continuous within a season or instantaneous (if the latter, it occurs at the end of a season)
+  * natural mortality is continuous within a season
+
+These conditions lead to the simplified discrete time solution 
+
+$$ N(y',s') = T(y,s) \cdot N(y,s) + R(y,s) $$ {#eq-PopDyDTS}
+
+where $N(y',s')$ again represents the vector of population abundance at the start of the season following $(y,s)$, $T(y,s)$ is a $n_d \times n_d$ "transition matrix" encapsulating the effects of biological processes and fishing within the season time step $\delta t_{s(y)}$ on population abundance and $R(y,s)$ is a $n_d \times 1$ column vector representing the recruitment of new individuals to the population at the end of the time step. The notation for the season time step $\delta t_{s(y)}$ is used because the (user-specified) length of season `s` may vary with year `y`. 
+
+The five conditions on model processes imposed above lead to ambiguities with respect to the exact order in which the instantaneous processes (recruitment, growth, instantaneous fishing mortality, surveys) occur at the end of a season. To resolve this ambiguity, `rtmbGMACS` follows `GMACS` and allows the user to specify multiple "instantaneous" seasons with $\delta t_{s(y)}=0$. The user can then define multiple instantaneous seasons and assign a single instantaneous process to each season in the order they choose. Multiple continuous seasons may also be defined, with the constraint that $1 = \sum \delta t_{s(y)}$ for each year `y`. This leads to simplified equations for the results of the various processes:
+
+  * recruitment:                              
+  $$ N(y',s') = N(y,s) + R(y,s) $$  {#eq-PoDyRec}
+  * molting, maturity, and growth:            
+  $$ N(y',s') = T_G(y,s) \cdot N(y,s) $$  {#eq-PoDyGrw}
+  * surveys:                                  
+  $$ N(y',s') = T_V(y,s) \cdot N(y,s) $$  {#eq-PoDySrv}
+  * instantaneous fishing mortality:          
+  $$ N(y',s') = T_{IFM}(y,s) \cdot N(y,s) $$  {#eq-PoDyIFM0}
+  * continuous total mortality (natural and continuous fishing mortality): 
+  $$ N(y',s') = T_{CTM}(y,s) \cdot N(y,s) $$  {#eq-PoDyTCM0}
+  
+where `s` now represents a different season for each process. 
+
+All of the transition matrices above are diagonal except for $T_G$, which accounts for transitions due to molting, maturity, and growth *between* population categories as well as *within* them, whereas the diagonal matrices account only for changes within each category. Because surveys are assumed to have no affect on the population, $T_V(y,s)$ above is simply the identity matrix. 
+
+The growth matrix $T_G(y,s)$ may be decomposed into matrices representing its constituent processes in two ways: 
+
+$$ T_G(y,s) = T_{grw}(y,s) \cdot T_{mat}(y,s) \cdot T_{mlt}(y,s) $$  {#eq-PoDyGrw1}
+
+or 
+
+$$ T_G(y,s) = T_{mat}(y,s) \cdot T_{grw}(y,s) \cdot T_{mlt}(y,s)$$  {#eq-PoDyGrw2}
+
+depending on whether the molt to maturity depends on pre-molt size ([@eq-PoDyGrw1]) or post-molt size ([@eq-PoDyGrw2]). The matrix $T_{mlt}(y,s)$ is diagonal, with elements providing the probability of molting for a given population category. The matrices $T_{mat}(y,s)$ and $T_{grw}(y,s)$ are not diagonal but are generally sparse because many of the potential transitions between population categories cannot occur (e.g., mature $\to$ immature, male $\to$ female).
+
+The instantaneous version of the fishing mortality matrix $T_{IFM}(y,s)$ is
+
+$$T_{IFM}(y,s) = \sum_f F^{IFM}_f(y,s) $$  {#eq-PoDyIFM}
+
+and the continuous version of total mortality (natural plus fishing mortality)
+
+$$T_{TCM}(y,s) = M(y,s) \cdot \delta t_{s(y)} + \sum_f F^{CTM}_f(y,s) $$ {#eq-PoDyCTM}
+
+Somewhat analagous to the longterm equilibrium solution [@eq-PopDyCT-LTES], the longterm equilibrium solution for the population progression outlined above can be obtained by realizing that
+
+$$N(y+1,s=1) = \{ \prod_{s''>s_{rec}} T(y,s'') \} \{ \prod_{s'<s_{rec}} T(y,s') \} \cdot N(y,s=1) + R(y,s_{rec}) \}$$ 
+which simplifies to 
+
+$$ N(y+1,s=1) = \prod_{s'} \{ T(y,s') \} \cdot N(y,s=1) \} + \prod_{s'>s_{rec}}\{ T(y,s') \} \cdot R(y,s_{rec}) $$
+
+or (combining the first two $\prod$ terms as $T'$ and the last term by $T''$)
+
+$$ N(y+1,s=1) = T'(y) \cdot N(y,s=1) \} + T''(y) \cdot R(y,s_{rec}) $$
+
+For a longterm equilibrium solution to exist, $T'(y)$, $T''(y)$, and $R(y,s_{rec})$ must be independent of `y` and $s_{rec}$ (and can thus be written as $T'$, $T''$, and $R$), from which the equilibrium solution $\bar N$ is seen to be 
+
+$$ \bar N = -T'^{-1} \cdot \{ T'' \cdot R \} $$ {#eq-PopDyLTE}
+
+In practice, $T'$, $T''$, and $R$ are typically obtained by averaging over (possibly different) time intervals.
+

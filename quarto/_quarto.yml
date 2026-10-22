@@ -13,12 +13,12 @@ website:
             href: q02_ModelFrameworkDescription.qmd
           - text: "Model diimensions"
             href: q02a_ModelDimensions.qmd
-          - text: "Population structure"
-            href: q02b_PopulationStructure.qmd
           - text: "Population dynamics"
-            href: q02c_PopulationDynamics.qmd
-          - text: "Fishery dynamics"
-            href: q02d_FisheryDynamics.qmd
+            href: q02b1_PopulationDynamics.qmd
+          - text: "Population processes"
+            href: q02b2_PopulationProcesses.qmd
+          - text: "Fleet dynamics"
+            href: q02c_FleetDynamics.qmd
       - text: "Model optimization"
         menu:
         - text: "Model optimization"
@@ -48,9 +48,9 @@ website:
         contents:
         - q02_ModelFrameworkDescription.qmd
         - q02a_ModelDimensions.qmd
-        - q02b_PopulationStructure.qmd
-        - q02c_PopulationDynamics.qmd
-        - q02d_FisheryDynamics.qmd
+        - q02b1_PopulationDynamics.qmd
+        - q02b2_PopulationProcesses.qmd
+        - q02c_FleetDynamics.qmd
       - section: "Model optimization"
         contents:
           - q02e_ModelOptimization.qmd
@@ -64,7 +64,7 @@ website:
   page-navigation: true
   page-footer: 
     left: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
-    right: "v2026.10.19"
+    right: "v2026.10.21"
 format:
   html: 
     theme: cosmo

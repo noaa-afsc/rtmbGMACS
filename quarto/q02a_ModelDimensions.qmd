@@ -2,6 +2,187 @@
 title: "Model dimensions"
 ---
 
-### Model dimensions
+### Model dimensions {#sec-ModDims}
+
+`rtmbGMACS` provides a framework for developing size-structured population dynamics models to, fundamentally, predict changes population abundance ($N$) through time across several user-determined population categories (or "dimensions"). Consequently, individual size (`z`) is always a fundamental population dimension, but because all dimensions in `rtmbGMACS` are necessarily discrete, `z` actually represents a (user-defined) size interval (e.g., `z`-$\delta z/2$ to `z`+$\delta z/2$, where $\delta z$ is the bin width). Other biological characteristics (e.g., sex, maturity state) can also be (optionally) implemented as population dimensions. "Standard" population dimension variables are listed in Table [@tbl-StandardPopDimNames] and should be used when required, but additional dimensions may be defined, as well. Additionally, not all population dimension variables need to be included in a model.
+
+```{r}
+#| label: tbl-StandardPopDimNames
+#| tbl-cap: 'Names for "standard" population dimension variables. In addition to these, "y", "s", and "f" are reserved as year, season, and fleet variables, respectively.'
+#| echo: false
+  tbl = tibble::tribble(~variable,~description,
+                        "x","sex",
+                        "m","maturity state",
+                        "c","shell condition",
+                        "z","size (CL or CW, as appropriate)",
+                        "r","region or area",
+                        "p","post-molt age",
+                        "a","age"
+                       );
+  kableExtra::kbl(tbl,booktabs=TRUE);
+```
+
+Time constitutes the second fundamental dimension; it is decomposed into years (`y`) and seasons within a year (`s`) to facilitate projecting the population forward through time. Population abundance `N` can thus be represented as $N(y,s,d)$, where $d$ represents the collection of biological categories used to describe the population at any one time. The expansion of $d$ by `y` and `s` is referred to here as the model dimensions.
+
+"Fleet" (`f`) constitutes the third fundamental model dimension, with `f` identifying a specific fishery or survey "fleet". Fleet-related quantities tracked in a model include total catch abundance ($C_T$), retained (landed) catch abundance ($C_R$), total catch mortality ($C_M$), and index abundance ($C_I$) where all four quantities are indexed by `f`,`y`,`s`, and `d`. The expansion of the model dimensions $(y,s,d)$ by `f` is referred to here as the fleet dimensions.
+
+#### Population dimension examples
+
+Model dimensions can be easily defined using the `tidyr::expand_grid` function, as in the following example which creates a dataframe (`dfrPopDims`) defining a set of population dimensions that include two sexes (`x`), two maturity states (`m`), and several size bins (`z`) as in Table [@tbl-PopDimsEx1].
+
+```{r}
+#| label: tbl-PopDimsEx1
+  dimsPop = c("sex","maturity","size")
+  x = c("male","female");
+  m = c("immature","mature")
+  z = seq(from=45,to=60,by=5);
+  dfrPopDims = tidyr::expand_grid(x,m,z) |> dplyr::mutate(rid=dplyr::row_number());
+  cap = "Population dimensions dataframe with sex, maturity state, and size classes defined."
+  kableExtra::kbl(dfrPopDims,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+After this type of expansion, it would easily be possible to remove class combinations that were not necessary in a model, as in the following example which removes sizes > 50 for females from the population dimensions as in Table [@tbl-PopDimsEx2].
+
+```{r}
+#| label: tbl-PopDimsEx2
+  dfrPopDims = dfrPopDims |> dplyr::filter(!((x=="female") & (z>50))) |> dplyr::mutate(rid=dplyr::row_number());
+  cap = "Population dimensions dataframe with females limited to $ \\le 50$."
+  kableExtra::kbl(dfrPopDims,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+It is possible to define population dimensions using a "nested" approach,  as in Table [@tbl-PopDimsEx3].
+
+```{r}
+#| label: tbl-PopDimsEx3
+  dimsPop = c("region","sex","maturity","size");
+  r = c("east","west");
+  x = c("male","female");
+  m = c("immature","mature");
+  z = seq(from=45,to=60,by=5);
+  xz = dplyr::bind_rows(list(x="male",z=z),list(x="female",z=z[z<=50])); # create dataframe with z's nested inside x's
+  dfrPopDims = tidyr::expand_grid(r,xz,m) |>            #--create expanded dataframe
+               dplyr::select(r,x,m,z) |>                #--reorder columns
+               dplyr::arrange(r,x,m,z) |>               #--reorder rows
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "Alternative approach to creating a population dimensions dataframe with females limited to $ \\le 50$ (with additional category 'region')."
+  kableExtra::kbl(dfrPopDims,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+Note that the order of category combinations differs between the dataframes in Tables [@tbl-PopDimsEx2] and [@tbl-PopDimsEx3] because the sex and maturity state categories are defined as character vectors and `dplyr::arrange` rearranges the rows by nested alphabetical and numerical order. However, creating `x` as a factor allows one to recreate the order in Table [@tbl-PopDimsEx2], as shown in [@tbl-PopDimsEx4].
+
+```{r}
+#| label: tbl-PopDimsEx4
+  dimsPop = c("region","sex","maturity","size");
+  r = c("east","west");
+  x = factor(c("male","female"),levels=c("male","female"));
+  m = c("immature","mature");
+  z = seq(from=45,to=60,by=5);
+  xz = dplyr::bind_rows(list(x=x[1],z=z),list(x=x[2],z=z[z<=50])); # create dataframe with z's nested inside x's
+  dfrPopDims = tidyr::expand_grid(r,xz,m) |>            #--create expanded dataframe
+               dplyr::select(r,x,m,z) |>                #--reorder columns
+               dplyr::arrange(r,x,m,z) |>               #--reorder rows
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "Alternative approach to creating a population dimensions dataframe with females limited to $ \\le 50$ (with additional category 'region')."
+  kableExtra::kbl(dfrPopDims,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+#### Time *x* population dimension examples
+
+Once the population dimensions have been established, it is obviously easy to define the time *x* population dimensions by further application of the expansion approach, as in Table [@tbl-PopTimeDimsEx1].
+
+```{r}
+#| label: tbl-PopTimeDimsEx1
+  dimsPop = c("year","season","sex","maturity","size");
+  y = 2025:2026;
+  s = 1:2;
+  x = factor(c("male","female"),levels=c("male","female"));
+  m = c("immature","mature");
+  z = seq(from=45,to=60,by=5);
+  xz = dplyr::bind_rows(list(x=x[1],z=z),list(x=x[2],z=z[z<=50])); # create dataframe with z's nested inside x's
+  dfrDimsP = tidyr::expand_grid(xz,m) |>              #--create expanded dataframe
+               dplyr::select(x,m,z) |>                #--reorder columns
+               dplyr::arrange(x,m,z) |>               #--reorder rows
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  dfrDimsTP = tidyr::expand_grid(y,s,dfrDimsP);
+  cap = "Expanding a population dimensions dataframe by year and season."
+  kableExtra::kbl(dfrDimsTP,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+Note that the row id's are nested within the year *x* season combinations and thus provide a convenient index mapping associated vector indices to the population categories.
+
+#### BSAI crab examples
+
+The following code chunks provide example code to create population dimensions for Tanner crab, Bristol Bay red king crab ("BBRKC"), Norton Sound red king crab ("NSRKC)", and eastern Aleutian Islands golden king crab ("EAG") models based on the 2026 BSAI stock assessments.
+
+The Tanner crab assessment model includes two sexes, two maturity states ("immature", "mature"), and two shell conditions ("new shell", "old shell") in its population dynamics model but, because immature crab are assumed to molt annually, no immature old shell crab occur and this population category could be eliminated as in the following code chunk and Table [@tbl-PopDimsTannerCrab].
+
+```{r}
+#| label: tbl-PopDimsTannerCrab
+  dimsPop = c("sex","maturity","shell condition","size");
+  x = c("male","female");         x = factor(x,levels=x);
+  m = c("immature","mature");     m = factor(m,levels=m);
+  c = c("new shell","old shell"); c = factor(c,levels=c);
+  zc = seq(from=25,to=185,by=5);                    #--size bin cutpoints
+  zb = (zc[2:length(zc)] + zc[1:(length(zc)-1)])/2; #--size bin centers
+  mc = dplyr::bind_rows(list(m=m[1],c=c[1]),list(m=m[2],c=c)); # create dataframe with shell condition nested inside maturity
+  dfrDimsP = tidyr::expand_grid(x,mc,zb) |>             #--create expanded dataframe
+               dplyr::rename(z=zb) |>                   #--rename 'zb' column to canonical 'z'
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "Tanner crab population dimensions dataframe. Only classes with size bins < 100 mm CW are shown."
+  kableExtra::kbl(dfrDimsP |> dplyr::filter(z<100),col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+The BBRKC assessment model includes two sexes, one maturity state ("undetermined"), and one shell condition ("undetermined") in its population dynamics model, as well as size classes that vary by sex ([@tbl-PopDimsBBRKC]). The dimensions could be simplified by eliminating both maturity state and shell condition as explicit dimensions.
+
+```{r}
+#| label: tbl-PopDimsBBRKC
+  dimsPop = c("sex","maturity","shell condition","size");
+  x = c("male","female"); x = factor(x,levels=x);
+  m = c("undetermined");  m = factor(m,levels=m);
+  c = c("undetermined");  c = factor(c,levels=c);
+  zc = seq(from=65,to=180,by=5);                    #--size bin cutpoints
+  zb = (zc[2:length(zc)] + zc[1:(length(zc)-1)])/2; #--size bin centers
+  xz = dplyr::bind_rows(list(x=x[1],z=zb),list(x=x[2],z=zb[1:18])); # create dataframe with z's nested inside x's
+  dfrDimsP = tidyr::expand_grid(xz,m,c) |>              #--create expanded dataframe
+               dplyr::select(x,m,c,z) |>                #--reorder columns
+               dplyr::arrange(x,m,c,z) |>               #--reorder rows
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "BBRKC population dimensions dataframe. Only classes with size bins < 100 mm CW are shown."
+  kableExtra::kbl(dfrDimsP |> dplyr::filter(z>100),col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+The NSRKC assessment model includes one sex, one maturity state ("undetermined"), one shell condition ("undetermined"), and one set of size classes ([@tbl-PopDimsNSRKC]) in its population dynamics model. The dimensions could be simplified by retaining only size as an explicit dimension.
+
+```{r}
+#| label: tbl-PopDimsNSRKC
+  dimsPop = c("sex","maturity","shell condition","size");
+  x = c("male");         x = factor(x,levels=x);
+  m = c("mature");       m = factor(m,levels=m);
+  c = c("undetermined"); c = factor(c,levels=c);
+  zc = c(63.5, 73.5, 83.5, 93.5, 103.5, 113.5, 123.5, 133.5 ,143.5);   #--size bin cutpoints
+  zb = (zc[2:length(zc)] + zc[1:(length(zc)-1)])/2;                    #--size bin centers
+  dfrDimsP = tidyr::expand_grid(x,m,c,zb) |>            #--create expanded dataframe
+               dplyr::rename(z=zb) |>                   #--rename 'zb' column to canonical 'z'
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "NSRKC population dimensions dataframe."
+  kableExtra::kbl(dfrDimsP,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
+
+Similar to NSRKC, the EAG assessment model includes one sex, one maturity state ("undetermined"), one shell condition ("undetermined"), and one set of size classes ([@tbl-PopDimsNSRKC]) in its population dynamics model. The dimensions could again be simplified by retaining only size as an explicit dimension. However, the assessment includes models for both eastern *and* western Aleutian Islands golden king crab. With the flexible approach to dimensioning the modeled population illustrated here, it would be simple to add "region" (`r`) as an additional population dimension variable with values "east" and "west". 
+
+```{r}
+#| label: tbl-PopDimsEAG
+  dimsPop = c("sex","maturity","shell condition","size");
+  x = c("male");         x = factor(x,levels=x);
+  m = c("mature");       m = factor(m,levels=m);
+  c = c("undetermined"); c = factor(c,levels=c);
+  zc = seq(105.5,185.5,5);                           #--size bin cutpoints
+  zb = (zc[2:length(zc)] + zc[1:(length(zc)-1)])/2;  #--size bin centers
+  dfrDimsP = tidyr::expand_grid(x,m,c,zb) |>            #--create expanded dataframe
+               dplyr::rename(z=zb) |>                   #--rename 'zb' column to canonical 'z'
+               dplyr::mutate(rid=dplyr::row_number());  #--add row id column
+  cap = "EAG population dimensions dataframe."
+  kableExtra::kbl(dfrDimsP,col.names=c(dimsPop,"row_id"),booktabs=TRUE,caption=cap);
+```
 
 

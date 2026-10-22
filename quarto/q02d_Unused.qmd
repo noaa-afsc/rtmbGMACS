@@ -1,0 +1,7 @@
+---
+title: "Survey Dynamics"
+format: html
+---
+
+### Survey "dynamics"
+
