@@ -35,6 +35,14 @@ website:
             href: q02f1_ReferencePoints.qmd
           - text: "Harvest control rules"
             href: q02f2_HarvestControlRules.qmd
+      - text: "Best practices"
+        menu: 
+          - text: "Model setup"
+            href: ../notes_for_code/qmd_BestPractices-ModelSetup.qmd
+      - text: "Code notes"
+        menu: 
+          - text: "Model process indices"
+            href: ../notes_for_code/qmd_ModelProcessIndices.qmd
       - text: "Function reference"
         href: qmd_ManFiles.qmd
   sidebar:
@@ -63,13 +71,19 @@ website:
           - q02f_ManagementQuantities.qmd
           - q02f1_ReferencePoints.qmd
           - q02f2_HarvestControlRules.qmd
+      - section: "Best practices"
+        contents:
+          - ../notes_for_code/qmd_BestPractices-ModelSetup.qmd
+      - section: "Code notes"
+        contents:
+          - ../notes_for_code/qmd_ModelProcessIndices.qmd
       - section: "Function reference"
         contents:
           - qmd_ManFiles.qmd
   page-navigation: true
   page-footer: 
     left: "[U.S. Department of Commerce](https://www.commerce.gov/) | [National Oceanographic and Atmospheric Administration](https://www.noaa.gov) | [NOAA Fisheries](https://www.fisheries.noaa.gov/)"
-    right: "v2026.10.21"
+    right: "v2026.10.22"
 format:
   html: 
     theme: cosmo

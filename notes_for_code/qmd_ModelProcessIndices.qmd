@@ -1,0 +1,47 @@
+---
+title: "Model Process Indices Setup"
+format: html
+---
+
+## Indices setup for model processes {#sec-MPIS}
+
+Model processes (e.g., growth, mortality) are represented in the `rtmbGMACS` as sparse matrices, $T$, that define the population transition $N(y,s) \to N(y',s')$ from one season ($s$) to the next ($s'$), where $N$ is a $n_d \times 1$ column vector representing abundance in each population category. The basic approach can be described compactly as:
+
+$$ N(y','s') = \{\prod_i T_i(y,s) \} \cdot N(y,s) $$ {#eq-MPIS-TM}
+
+Because recruitment is a vector quantity, $N$ is updated for recruitment, $R(y,s)$, using vector addition. Assuming no other processes occur in season $s$:
+
+$$ N(y','s') = N(y,s) + R(y,s) $$ {#eq-MPIS-Rec}
+
+The two processes can, of course, be combined as:
+
+$$ N(y','s') = \{\prod_i T_i(y,s) \} \cdot N(y,s) + R(y,s) $$ {#eq-MPIS-TM}
+
+with recruitment occurring at the *end* of season $s$.
+
+Individual model processes and recruitment may not happen every season and the the transition matrix for different processes may vary over year and/or season. To reduce computer memory overhead, only unique transition matrices and recruitment vectors are calculated. To facilitate selecting the correct transition matrices and recruitment vector for a given year/season, dataframes are created prior to the start of a model run that provides the indices to use at $(y\_,s\_)$ for each transition matrix (`dfrModPrcIds` in the example below) and recruitment vector (`dfrModRecIds` in the example below) as illustrated in the following `R`-like pseudo code:
+
+```{r,eval=FALSE}
+  #--"known" quantities: 
+  ##--y_: current year, s_: current season
+  ##--vN: AD column vector with population abundance for (y_,s_) by population category
+  ##--lstModPrcNames: nested list with character vector of process names in order of application
+  ##--n_d: size of population abundance vector
+  ##--dfrModPrcIds: dataframe with columns y, s, process, and idx
+  ##--lstTs: nested list with unique AD transition matrices by process name and index
+  ##--dfrModRecIds: dataframe with columns y, s, and idx 
+  ##--lstRs: list with unique AD recruitment vectors by index
+  ps = lstModPrcNames[[y_]][[s_]]; #--vector of process names in order of application
+  mT = identity_matrix(n_d,n_d);   #--"complete" transition matrix for this year, season
+  vR = zero_vector(n_d);           #--"complete" recruitment vector for this year, season
+  dfrMPIDs_ys = dfrModPrcIds |> dplyr::filter(y==y_,s==s_); #--get indices by process type 
+  for (p_ in ps){
+    idx = (dfrMPIDs_ys |> dplyr::filter(process=p_))$idx; #--extract index for this process
+    if (idx>0) mT = lstTs[[p]][[idx]] %*% mT; #--include in "complete" transition matrix
+  }
+  idx = (dfrModRecIds |> dplyr::filter(y==y_,s==s_))$idx;
+  if (idx>0) vR = vR + lstRs[[idx]]; #--include in "complete" recruitment vector
+  
+  vN = mT %*% vN + vR; #--abundance projected to next season
+```
+

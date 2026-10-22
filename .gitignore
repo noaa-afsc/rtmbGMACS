@@ -2,6 +2,9 @@
 .Rproj.user
 .Rhistory
 *.pdf
+*.html
 ~$*
 docs/
 
+/notes_for_code/qmd_BestPractices-ModelSetup_files
+/notes_for_code/qmd_ModelProcessIndices_files
