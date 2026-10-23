@@ -38,11 +38,11 @@ website:
       - text: "Best practices"
         menu: 
           - text: "Model setup"
-            href: ../notes_for_code/qmd_BestPractices-ModelSetup.qmd
+            href: qmd_BestPractices-ModelSetup.qmd
       - text: "Code notes"
         menu: 
           - text: "Model process indices"
-            href: ../notes_for_code/qmd_ModelProcessIndices.qmd
+            href: qmd_ModelProcessIndices.qmd
       - text: "Function reference"
         href: qmd_ManFiles.qmd
   sidebar:
@@ -73,10 +73,10 @@ website:
           - q02f2_HarvestControlRules.qmd
       - section: "Best practices"
         contents:
-          - ../notes_for_code/qmd_BestPractices-ModelSetup.qmd
+          - qmd_BestPractices-ModelSetup.qmd
       - section: "Code notes"
         contents:
-          - ../notes_for_code/qmd_ModelProcessIndices.qmd
+          - qmd_ModelProcessIndices.qmd
       - section: "Function reference"
         contents:
           - qmd_ManFiles.qmd
