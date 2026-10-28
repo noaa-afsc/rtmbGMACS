@@ -1,7 +1,7 @@
 Package: rtmbGMACS
 Type: Package
 Title: rtmbGMACS
-Version: 2026.10.19
+Version: 2026.10.28
 Authors@R:c(
     person(given="William",family="Stockhausen",email="william.stockhausen@noaa.gov", role = c("aut", "cre"))
   )
@@ -26,6 +26,5 @@ Suggests:
 Config/testthat/edition: 3
 Config/Needs/website:
     ggplot2,    
-    r-lib/pkgdown,
     quarto
 RoxygenNote: 7.3.3

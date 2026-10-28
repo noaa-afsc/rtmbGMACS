@@ -48,7 +48,7 @@ advance_pop_one_year<-function(n_i,ssns){
 #' @export
 #' 
 advance_pop_one_season<-function(n_i,p,doInstProcesses1st,doGrowth,doSSB_BeforeGrowth){
-  #--evaluate instantantaneous processes before mortality
+  #--evaluate instantaneous processes before mortality
   if (doInstProcesses1st){
     if (doGrowth) {
       if (doSSB_BeforeGrowth)  n_ss = p$Tmat_msz %*% n_i;#--calc spawning stock numbers
