@@ -39,6 +39,6 @@ sexes = c("male","female");
 sizes = seq(27.5,182.5,5);
 dfrMM = tidyr::expand_grid(f=fleets[c(1,3)],
                            x=sexes);
-dfrEM = 
+#dfrEM = 
 
 ```
