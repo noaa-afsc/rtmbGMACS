@@ -1,0 +1,44 @@
+---
+title: "Functions, parameters and priors"
+---
+
+### Functions, parameters and priors
+
+#### Functions and parameters
+
+"Functions" in `rtmbGMACS` are nominally functions of a vector of input parameter values ($\vec p$) and size $z$. The parameter vector itself could potentially be decomposed further by fleet, year, season, and model dimensions ($d$), so that:
+
+$$F(f,y,s,d;z) = F(\vec {p}_F(f,y,s,d);z) $$
+
+where the values of $\vec p$ can either be fixed or be determined during model optimization. 
+
+The term "parameter" can be (somewhat unfortunately) used to refer to both inputs to functions and to potentially estimable quantities. Here, "parameter" will refer to the value of an element $ \vec p$ in the function call $F(f,y,s,d;z)$. A single parameter to $F$, $p_F(y,s,d)$, can be decomposed into constituent "coefficients" as 
+
+$$p_F(f,y,s,d) = p^a_{F}(f,y,s,d) * T^{-1}(p^t_{F}(f,y,s,d))$$
+
+where $p^a_{F}(f,y,s,d)$ represents an arithmetic-scale term, $T^{-1}$ represents a nonlinear inverse transformation, and $p^t_{F}(y,s,d)$ represents a term on a transformed scale. Potential transformations include the natural log scale, the logit scale, and the logistic scale.
+
+The arithmetic-scale term $p^a_{F}(f,y,s,d)$ can be further decomposed as 
+$$  p^a_F(f,y,s,d) = \phi^a + \phi^a(f,y,s,d) + \sum_{i} \epsilon^a_{i}(f,d) \cdot \rho^a_{i}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r^a(f,y,s,d)$$
+where $\phi^a$ is a constant term, $\phi^a(f,y,s,d)$ represents a potential fleet/year/season/dimensions-specific additive term, $\sum_{i} \epsilon^a_{i}(f,d) \cdot \rho^a_{i}(f,d) \cdot e_j(i)(y-k(i),s-l(i))$ represents potentially autoregressive environmental terms, $e_j(y,s)$ represents the $j$th environmental time series, and $r^a(f,y,s,d)$ represents a potential random effect. 
+
+The transformed term $p^t_{F}(y,s,d')$ can be decomposed similarly as  
+
+$$  p^t_F(f,y,s,d) = \phi^t + \phi^t(f,y,s,d) + \sum_{i} \epsilon^t_{i}(f,d) \cdot \rho^t_{i}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r^t(f,y,s,d)$$
+
+If coefficients are defined only for the transformed term, $\phi^a$ is set to 1. Otherwise, $\phi^a$ could be set to 0. If no coefficients are defined for the transformed term, $\phi^t$ is set to 1.
+
+For each non-zero fixed effect coefficient, a "model matrix", an "expansion matrix", an initial value, lower and upper bounds, "estimation phase", and prior probability function and constants need to be specified. The "model matrix" and "expansion matrix" are dataframes that determine the actual number of values (the model matrix) and how the values are applied across $(y,s,d)$ (the expansion matrix). The "estimation phase" determines whether the coefficient is estimated or fixed and the prior probability function adds a penalty to the model likelihood that increases as the estimated value deviates from its prior mean. An example specification is provided below:
+
+```{r}
+##--example coefficient specification for a function parameter
+fleets  = c("TCF","SCF","RKF");#--fleets
+years   = 2020:2025;
+seasons = 1:2;
+sexes = c("male","female");
+sizes = seq(27.5,182.5,5);
+dfrMM = tidyr::expand_grid(f=fleets[c(1,3)],
+                           x=sexes);
+dfrEM = 
+
+```

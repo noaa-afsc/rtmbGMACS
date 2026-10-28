@@ -1,7 +1,0 @@
----
-title: "Parameters and priors"
----
-
-### Parameters and priors
-
-

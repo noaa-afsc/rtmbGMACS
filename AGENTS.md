@@ -28,3 +28,7 @@ Example:
     return(mean(values$value))
   }
 ```
+
+## Repository website
+
+1. Always use quarto/_quarto.yml to create repository website on gh-pages branch

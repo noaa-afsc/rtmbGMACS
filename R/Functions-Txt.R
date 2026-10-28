@@ -480,3 +480,33 @@ concatText<-function(...,concat="+"){
   }
   return(str);
 }
+
+#' @title Write dataframe to string 
+#' @details Function to write a dataframe to a string.
+#' @examplesIf TRUE
+#' # example code
+#' ##--define model dimensions
+#' fleets  = c("TCF","SCF","RKF");#--fleets
+#' years   = 2020:2025;
+#' seasons = 1:2;
+#' sexes = c("male","female");
+#' dfrMM = tidyr::expand_grid(f=fleets[c(1,3)],
+#'                            x=sexes);
+#' str = writeToStr_Dataframe(dfrMM);
+#' cat(str);
+#' cat(writeToStr_Dataframe(dfrMM,delim=","));
+#' @importFrom readr format_delim
+#' @export
+#' 
+writeToStr_Dataframe<-function(dfr,delim="\t"){return(readr::format_delim(dfr,delim=delim));}
+
+writeToStr_Matrix<-function(m,delim="\t"){
+  str = "";
+  for (r in 1:nrow(m)){
+    str = paste(str,paste(m[r,],collapse="\t"),sep="\n")
+  }
+  return(str)
+}
+writeToStr_Matrix(lst$mT)
+cat(writeToStr_Matrix(lst$mT))
+

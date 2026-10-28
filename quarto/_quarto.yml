@@ -19,14 +19,16 @@ website:
             href: q02b2_PopulationProcesses.qmd
           - text: "Fleet dynamics"
             href: q02c_FleetDynamics.qmd
+          - text: "Functions and parameters"
+            href: q02d_FunctionsAndParameters.qmd
       - text: "Model optimization"
         menu:
         - text: "Model optimization"
           href: q02e_ModelOptimization.qmd
         - text: "Data and data likelihoods"
           href: q02e1_DataAndDataLikelihoods.qmd
-        - text: "Parameters and priors"
-          href: q02e2_ParametersAndPriors.qmd
+        - text: "Priors"
+          href: q02e2_Priors.qmd
       - text: "Management quantities"
         menu: 
           - text: "Management quantities"
@@ -61,11 +63,12 @@ website:
         - q02b1_PopulationDynamics.qmd
         - q02b2_PopulationProcesses.qmd
         - q02c_FleetDynamics.qmd
+        - q02d_FunctionsAndParameters.qmd
       - section: "Model optimization"
         contents:
           - q02e_ModelOptimization.qmd
           - q02e1_DataAndDataLikelihoods.qmd
-          - q02e2_ParametersAndPriors.qmd
+          - q02e2_Priors.qmd
       - section: "Management quantities"
         contents:
           - q02f_ManagementQuantities.qmd
