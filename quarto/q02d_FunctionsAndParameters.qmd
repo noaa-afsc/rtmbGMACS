@@ -19,14 +19,14 @@ $$p_F(f,y,s,d) = p^a_{F}(f,y,s,d) * T^{-1}(p^t_{F}(f,y,s,d))$$
 where $p^a_{F}(f,y,s,d)$ represents an arithmetic-scale term, $T^{-1}$ represents a nonlinear inverse transformation, and $p^t_{F}(y,s,d)$ represents a term on a transformed scale. Potential transformations include the natural log scale, the logit scale, and the logistic scale.
 
 The arithmetic-scale term $p^a_{F}(f,y,s,d)$ can be further decomposed as 
-$$  p^a_F(f,y,s,d) = \phi^a + \phi^a(f,y,s,d) + \sum_{i} \epsilon^a_{i}(f,d) \cdot \rho^a_{i}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r^a(f,y,s,d)$$
-where $\phi^a$ is a constant term, $\phi^a(f,y,s,d)$ represents a potential fleet/year/season/dimensions-specific additive term, $\sum_{i} \epsilon^a_{i}(f,d) \cdot \rho^a_{i}(f,d) \cdot e_j(i)(y-k(i),s-l(i))$ represents potentially autoregressive environmental terms, $e_j(y,s)$ represents the $j$th environmental time series, and $r^a(f,y,s,d)$ represents a potential random effect. 
+$$  p^a_F(f,y,s,d) = \phi_F^a + \phi_F^a(f,y,s,d) + \sum_{i} \epsilon^a_{Fi}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r_F^a(f,y,s,d)$$
+where $\phi_F^a$ is a constant term, $\phi_F^a(f,y,s,d)$ represents a potential fleet/year/season/dimensions-specific additive term, $\sum_{i} \epsilon^a_{Fi}(f,d) \cdot e_j(i)(y-k(i),s-l(i))$ represents potentially lagged environmental terms, $e_j(y,s)$ represents the $j$th environmental time series, and $r_F^a(f,y,s,d)$ represents a potential random effect. 
 
 The transformed term $p^t_{F}(y,s,d')$ can be decomposed similarly as  
 
-$$  p^t_F(f,y,s,d) = \phi^t + \phi^t(f,y,s,d) + \sum_{i} \epsilon^t_{i}(f,d) \cdot \rho^t_{i}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r^t(f,y,s,d)$$
+$$  p^t_F(f,y,s,d) = \phi_F^t + \phi_F^t(f,y,s,d) + \sum_{i} \epsilon^t_{Fi}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i)) + r_F^t(f,y,s,d)$$
 
-If coefficients are defined only for the transformed term, $\phi^a$ is set to 1. Otherwise, $\phi^a$ could be set to 0. If no coefficients are defined for the transformed term, $\phi^t$ is set to 1.
+If coefficients are defined only for the transformed term, $\phi_F^a$ is set to 1. Otherwise, $\phi_F^a$ could be set to 0. If no coefficients are defined for the transformed term, $\phi_F^t$ is set to 1.
 
 For each non-zero fixed effect coefficient, a "model matrix", an "expansion matrix", an initial value, lower and upper bounds, "estimation phase", and prior probability function and constants need to be specified. The "model matrix" and "expansion matrix" are dataframes that determine the actual number of values (the model matrix) and how the values are applied across $(y,s,d)$ (the expansion matrix). The "estimation phase" determines whether the coefficient is estimated or fixed and the prior probability function adds a penalty to the model likelihood that increases as the estimated value deviates from its prior mean. An example specification is provided below:
 

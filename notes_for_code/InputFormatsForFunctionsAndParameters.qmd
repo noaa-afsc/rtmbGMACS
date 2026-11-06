@@ -1,0 +1,48 @@
+---
+title: "Input specs for Functions and Parameters"
+author: "William T. Stockhausen"
+format: html
+---
+
+## Ipnut specifications for functions and parameters
+
+### Functions 
+
+Functions are defined as rows in a Function table, with potential columns 
+
+  * fid -  integer id as shorthand to refer to specific function definition
+  * Function - function name
+  * TimeFrame - tibble defining years and seasons the function applies to
+  * Fleet - (optional) the fleet the function applies to
+  * PopDims - tibble with population dimensions (less size, `z`) the function applies to
+  * Label - characer string with underscores representing spaces to be used as a label
+
+"Fleet" is an optional column in a Function table used to specify functions related to fisheries or surveys. 
+
+#### Examples 
+
+##### selectivity functions
+
+```{text}
+##--fishery selectivity functions
+fid    Function      TimeFrame  Fleet    PopDims    Label
+1    sel_logistic      tblYS1    TCF     tblPDs_M   TCF_male_selectivity_(start-1990)
+2    sel_logistic      tblYS2    TCF     tblPDs_M   TCF_male_selectivity_(1991-2004)
+3    sel_logistic      tblYS3    TCF     tblPDs_M   TCF_male_selectivity_(2005-end)
+4    sel_logistic      tblYS1    TCF     tblPDs_F   TCF_female_selectivity_(start-1990)
+5    sel_logistic      tblYS2    TCF     tblPDs_F   TCF_female_selectivity_(1991-2004)
+6    sel_logistic      tblYS3    TCF     tblPDs_F   TCF_female_selectivity_(2005-end)
+7    sel_dbl_normal    tblYS4    SCF     tblPDs_M   SCF_male_selectivity_(start-1996)
+8    sel_logistic      tblYS4    SCF     tblPDs_F   SCF_female_selectivity_(start-1996)
+```
+
+##### retention functions
+
+```{text}
+##--fishery retention functions
+fid    Function      TimeFrame  Fleet    PopDims    Label
+1    sel_logistic      tblYS1    TCF     tblPDs_M   TCF_male_retention_(start-1990)
+2    sel_logistic      tblYS2    TCF     tblPDs_M   TCF_male_retention_(1991-2004)
+3    sel_logistic      tblYS3    TCF     tblPDs_M   TCF_male_retention_(2005-end)
+```
+

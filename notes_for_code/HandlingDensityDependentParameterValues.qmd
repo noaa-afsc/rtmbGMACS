@@ -1,0 +1,15 @@
+---
+title: "Handling density dependent parameter values"
+---
+# Handling density dependent parameter values
+
+Parameter values that depend on previous population abundance or biomass values can be incorporated 
+by treating the population quantity as an environmental time series and updating that time series 
+on a by-season basis: 
+
+  * $N(y,s)$ gets calculated
+  * $e_j(y,s) = f(N(y,s))$ converts $N$ to the desired population quantity, where $f$ is the function that converts $N$ to $e$
+
+For a parameter value $p_{F}(f,y,s,d)$, the arithmetic ($p^a_{F}(f,y,s,d)$) and transform-scale ($p^t_{F}(f,y,s,d)$) components can then be calculated as 
+
+$$ p^a(y,s) = \bar {p}^a(y,s) + \{\sum_{i} \epsilon^a_{i}(f,d) \cdot \rho^a_{i}(f,d) \cdot e_{j(i)}(y-k(i),s-l(i))\}$$

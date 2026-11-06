@@ -1,6 +1,6 @@
 ---
-title: "Population structure"
+title: "Population processes"
 ---
 
-### Population structure
+### Population processes
 

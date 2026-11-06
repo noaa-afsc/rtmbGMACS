@@ -1,21 +1,3 @@
-
-#' @title Get model dimension names
-#' @description Function to get model dimension names.
-#' @return character vector with model dimension names
-#' @export
-getDimNames<-function(){
-  return(c("f","y","s","r","x","m","p","z"));
-}
-
-#' @title Get which model dimensions are identified in a character vector
-#' @description Function to get which model dimensions are identified in a character vector.
-#' @param char_vec - character vector to check for model dimension names
-#' @return character vector with identifed model dimension names
-#' @export
-whichDims<-function(char_vec){
-  return(char_vec[char_vec %in% getDimNames()]);
-}
-
 #'
 #' @title Split text string into a character vector
 #' @description Function to split text string to a character vector.
@@ -507,6 +489,4 @@ writeToStr_Matrix<-function(m,delim="\t"){
   }
   return(str)
 }
-writeToStr_Matrix(lst$mT)
-cat(writeToStr_Matrix(lst$mT))
 
