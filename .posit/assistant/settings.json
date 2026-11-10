@@ -10,6 +10,9 @@
       "git status *": "allow",
       "quarto *": "allow",
       "true *": "allow"
+    },
+    "executeCode": {
+      "*": "allow"
     }
   }
 }

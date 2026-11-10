@@ -8,14 +8,15 @@
 #'
 #' @return A numeric vector of selectivity values with the same length as `z`.
 #' @keywords rtmbFunction
+#' @importFrom RTMB ADoverload
 #' @export
 #'
 #' @examples
 #' sel_logistic(z = seq(20, 100, by = 10), p = c(50, 8))
 sel_logistic <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 2L) {
     stop("`p` must have length 2.", call. = FALSE);
@@ -37,6 +38,7 @@ sel_logistic <- function(z, p) {
 #'
 #' @return A numeric vector of selectivity values with the same length as `z`.
 #' @keywords rtmbFunction
+#' @importFrom RTMB ADoverload
 #' @export
 #'
 #' @examples
@@ -45,9 +47,9 @@ sel_logistic <- function(z, p) {
 #'   p = c(0.6, 40, 6, 70, 10)
 #' )
 sel_stacked_logistic <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 5L) {
     stop("`p` must have length 5.", call. = FALSE);
@@ -72,9 +74,9 @@ sel_stacked_logistic <- function(z, p) {
 #' @examples
 #' sel_logistic95(z = seq(20, 100, by = 10), p = c(50, 70))
 sel_logistic95 <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 2L) {
     stop("`p` must have length 2.", call. = FALSE);
@@ -99,9 +101,9 @@ sel_logistic95 <- function(z, p) {
 #' @examples
 #' sel_coefficients(z = seq(20, 70, by = 10), p = log(c(0.2, 0.5, 0.9)))
 sel_coefficients <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) < 1L || length(p) > length(z)) {
     stop("`p` must have length between 1 and `length(z)`.", call. = FALSE);
@@ -130,9 +132,9 @@ sel_coefficients <- function(z, p) {
 #'   p = log(c(0.1, 0.4, 0.8, 1, 0.9))
 #' )
 sel_nonparametric <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != length(z)) {
     stop("`p` and `z` must have the same length.", call. = FALSE);
@@ -155,9 +157,9 @@ sel_nonparametric <- function(z, p) {
 #' @examples
 #' sel_uniform(z = seq(20, 60, by = 10), p = 0.8)
 sel_uniform <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 1L) {
     stop("`p` must have length 1.", call. = FALSE);
@@ -182,9 +184,9 @@ sel_uniform <- function(z, p) {
 #' @examples
 #' sel_logistic1(z = seq(20, 60, by = 10), p = 0.2)
 sel_logistic1 <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 1L) {
     stop("`p` must have length 1.", call. = FALSE);
@@ -213,9 +215,9 @@ sel_logistic1 <- function(z, p) {
 #'   p = c(60, 0.12, log(c(0.1, 0.25)))
 #' )
 sel_declining_logistic <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) < 2L || length(p) > length(z) + 2L) {
     stop(
@@ -247,9 +249,9 @@ sel_declining_logistic <- function(z, p) {
 #' @examples
 #' sel_dbl_normal3(z = seq(20, 100, by = 10), p = c(12, 60, 18))
 sel_dbl_normal3 <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 3L) {
     stop("`p` must have length 3.", call. = FALSE);
@@ -276,9 +278,9 @@ sel_dbl_normal3 <- function(z, p) {
 #' @examples
 #' sel_dbl_normal4(z = seq(20, 100, by = 10), p = c(12, 50, 18, 75))
 sel_dbl_normal4 <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 4L) {
     stop("`p` must have length 4.", call. = FALSE);
@@ -305,9 +307,9 @@ sel_dbl_normal4 <- function(z, p) {
 #' @examples
 #' sel_dbl_normal4a(z = seq(20, 100, by = 10), p = c(12, 50, 18, 0.5, 100))
 sel_dbl_normal4a <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 5L) {
     stop("`p` must have length 5.", call. = FALSE);
@@ -325,9 +327,9 @@ double_normal_plateau <- function(
   descending_width,
   descending_peak
 ) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   ascending <- exp(-0.5 * ((z - ascending_peak) / ascending_width)^2);
   descending <- exp(-0.5 * ((z - descending_peak) / descending_width)^2);
@@ -351,9 +353,9 @@ double_normal_plateau <- function(
 #' @examples
 #' sel_asc_normal(z = seq(20, 100, by = 10), p = c(12, 60))
 sel_asc_normal <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) != 2L) {
     stop("`p` must have length 2.", call. = FALSE);
@@ -385,9 +387,9 @@ sel_asc_normal <- function(z, p) {
 #'   p = c(c(20, 50, 80, 100), stats::qlogis(c(0.1, 0.8, 1 - 1e-4, 0.6)))
 #' )
 sel_cubic_spline <- function(z, p) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   if (length(p) < 4L || length(p) %% 2L != 0L) {
     stop("`p` must contain equal-length knot and value vectors.", call. = FALSE);
@@ -425,9 +427,9 @@ sel_cubic_spline <- function(z, p) {
 };
 
 clamped_spline_second_derivatives <- function(x, y) {
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-" <- RTMB::ADoverload("[<-");
+  "c" <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   number_knots <- length(x);
   widths <- diff(x);

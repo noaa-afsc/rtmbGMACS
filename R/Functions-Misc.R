@@ -74,3 +74,20 @@ symlogistic<-function(x){
   return(y);
 }
 
+#' Calculate bin centers
+#'
+#' Calculates the midpoint of each pair of adjacent bin boundaries.
+#'
+#' @param x Numeric vector of bin boundaries.
+#'
+#' @return A numeric vector of length `length(x) - 1` containing the bin
+#'   centers.
+#' @export
+#'
+#' @examples
+#' calcBinCenters(c(0, 10, 20, 40))
+calcBinCenters<-function(x){
+  n = length(x) - 1;
+  y = x[1:n] + 0.5*diff(x);
+  return(y);
+}

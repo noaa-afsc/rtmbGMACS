@@ -437,6 +437,25 @@ extractTextAfterString<-function(txt,str){
   return(stringr::str_extract(txt,paste0("(?<=",str,").*")));
 }
 
+#' Convert whitespace groups to commas
+#'
+#' Replaces each contiguous group of whitespace characters, except newline
+#' characters, with a single comma. Newline characters are preserved.
+#'
+#' @param x Character vector to transform.
+#'
+#' @return A character vector with non-newline whitespace groups replaced by
+#'   commas.
+#' @export
+#'
+#' @examples
+#' whitespace_groups_to_commas("a  b\tc\nd e")
+whitespace_groups_to_commas <- function(x) {
+  result <- gsub("[^\\S\\r\\n]+", " ", x, perl = TRUE);
+  result <- gsub(" ", ",", result, fixed = TRUE);
+  return(result);
+}
+
 #' @title Concatenate text
 #' @description Function to concatenate text
 #' @param ... - text values to concatenate

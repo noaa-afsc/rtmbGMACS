@@ -6,13 +6,15 @@
 #' @param input - data: list of non-AD objects
 #' @param params - list of parameters 
 #' 
+#' @importFrom RTMB ADoverload
+#' 
 #' @export
 #' 
 objFun<-function(input,params){
   #--overload functions
-  "[<-" <- ADoverload("[<-");
-  "c" <- ADoverload("c");
-  "diag<-" <- ADoverload("diag<-");
+  "[<-"    <- RTMB::ADoverload("[<-");
+  "c"      <- RTMB::ADoverload("c");
+  "diag<-" <- RTMB::ADoverload("diag<-");
 
   #--initialize the objective function
   objfun <- numeric(1);
