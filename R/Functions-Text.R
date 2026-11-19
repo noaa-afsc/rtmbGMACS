@@ -449,11 +449,56 @@ extractTextAfterString<-function(txt,str){
 #' @export
 #'
 #' @examples
-#' whitespace_groups_to_commas("a  b\tc\nd e")
+#' whitespace_groups_to_commas(" a  b\tc\n  d e")
 whitespace_groups_to_commas <- function(x) {
   result <- gsub("[^\\S\\r\\n]+", " ", x, perl = TRUE);
+  result <- stringr::str_replace_all(result, "(?m)^\\s+", "");
   result <- gsub(" ", ",", result, fixed = TRUE);
   return(result);
+}
+
+#' Convert text to a factor with levels in input order
+#'
+#' Converts a character vector to a factor whose levels follow the order in
+#' which values are supplied in `x`.
+#'
+#' @param x A character vector to convert.
+#'
+#' @return A factor with levels ordered according to `x`. The `contrasts` attribute 
+#' is set to a diagonal matrix.
+#' @export
+#'
+#' @examples
+#' f = text_to_factor(c("first", "second", "third"));
+#' f;
+text_to_factor <- function(x){
+  f = factor(x,x);
+  cntr = diag(1,length(f),length(f));
+  rownames(cntr) = levels(f);
+  attr(f,"contrasts")<-cntr;
+  return(f);
+}
+
+#' Convert numbers to a factor with levels in input order
+#'
+#' Converts a numeric vector to a factor whose levels follow the order in
+#' which values are supplied in `x`.
+#'
+#' @param x A numeric vector to convert.
+#'
+#' @return A factor with levels ordered according to `x`. The `contrasts` attribute 
+#' is set to a diagonal matrix.
+#' @export
+#'
+#' @examples
+#' f = num_to_factor(1:3);
+#' f;
+num_to_factor <- function(x){
+  f = factor(as.character(x),as.character(x));
+  cntr = diag(1,length(f),length(f));
+  rownames(cntr) = levels(f);
+  attr(f,"contrasts")<-cntr;
+  return(f);
 }
 
 #' @title Concatenate text

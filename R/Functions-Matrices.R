@@ -122,14 +122,14 @@ addGroupIndices<-function(dfr,...){
 #' @examplesIf FALSE
 #' # example code
 #' ##--define model dimensions
-#' sex_states = c("m","f");      #--sexes
-#' mat_states = c("imm","mat");  #--maturity state
-#' pma_states = c("ns","os");    #--"post molt age" states (otherwise known as shell condition)
+#' sex_states = text_to_factor(c("m","f"));      #--sexes
+#' mat_states = text_to_factor(c("imm","mat"));  #--maturity state
+#' pma_states = text_to_factor(c("ns","os"));    #--"post molt age" states (otherwise known as shell condition)
 #' size_bins  = seq(27.5,52.5,5) #--size bins
 #' ##--define model frame
 #' dfrMF = tidyr::expand_grid(x=sex_states,m=mat_states,p=pma_states,z=size_bins) |> 
 #'         dplyr::mutate(id=dplyr::row_number());
-#' cat(writeToStr_Dataframe(dfrMF))
+#' cat(writeToStr_Dataframe(dfrMF));
 #' ##
 #' ##--create state transitions associated with molting for Chionoecetes spp. (mature crab don't molt)
 #' ###--immature, new shell crab may molt (imm,ns->imm,ns) or not (imm,ns->imm,os)
@@ -139,7 +139,7 @@ addGroupIndices<-function(dfr,...){
 #' ###--create complete state transitions map dataframe for molt probabilities
 #' dfrSTF = tidyr::expand_grid(m=mat_states,p=pma_states) |> 
 #'          dplyr::mutate(sid=dplyr::row_number());
-#' cat(writeToStr_Dataframe(dfrSTF))
+#' cat(writeToStr_Dataframe(dfrSTF));
 #' ##--create defined state transitions map dataframe for Chionoecetes spp. 
 #' ###--immature crab may molt, mature crab don't
 #' dfrSTs = tibble::tribble(~from,~to,~val,
@@ -159,10 +159,10 @@ addGroupIndices<-function(dfr,...){
 #'                          #  4,   2,  0,   # T(4,2) = 0                       <= mat,os can't become imm,os
 #'                          #  4,   3,  0,   # T(4,3) = 0                       <= mat,os can't become mat,ns
 #'                          #  4,   4,  0,   # T(4,4) = 1                       <= mat,os stays mat,os
-#'  cat(writeToStr_Dataframe(dfrSTs))
+#'  cat(writeToStr_Dataframe(dfrSTs));
 #'  lst = createStateTransitionMatrixMap(dfrSTF,dfrSTs);
-#'  cat(writeToStr_Dataframe(lst$dfrT))
-#'  cat(writeToStr_Matrix(lst$mT))
+#'  cat(writeToStr_Dataframe(lst$dfrT));
+#'  cat(writeToStr_Matrix(lst$mT));
 #' ##
 #' ##--create state transitions associated with maturation for Chionoecetes spp.
 #' ###--immature, new shell crab may mature (imm,ns->mat,ns) or stay immature (imm,ns->imm,ns)
@@ -172,7 +172,7 @@ addGroupIndices<-function(dfr,...){
 #' ###--create complete state transitions map dataframe for maturity probabilities
 #' dfrSTF = tidyr::expand_grid(m=mat_states,p=pma_states) |> 
 #'          dplyr::mutate(sid=dplyr::row_number());
-#' cat(writeToStr_Dataframe(dfrSTF))
+#' cat(writeToStr_Dataframe(dfrSTF));
 #' ##--create defined state transitions map dataframe
 #' dfrSTs = tibble::tribble(~from,~to,~val,
 #'                             1,   1, -1,   # T(1,1) = 1-Sum_{j ne 1}{T[1,j]} <= imm,ns stays imm,ns w/ prob 1-p_mature
@@ -191,10 +191,10 @@ addGroupIndices<-function(dfr,...){
 #'                          #  4,   2,  0,   # T(4,2) = 0                      <= mat,os can't become imm,os
 #'                          #  4,   3,  0,   # T(4,3) = 0                      <= mat,os can't become mat,ns
 #'                          #  4,   4,  1,   # T(4,4) = 1                      <= mat,os stays mat,os
-#' cat(writeToStr_Dataframe(dfrSTs))
+#' cat(writeToStr_Dataframe(dfrSTs));
 #' lst = createStateTransitionMatrixMap(dfrSTF,dfrSTs);
-#' cat(writeToStr_Dataframe(lst$dfrT))
-#' cat(writeToStr_Matrix(lst$mT))
+#' cat(writeToStr_Dataframe(lst$dfrT));
+#' cat(writeToStr_Matrix(lst$mT));
 #' ##
 #' ## Add a third shell condition and create a molt 
 #' pma_states = c("ns","os1","os2");    #--"post molt age" states
@@ -209,7 +209,7 @@ addGroupIndices<-function(dfr,...){
 #' ###--create complete state transitions map dataframe for molt probabilities
 #' dfrSTF = tidyr::expand_grid(m=mat_states,p=pma_states) |> 
 #'          dplyr::mutate(sid=dplyr::row_number());
-#' cat(writeToStr_Dataframe(dfrSTF))
+#' cat(writeToStr_Dataframe(dfrSTF));
 #' ##--create defined state transitions map dataframe for Chionoecetes spp. 
 #' ###--immature crab may molt, mature crab don't
 #' dfrSTs = tibble::tribble(~from,~to,~val,
@@ -219,12 +219,12 @@ addGroupIndices<-function(dfr,...){
 #'                             2,   3, -1,   # T(2,3) = 1-Sum_{j ne 3}{T[2,j]}  <= imm,os1 doesn't molt, becomes imm,os2
 #'                             3,   1,  1,   # T(3,1) = p_molt(os)              <= imm,os2 can molt, becomes imm,ns
 #'                             3,   3, -1);  # T(3,3) = 1-Sum_{j ne 3}{T[3,j]}  <= imm,os2 doesn't molt, stays imm,os2
-#'  cat(writeToStr_Dataframe(dfrSTs))
+#'  cat(writeToStr_Dataframe(dfrSTs));
 #'  lst = createStateTransitionMatrixMap(dfrSTF,dfrSTs);
-#'  cat(writeToStr_Dataframe(lst$dfrT))
-#'  cat(writeToStr_Matrix(lst$mT))
+#'  cat(writeToStr_Dataframe(lst$dfrT));
+#'  cat(writeToStr_Matrix(lst$mT));
 #'  dfrExpMF = dplyr::left_join(dfrMF,lst$dfrT,by=c("m","p"));
-#'  cat(writeToStr_Dataframe(dfrExpMF)) 
+#'  cat(writeToStr_Dataframe(dfrExpMF)); 
 #'  
 #'  @import dplyr
 #'  @export

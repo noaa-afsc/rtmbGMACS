@@ -1,38 +1,44 @@
 ---
-title: "Input specs for Functions and Parameters"
+title: "Input specs for Selectivity and Retention Functions and Parameters"
 author: "William T. Stockhausen"
 format: html
 ---
 ```{r}
-  source("../R/Functions-Misc.R");
-  source("../R/Functions-selectivity.R");
-  source("../R/Functions-Text.R");
+devtools::load_all();
+  # source("../R/Functions-Misc.R");
+  # source("../R/Functions-selectivity.R");
+  # source("../R/Functions-Text.R");
+  # source("../R/expandParamsMFs.R")
 ```
 
-## Input specifications for functions and parameters
+## Input specifications for selectivity and retention functions and parameters
 
-### Functions 
+Specifying selectivity and retention functions consists of three steps: 
 
-Functions are grouped by model process and defined in rows in a "Function table", which can have the following columns: 
+  1. specify function types
+  2. specify parameter values
+  3. specify functions as a combination of function types and parameter values
 
-  * fid -  unique integer id used as a shorthand to refer to a specific function definition
-  * Function - function name
-  * Type - name identifying "subprocess" the function applies to 
-  * TimeFrame - tibble defining years and seasons the function applies to
-  * Fleet - the fleet the function applies to
-  * PopDims - tibble with population dimensions (less size, `z`) the function applies to
-  * Label - character string with underscores representing spaces to be used as a label
+Functions types provide a shorthand for matching parameters with `rtmbGMACS` functions to define the actual model selectivity/retention functions. This (seemingly somewhat complicated) approach to specifying model selectivity/retention functions and their parameters is necessary to allow parameters to be shared between functions.
 
-"fid" is a unique integer identifying the function and used as a shorthand. Negative fid's indicate the function and its associated parameters are being "mirrored" to the function defined by the positive value. "Type" can be used to distinguish related classes of functions (e.g., "sel" and "ret" to distinguish selectivity and retention functions)."Fleet" can be used to specify identify a specific fleet the function should be applied to. For a given process, not all columns listed above may be necessary. 
+### Function types 
 
-#### Examples 
+Function types are defined in rows in a "Function type table", which has the following columns: 
 
-##### selectivity and/or retention functions
+  * tid -  a unique integer id used as a shorthand to refer to a specific function type
+  * function - function name (the name of the `rtmbGMACS` function to use)
+  * type - "sel" or "ret" to specify whether the function reflects selectivity or retention, respectively 
+  * label - character string with underscores representing spaces to be used as a label
+
+
+#### Example 
+
+The following code creates a table of function types for capture selectivity and retention in the directed Tanner crab fishert ("TCF") and capture selectivity of Tanner crab in the snow crab fishery (SCF). Five function types are created below to allow distinguishing labels to be applied to each, although only three (with different labels, of course) are really needed (1, 2, and 4) because 1 and 3 specify the same function to be used for selectivity and 4 and 5 specify the same function to be used for retention.
 
 ```{r}
 ##--fishery selectivity and retention functions
 str = paste0("
-fid  function      type  label
+tid  function      type  label
 1   sel_logistic    sel  TCF_selectivity
 2   sel_dbl_normal3 sel  SCF_male_selectivity
 3   sel_logistic    sel  SCF_female_selectivity
@@ -40,61 +46,74 @@ fid  function      type  label
 5   sel_logistic    ret  TCF_male_retention_(2005-end)
 ")
 tblSelFcns = readr::read_csv(str |> whitespace_groups_to_commas(),progress=FALSE,show_col_types=FALSE)
-cap = "tblSelFcns, a `tibble` describing selectivity and retention functions used in the model."
+cap = "tblSelFcns, a `tibble` describing the types of selectivity and retention functions used in the model."
 kableExtra::kbl(tblSelFcns,booktabs=TRUE,longtable=TRUE,caption=cap);
 ```
 
 
 ### Parameters 
 
-Parameters are mapped to functions through the latter's fid.
+Parameters are defined independently of the functions to which they might apply.
 
 ```{r}
 ##--set up model dimensions
-dim_y = 1948:2025;
-dim_s = 1:7;
-dim_f = c("TCF","SCF");
-dim_x = c("M","F");
-dim_m = c("imm","mat")
-dim_c = c("ns","os");
+dim_y = num_to_factor(1948:2025);
+dim_s = num_to_factor(1:7);
+dim_f = text_to_factor(c("TCF","SCF")); 
+dim_x = text_to_factor(c("M","F"));
+dim_m = text_to_factor(c("imm","mat"));
+dim_c = text_to_factor(c("ns","os"));
 dim_zc = seq(25,185,5); #--size cutpoints
 dim_zb = calcBinCenters(dim_zc);
 dimsYS = tidyr::expand_grid(y=dim_y,s=dim_s);
 dimsF  = tidyr::expand_grid(f=dim_f);
 dimsPD = tidyr::expand_grid(x=dim_x,m=dim_m,c=dim_c,z=dim_zb);
-##--set up various frames
+##--set up various model frames
 lstMFs = list();
+lstMFs$tblFs_TCF = dimsF |> dplyr::filter(f=="TCF");
 lstMFs$tblYS_TCF = dplyr::bind_rows(
                     tibble::tibble(y=1948:1980,s=3,yf=1), #--time block 1
                     tibble::tibble(y=1981:1990,s=3,yf=2), #--time block 2
                     tibble::tibble(y=1991:2025,s=3,yf=3)  #--time block 3
-                   );
+                   ) |> dplyr::mutate(yf=factor(yf));
+lstMFs$tblYS_retZ1 = dplyr::bind_rows(
+                      tibble::tibble(y=1948:1980,s=3,yf=1), #--time block 1
+                      tibble::tibble(y=1991:2025,s=3,yf=3)  #--time block 3
+                     ) |> dplyr::mutate(yf=factor(yf));
+lstMFs$tblYS_retZ2 = dplyr::bind_rows(
+                       tibble::tibble(y=1981:1990,s=3,yf=2) #--time block 2
+                     ) |> dplyr::mutate(yf=factor(yf));
+lstMFs$tblYS_retW1 = dplyr::bind_rows(
+                       tibble::tibble(y=1948:1990,s=3,yf=1), #--time block 1
+                       tibble::tibble(y=1991:2025,s=3,yf=2)  #--time block 2
+                     ) |> dplyr::mutate(yf=factor(yf));
 cap = "Head of tblYS_TCF, a model frame describing time blocks related to TCF."
 kableExtra::kbl(lstMFs$tblYS_TCF |> head(),booktabs=TRUE,longtable=TRUE,caption=cap);
+lstMFs$tblFs_SCF = dimsF |> dplyr::filter(f=="SCF");
 lstMFs$tblYS_SCF = dplyr::bind_rows(
                     tibble::tibble(y=1948:1990,s=3,yf=1), #--time block 1
                     tibble::tibble(y=1991:1996,s=3,yf=2), #--time block 2
                     tibble::tibble(y=1996:2025,s=3,yf=3)  #--time block 3
-                   );
+                   ) |> dplyr::mutate(yf=factor(yf));
 cap = "Head of tblYS_SCF, a model frame describing time blocks related to SCF."
 kableExtra::kbl(lstMFs$tblYS_TCF |> head(),booktabs=TRUE,longtable=TRUE,caption=cap);
 lstMFs$tblPDs_x      = tidyr::expand_grid(x=dim_x);
 lstMFs$tblPDs_male   = lstMFs$tblPDs_x |> dplyr::filter(x=="M");
 lstMFs$tblPDs_female = lstMFs$tblPDs_x |> dplyr::filter(x=="F");
 str = paste0("
-fid  pid  param    timeFrames fleets  popDims        FEs      ECs    REs    label
-1     1    z50     tblYS_TCF   TCF   tblPDs_x       ~0+yf:x  NA      NA     TCF_sel_z50
-1     2    width   tblYS_TCF   TCF   tblPDs_male    ~0+yf    NA      (y|yf) TCF_sel_width_males
-1     3    width   tblYS_TCF   TCF   tblPDs_female  ~0+yf    NA      NA     TCF_sel_width_females
-2     1  asc_width tblYS_SCF   SCF   tblPDs_male    ~0+yf    NA      NA     sel_ascending_width_SCF_males
-2     2     mode   tblYS_SCF   SCF   tblPDs_male    ~0+yf    NA      NA     sel_mode_width_SCF_males
-2     3  dsc_width tblYS_SCF   SCF   tblPDs_male    ~0+yf    NA      NA     sel_descending_width_SCF_males
-3     1    z50     tblYS_SCF   SCF   tblPDs_female  ~0+yf    NA      NA     sel_z50_SCF_females
-3     2    width   tblYS_SCF   SCF   tblPDs_female  ~0+yf    NA      NA     sel_width_SCF_females
-4     1    z50     tblYS_retZ1 TCF   tblPDs_male    ~0+yf    NA      NA     ret_z50_TCF_males
-4     2    width   tblYS_retW1 TCF   tblPDs_male    ~0+yf    NA      NA     ret_width_TCF_males
-5     1    z50     tblYS_retZ2 TCF   tblPDs_male    ~0+yf    NA      NA     ret_z50_TCF_males
-5    -2    width   tblYS_retW1 TCF   tblPDs_male    ~0+yf    NA      NA     ret_width_TCF_males_mirrored
+ pid  tid  param    timeFrames     fleets     popDims        FEs        ECs    REs       label
+  1     1    z50     tblYS_TCF   tblFs_TCF   tblPDs_x       ~0+x:yf:f  NA      NA         TCF_sel_z50
+  2     1    width   tblYS_TCF   tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         TCF_sel_width_males
+  3     1    width   tblYS_TCF   tblFs_TCF   tblPDs_female  ~0+f:yf    NA      NA         TCF_sel_width_females
+  4     2  asc_width tblYS_SCF   tblFs_SCF   tblPDs_male    ~0+f:yf    NA      NA         sel_ascending_width_SCF_males
+  5     2     mode   tblYS_SCF   tblFs_SCF   tblPDs_male    ~0+f:yf    NA      NA         sel_mode_width_SCF_males
+  6     2  dsc_width tblYS_SCF   tblFs_SCF   tblPDs_male    ~0+f:yf    NA      NA         sel_descending_width_SCF_males
+  7     3    z50     tblYS_SCF   tblFs_SCF   tblPDs_female  ~0+f:yf    NA      NA         sel_z50_SCF_females
+  8     3    width   tblYS_SCF   tblFs_SCF   tblPDs_female  ~0+f:yf    NA      NA         sel_width_SCF_females
+  9     4    z50     tblYS_retZ1 tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         ret_z50_TCF_males
+ 10     4    width   tblYS_retW1 tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         ret_width_TCF_males
+ 11     5    z50     tblYS_retZ2 tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         ret_z50_TCF_males
+-11     5    width   tblYS_retW1 tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         ret_width_TCF_males_mirrored
 ")
 tblSelPars = readr::read_csv(str |> whitespace_groups_to_commas(),progress=FALSE,show_col_types=FALSE);
 cap = "tblSelPars, a model frame describing selectivity parameters."
@@ -102,5 +121,61 @@ kableExtra::kbl(tblSelPars,booktabs=TRUE,longtable=TRUE,caption=cap);
 ```
 
 ```{r}
-#--expand the timeFrames, fleets, and popDims 
+#--expand the timeFrames, fleets, and popDims frames
+tblMFs = expandSelParamsMFs(tblSelPars,lstMFs);
+lstExpMFs = list();
+for (r in 1:nrow(tblMFs)){
+  #--testing r = 1;
+  cat("expanding row",r,"\n");
+  rw = tblMFs[r,];
+  lstFEs = list();
+  if (!is.na(rw$FEs[1])){
+    fFEs = formula(rw$FEs[1]);
+    mfFEs = model.frame(fFEs,rw$mf[1][[1]]);  #--model frame
+    mmFEs = gmacs.model.matrix(fFEs,rw$mf[1][[1]]); #--model matrix, but may be "expanded" for missing factors levels
+    #--drop columns involving missing factor levels
+    idxs = which(colSums(abs(mmFEs))>0);
+    if (length(idxs)>0) mmFEs = mmFEs[,idxs,drop=FALSE];
+    #--combine model frame and model matrix
+    mfmFEs = dplyr::bind_cols(mfFEs,mmFEs);
+    #--identify distinct combinations
+    umfmFEs = dplyr::distinct(mfmFEs);
+    #--create table
+    lstFEs = list(fFEs=fFEs,mfFEs=mfFEs,mmFEs=mmFEs,umfmFEs=umfmFEs);
+  }
+  lstECs = list();
+  if (!is.na(rw$ECs[1])){
+    fECs = formula(rw$ECs[1]);
+    mfECs = model.frame(fECs,rw$mf[1][[1]]);  #--model frame
+    mmECs = gmacs.model.matrix(fECs,rw$mf[1][[1]]); #--model matrix, but may be "expanded" for missing factors levels
+    #--drop missing factor levels
+    idxs = which(colSums(abs(mmECs))>0);
+    if (length(idxs)>0) mmECs = mmECs[,idxs];
+    #--combine model frame and model matrix
+    mfmECs = dplyr::bind_cols(mfECs,mmECs);
+    #--identify distinct combinations
+    umfmECs = dplyr::distinct(mfmECs);
+    #--create table
+    lstECs = list(fECs=fECs,mfECs=mfECs,mmECs=mmECs,umfmECs=umfmECs);
+  }
+  lstREs = list();
+  if (!is.na(rw$REs[1])){
+    fREs = formula(paste0("~0+",rw$REs[1]));
+    mfREs = model.frame(fREs,rw$mf[1][[1]]);  #--model frame
+    mmREs = gmacs.model.matrix(fREs,rw$mf[1][[1]]); #--model matrix, but may be "expanded" for missing factors levels
+    #--drop missing factor levels
+    idxs = which(colSums(abs(mmREs))>0);
+    if (length(idxs)>0) mmREs = mmREs[,idxs];
+    #--combine model frame and model matrix
+    mfmREs = dplyr::bind_cols(mfREs,mmREs);
+    #--identify distinct combinations
+    umfmREs = dplyr::distinct(mfmREs);
+    #--create table
+    lstREs = list(fREs=fREs,mfREs=mfREs,mmREs=mmREs,umfmREs=umfmREs);
+  }
+  lstExpMFs[[r]] = tibble::tibble(lstFEs=list(lstFEs=lstFEs),lstECs=list(lstECs=lstECs),lstREs=list(lstREs=lstREs));
+}
+tblExpMFs = dplyr::bind_rows(lstExpMFs);
+tblExpSelPars = dplyr::bind_cols(tblSelPars,tblExpMFs);
 ```
+

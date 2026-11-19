@@ -10,8 +10,8 @@ calcBinCenters(x)
 \item{x}{Numeric vector of bin boundaries.}
 }
 \value{
-A numeric vector of length \code{length(x) - 1} containing the bin
-centers.
+A numeric vector of length `length(x) - 1` containing the bin
+  centers.
 }
 \description{
 Calculates the midpoint of each pair of adjacent bin boundaries.
