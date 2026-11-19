@@ -102,8 +102,8 @@ lstMFs$tblPDs_male   = lstMFs$tblPDs_x |> dplyr::filter(x=="M");
 lstMFs$tblPDs_female = lstMFs$tblPDs_x |> dplyr::filter(x=="F");
 str = paste0("
  pid  tid  param    timeFrames     fleets     popDims        FEs        ECs    REs       label
-  1     1    z50     tblYS_TCF   tblFs_TCF   tblPDs_x       ~0+x:yf:f  NA      NA         TCF_sel_z50
-  2     1    width   tblYS_TCF   tblFs_TCF   tblPDs_male    ~0+f:yf    NA      NA         TCF_sel_width_males
+  1     1    z50     tblYS_TCF   tblFs_TCF   tblPDs_x       ~0+yf:f    NA      NA         TCF_sel_z50
+  2     1    width   tblYS_TCF   tblFs_TCF   tblPDs_male    ~0+x:f:yf  NA      NA         TCF_sel_width_males
   3     1    width   tblYS_TCF   tblFs_TCF   tblPDs_female  ~0+f:yf    NA      NA         TCF_sel_width_females
   4     2  asc_width tblYS_SCF   tblFs_SCF   tblPDs_male    ~0+f:yf    NA      NA         sel_ascending_width_SCF_males
   5     2     mode   tblYS_SCF   tblFs_SCF   tblPDs_male    ~0+f:yf    NA      NA         sel_mode_width_SCF_males

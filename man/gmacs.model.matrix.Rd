@@ -2,7 +2,7 @@
 % Please edit documentation in R/gmacs.model.matrix.R
 \name{gmacs.model.matrix}
 \alias{gmacs.model.matrix}
-\title{Construct a GMACS model matrix}
+\title{Construct a rtmbGMACS model matrix}
 \usage{
 gmacs.model.matrix(
   object,
@@ -33,13 +33,27 @@ A numeric model matrix. Its `assign` attribute identifies the
 }
 \description{
 Constructs a model matrix from a formula and data. Factor and logical
-predictors are assigned identity contrast matrices, retaining one column
-for every factor level, including factors with a single level.
+predictors are assigned identity contrast matrices if contrasts for these 
+have not already been assigned, 
+retaining one column for every factor level, including factors with a single level 
+(in contrast to [stats::model.matrix()], which drops single-level factors).
 }
 \examples{
 data <- data.frame(
   group = factor(c("a", "b", "a")),
   value = c(1, 2, 3)
 );
-gmacs.model.matrix(~ 0 + group + value, data = data);
+gmacs.model.matrix(object=~ 0 + group + value, data = data);
+#--with a missing level
+data <- data.frame(
+  group = factor(c("a", "b", "a"),levels=c("a","b","c")),
+  value = c(1, 2, 3)
+);
+gmacs.model.matrix(object=~ 0 + group + value, data = data);
+#--note that "c" is included in the contrasts for `group` even though it does not appear 
+#--in the model matrix.
+
+#--changing the contrasts for the `group` factor
+gmacs.model.matrix(object=~ 0 + group + value, data = data,contrasts.arg=list(group="contr.treatment"));
+
 }
