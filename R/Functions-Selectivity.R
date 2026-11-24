@@ -320,6 +320,32 @@ sel_dbl_normal4a <- function(z, p) {
   return(result);
 };
 
+#' Double-normal plateau values
+#'
+#' Calculates a double-normal curve by smoothly joining ascending and
+#' descending normal curves to a plateau of one between their peak locations.
+#'
+#' @param z data: Numeric vector of values at which to evaluate the curve.
+#' @param ascending_width param: Positive width of the ascending normal curve.
+#' @param ascending_peak param: Location at which the ascending curve reaches
+#'   the plateau.
+#' @param descending_width param: Positive width of the descending normal
+#'   curve.
+#' @param descending_peak param: Location at which the descending curve leaves
+#'   the plateau.
+#'
+#' @return A numeric vector of double-normal plateau values with the same
+#'   length as `z`.
+#' @keywords rtmbFunction
+#'
+#' @examples
+#' double_normal_plateau(
+#'   z = seq(20, 100, by = 10),
+#'   ascending_width = 12,
+#'   ascending_peak = 50,
+#'   descending_width = 18,
+#'   descending_peak = 75
+#' )
 double_normal_plateau <- function(
   z,
   ascending_width,
@@ -426,6 +452,23 @@ sel_cubic_spline <- function(z, p) {
   return(result);
 };
 
+#' Second derivatives for a clamped cubic spline
+#'
+#' Solves the tridiagonal system for the knot-wise second derivatives of a
+#' cubic spline whose first derivative is zero at both endpoints.
+#'
+#' @param x param: Numeric vector of strictly increasing knot locations.
+#' @param y param: Numeric vector of values at the knots, with the same length
+#'   as `x`.
+#'
+#' @return A numeric vector of second derivatives, one for each knot.
+#' @keywords rtmbFunction
+#'
+#' @examples
+#' clamped_spline_second_derivatives(
+#'   x = c(20, 50, 80, 100),
+#'   y = stats::qlogis(c(0.1, 0.8, 1 - 1e-4, 0.6))
+#' )
 clamped_spline_second_derivatives <- function(x, y) {
   "[<-" <- RTMB::ADoverload("[<-");
   "c" <- RTMB::ADoverload("c");

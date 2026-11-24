@@ -50,17 +50,18 @@ insertVarNames <- function(newV, oldV = NULL) {
 #' @return A tibble containing parameter identifiers, model-frame variables,
 #'   initial values, bounds, estimation phases, priors, and labels.
 #' @export
-tblSelParsValues_FixedEffects<-function(tblExpSelPars){
+tblSelParsValsInfo_FixedEffects<-function(tblExpSelPars){
   lst  = list();
   vars = NULL;
   for (r in 1:nrow(tblExpSelPars)){
+    #--testing: r = 1;
     rw = tblExpSelPars[r,];
     res = tblSelParValues_FixedEffects(rw); #--list(tbl,vars)
     vars = insertVarNames(res$vars,vars);
     lst[[r]] = res$tbl;
   }
   tbl = dplyr::bind_rows(lst);
-  tbl = tbl[,c("pid","tid","param",vars,"init","lb","ub","phs","prior","p1","p2","label")];
+  tbl = tbl[,c("pid","pidx","param",vars,"init","lb","ub","phs","prior","p1","p2","label")];
   return(tbl);
 }
 
@@ -69,9 +70,9 @@ tblSelParsValues_FixedEffects<-function(tblExpSelPars){
 #' Creates fixed-effect parameter rows for one expanded selectivity parameter
 #' specification.
 #'
-#' @param rw A one-row data frame containing `pid`, `tid`,`param`, `label`, and
+#' @param rw A one-row data frame containing `pid`, `param`, `label`, and
 #'   `lstFEs`. The `lstFEs` column must contain fixed-effect model-frame
-#'   information, including `mfFEs` and `umfmFEs`.
+#'   information, including `mfFEs` and `umfmmFEs`.
 #'
 #' @return A list with `tbl`, a tibble of fixed-effect parameter rows, and
 #'   `vars`, a character vector naming the model-frame variables.
@@ -79,12 +80,12 @@ tblSelParsValues_FixedEffects<-function(tblExpSelPars){
 tblSelParValues_FixedEffects<-function(rw){
   lstFEs  = rw$lstFEs$lstFEs;
   nvar    = ncol(lstFEs$mfFEs);
-  tblVars = lstFEs$umfmFEs[,1:nvar];
+  tblVars = lstFEs$umfmmFEs[,1:nvar];
   strVars = names(tblVars);
   vecVars = apply(tblVars, 1, paste, collapse = "_");
-  tblVars = tblVars |> dplyr::mutate(pid=rw$pid,tid=rw$tid,param=rw$param,.before=1);
+  tblVars = tblVars |> dplyr::mutate(pid=rw$pid,pidx=dplyr::row_number(),param=rw$param,.before=1);
   lstVals = list();
-  for (r in 1:nrow(lstFEs$umfmFEs)){
+  for (r in 1:nrow(lstFEs$umfmmFEs)){
     lstVals[[r]] = 
              tibble::tibble(init=0.0,
                             lb=-Inf,

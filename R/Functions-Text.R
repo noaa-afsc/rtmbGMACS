@@ -1,3 +1,21 @@
+#' Parse semicolon-delimited text blocks
+#'
+#' Removes periods and square brackets from a string, then splits the remaining
+#' text at semicolons.
+#'
+#' @param str A single character string containing semicolon-delimited blocks.
+#'
+#' @return A character vector containing the parsed blocks.
+#' @export
+#'
+#' @examples
+#' parseBlocks("[first;..second;third]")
+parseBlocks<-function(str){
+  txt = stringr::str_remove_all(str,"[.\\[\\]]");
+  v   = stringr::str_split_1(txt,";");
+  return(v);
+}
+
 #'
 #' @title Split text string into a character vector
 #' @description Function to split text string to a character vector.
@@ -440,7 +458,8 @@ extractTextAfterString<-function(txt,str){
 #' Convert whitespace groups to commas
 #'
 #' Replaces each contiguous group of whitespace characters, except newline
-#' characters, with a single comma. Newline characters are preserved.
+#' characters, with a single comma. Newline characters are preserved, and
+#' trailing whitespace is removed from each line.
 #'
 #' @param x Character vector to transform.
 #'
@@ -449,10 +468,10 @@ extractTextAfterString<-function(txt,str){
 #' @export
 #'
 #' @examples
-#' whitespace_groups_to_commas(" a  b\tc\n  d e")
+#' whitespace_groups_to_commas(" a  b\tc\n  d e  ")
 whitespace_groups_to_commas <- function(x) {
   result <- gsub("[^\\S\\r\\n]+", " ", x, perl = TRUE);
-  result <- stringr::str_replace_all(result, "(?m)^\\s+", "");
+  result <- stringr::str_replace_all(result, "(?m)^\\s+|[\\t ]+$", "");
   result <- gsub(" ", ",", result, fixed = TRUE);
   return(result);
 }
@@ -546,6 +565,21 @@ concatText<-function(...,concat="+"){
 #' 
 writeToStr_Dataframe<-function(dfr,delim="\t"){return(readr::format_delim(dfr,delim=delim));}
 
+#' Write a matrix to a string
+#'
+#' Converts the rows of a matrix to lines of tab-separated values and combines
+#' them into one string.
+#'
+#' @param m A matrix to convert.
+#' @param delim A character string intended to delimit values. Currently,
+#'   values are always separated by tabs.
+#'
+#' @return A character string containing one line per row of `m`, preceded by a
+#'   newline.
+#' @export
+#'
+#' @examples
+#' writeToStr_Matrix(matrix(1:6, nrow = 2))
 writeToStr_Matrix<-function(m,delim="\t"){
   str = "";
   for (r in 1:nrow(m)){

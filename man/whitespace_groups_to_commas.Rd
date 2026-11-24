@@ -15,8 +15,9 @@ A character vector with non-newline whitespace groups replaced by
 }
 \description{
 Replaces each contiguous group of whitespace characters, except newline
-characters, with a single comma. Newline characters are preserved.
+characters, with a single comma. Newline characters are preserved, and
+trailing whitespace is removed from each line.
 }
 \examples{
-whitespace_groups_to_commas(" a  b\tc\n  d e")
+whitespace_groups_to_commas(" a  b\tc\n  d e  ")
 }

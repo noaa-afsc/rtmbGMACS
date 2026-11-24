@@ -8,11 +8,10 @@ expandSelParamsMFs(tblSelPars, lstMFs)
 }
 \arguments{
 \item{tblSelPars}{A data frame containing parameter specifications. It must
-include the columns `pid`, `tid`, `timeFrames`, `fleets`, `popDims`, `FEs`,
-`ECs`, `REs`, and `label`.}
+include the columns `pid`, `MFs`, `models`, `contrasts`, and `label`.}
 
-\item{lstMFs}{A named list of data frames referenced by values in the
-`timeFrames`, `fleets`, and `popDims` columns of `tblSelPars`.}
+\item{lstMFs}{A named list of model frames (tibbles) referenced by values in the
+`MFs` column of `tblSelPars`.}
 }
 \value{
 A tibble with one row per parameter specification and a list-column
@@ -26,12 +25,13 @@ combining its time frames, fleets, and population dimensions.
 The columns in `tblSelPars` must include (others are ignored):
 
   * `pid` - an unique integer identifying the parameter definition
-  * `tid` - an integer identifying the selectivity/retention function "type"
-  * `timeFrames` - a tibble identifying time frames (years and seasons) and, possibly, time blocks to include in the model frame
-  * `fleets` - a string or tibble identifying fleets to include in the model frame
-  * `popDims` - a tibble identifying population dimensions and values to include in the model frame
-  * `FEs` - a formula identifying fixed effects 
-  * `ECs` - a formula identifying environmental covariates
-  * `REs` - a formual idenitfying random effects
+  * `MFs` - a string identifying the model frames to include (see below)
+  * `models` - a formula describing fixed, smooth, and random effects
+  * `contrasts` - a list of fixed effects contrasts (or NA)
   * `label` - a label to use to identify the parameter definition
+
+`MFs` is a string identifying the combination of model frames to use to expand the effects formulas. A single 
+model frame can be specified simply by its name. Multiple model frames must be specified using the format 
+[..mf1;..mf2;...], where mf1 and mf2 are names of model frames. The "."'s are optional spacers 
+(and ignored when parsing this element), individual model frames are separated by semicolons (";").
 }

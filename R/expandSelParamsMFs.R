@@ -4,7 +4,7 @@
 #' combining its time frames, fleets, and population dimensions.
 #'
 #' @param tblSelPars A data frame containing parameter specifications. It must
-#'   include the columns `pid`, `tid`, `MFs`, `FEs`,`ECs`, `REs`, and `label`.
+#'   include the columns `pid`, `MFs`, `models`, `contrasts`, and `label`.
 #' @param lstMFs A named list of model frames (tibbles) referenced by values in the
 #'   `MFs` column of `tblSelPars`.
 #'
@@ -14,11 +14,9 @@
 #' @details The columns in `tblSelPars` must include (others are ignored):
 #' 
 #'   * `pid` - an unique integer identifying the parameter definition
-#'   * `tid` - an integer identifying the selectivity/retention function "type"
 #'   * `MFs` - a string identifying the model frames to include (see below)
-#'   * `FEs` - a formula identifying fixed effects 
-#'   * `ECs` - a formula identifying environmental covariates
-#'   * `REs` - a formual idenitfying random effects
+#'   * `models` - a formula describing fixed, smooth, and random effects
+#'   * `contrasts` - a list of fixed effects contrasts (or NA)
 #'   * `label` - a label to use to identify the parameter definition
 #' 
 #' `MFs` is a string identifying the combination of model frames to use to expand the effects formulas. A single 
@@ -29,11 +27,6 @@
 #' @export
 #'
 expandSelParamsMFs<-function(tblSelPars,lstMFs){
-  parse_MFs_string<-function(strMFs){
-    txt = stringr::str_remove_all(strMFs,"[.\\[\\]]");
-    v   = stringr::str_split_1(txt,";");
-    return(v);
-  }
   evalTxt<-function(txt,lstMFs){
     if (is.na(txt)||stringr::str_equal(txt,"NA")) return(NULL);
 
@@ -51,7 +44,7 @@ expandSelParamsMFs<-function(tblSelPars,lstMFs){
   for (r in 1:nrow(tblSelPars)){
     #--testing: r = 1;
     rw = tblSelPars[r,];
-    strMFs = parse_MFs_string(rw$MFs);
+    strMFs = parseBlocks(rw$MF);
     tblMF = NULL;
     for (strMF in strMFs){
       tblMF = tidyr::expand_grid(tblMF,evalTxt(strMF,lstMFs));
@@ -61,14 +54,11 @@ expandSelParamsMFs<-function(tblSelPars,lstMFs){
     # tblPDs  = evalTxt(rw$popDims,lstMFs);
     # tblMF   = tidyr::expand_grid(tblYS,tblFlts,tblPDs);
     lstAll[[r]] = tibble::tibble(pid=rw$pid,
-                                 tid=rw$tid,
                                  param=rw$param,
                                  mf=list(mf=tblMF),
-                                 FEs=rw$FEs,
-                                 ECs=rw$ECs,
-                                 REs=rw$REs,
+                                 model=rw$model,
+                                 contrasts=rw$contrasts,
                                  label=rw$label);
-
   }
   tblAll = dplyr::bind_rows(lstAll);
   return(tblAll);

@@ -1,10 +1,17 @@
-#' @title Get column types as a readr::read_csv abbreviation string.
-#' @examplesIf FALSE
-#' # example code
-#' test <- tibble::tibble(a = 10, b = "a", y = lubridate::ymd_hms("2025-01-01 01:02:03"))
-#' tps = get_col_types_from_dataframe(test)
-#' tps
-
+#' Get compact readr column-type codes
+#'
+#' Determines the pillar type of each column in a data frame and converts the
+#' types to the compact codes accepted by the `col_types` argument to
+#' [readr::read_csv()].
+#'
+#' @param df A data frame or tibble.
+#'
+#' @return A single character string containing one readr column-type code for
+#'   each column of `df`, in column order.
+#'
+#' @examples
+#' test <- tibble::tibble(a = 10, b = "a", valid = TRUE)
+#' get_col_types_from_dataframe(test)
 get_col_types_from_dataframe <- function(df) {
     types <-structure(list(code = c("c", "i", "d", "l", "f", "D", "T", "t"), 
                            col_type = c("chr", "int", "dbl", "lgl", "fct", "date", "dttm", "time")),
